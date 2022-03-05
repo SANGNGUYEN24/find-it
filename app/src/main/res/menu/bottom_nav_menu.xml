@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/homeFragment"
+        android:title="@string/bottom_nav_home"
+        android:icon="@drawable/ic_home"/>
+
+    <item android:id="@+id/miQrScanner"
+        android:title="@string/bottom_nav_scan_qr"/>
+
+    <item android:id="@+id/settingFragment"
+        android:title="@string/bottom_nav_setting"
+        android:icon="@drawable/ic_setting"/>
+</menu>

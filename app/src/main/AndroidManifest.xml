@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FindIt">
         <activity
+            android:name=".findit_feature.presentation.qr_scanner.QrScannerActivity"
+            android:exported="false"
+            android:label="@string/title_activity_qr_scanner"
+            android:theme="@style/Theme.FindIt.NoActionBar" />
+        <activity
             android:name=".findit_feature.presentation.MainActivity"
             android:exported="true">
             <intent-filter>
