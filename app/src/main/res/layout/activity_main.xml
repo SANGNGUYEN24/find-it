@@ -6,17 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".findit_feature.presentation.MainActivity">
 
-    <fragment
-        android:id="@+id/navHostFragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/navigation_graph" />
+    <include layout="@layout/content_main"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomNavBar"

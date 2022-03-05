@@ -23,17 +23,15 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavView = binding.bottomNavView
         val floatingActionButton = binding.floatingActionButton
-
-        bottomNavView.background = null
-        bottomNavView.menu.getItem(1).isEnabled = false
-//        bottomNavView.menu.getItem(1).title = resources.getString(R.string.bottom_nav_scan_qr)
-
         val navController: NavController = Navigation.findNavController(this, R.id.navHostFragment)
-        NavigationUI.setupWithNavController(bottomNavView, navController)
-
         val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(
             R.id.homeFragment, R.id.settingFragment
         ).build()
+
+        bottomNavView.background = null
+        bottomNavView.menu.getItem(1).isEnabled = false
+
+        NavigationUI.setupWithNavController(bottomNavView, navController)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
         floatingActionButton.setOnClickListener{
