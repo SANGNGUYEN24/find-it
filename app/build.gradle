@@ -3,6 +3,9 @@ plugins {
     id 'kotlin-android'
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdk 31
 
@@ -52,4 +55,10 @@ dependencies {
     // Navigation between Fragments
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    // ML kit to scan QR code
+    implementation 'com.google.mlkit:barcode-scanning:17.0.2'
 }
