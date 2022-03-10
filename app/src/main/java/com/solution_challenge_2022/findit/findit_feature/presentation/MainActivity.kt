@@ -23,6 +23,7 @@ import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.databinding.ActivityMainBinding
+import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.CampusInfoActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private val CAMERA_PERMISSION_CODE = 123
     private val READ_STORAGE_PERMISSION_CODE = 113
     private val WRITE_STORAGE_PERMISSION_CODE = 113
+    private val QR_RESULT_CODE = "qrResultCode"
     private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,10 +84,9 @@ class MainActivity : AppCompatActivity() {
 
         // Show alert dialog
         val options = arrayOf("Use camera", "Photo from gallery")
-        val builder = AlertDialog.Builder(this@MainActivity)
-        builder.setTitle("Pick a option")
-
         floatingActionButton.setOnClickListener {
+            val builder = AlertDialog.Builder(this@MainActivity)
+            builder.setTitle("Pick an option")
             builder.setItems(options) { _, which ->
                 if (which == 0) {
                     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -111,26 +112,28 @@ class MainActivity : AppCompatActivity() {
         barcodeScanner.process(inputImage).addOnSuccessListener {
             // handle success list
             for (barcode: Barcode in it) {
-                var qrCodeResult = ""
+                var qrCodeData = ""
                 when (barcode.valueType) {
                     Barcode.TYPE_WIFI -> {
                         val ssid = barcode.wifi!!.ssid
                         val password = barcode.wifi!!.password
                         val type = barcode.wifi!!.encryptionType
-                        qrCodeResult = "ssid: \n${ssid} password: \n${password} type: \n${type}"
+                        qrCodeData = "ssid: \n${ssid} password: \n${password} type: \n${type}"
                     }
                     Barcode.TYPE_URL -> {
                         val title = barcode.url!!.title
                         val url = barcode.url!!.url
-                        qrCodeResult = "title: \n${title} url: \n${url}"
+                        qrCodeData = "title: \n${title} url: \n${url}"
                     }
                     Barcode.TYPE_TEXT -> {
                         val data = barcode.displayValue
-                        qrCodeResult = "data: \n${data}"
+                        qrCodeData = "data: \n${data}"
                     }
                 }
-                Toast.makeText(applicationContext, qrCodeResult, Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(applicationContext, qrCodeData, Toast.LENGTH_SHORT).show()
+                val gotoCampusInfoScreen = Intent(this, CampusInfoActivity::class.java)
+                gotoCampusInfoScreen.putExtra(QR_RESULT_CODE, qrCodeData)
+                startActivity(gotoCampusInfoScreen)
             }
         }.addOnFailureListener {
             Log.d(TAG, "processQr: ${it.message}")
