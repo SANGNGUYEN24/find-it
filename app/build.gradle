@@ -3,15 +3,16 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.solution_challenge_2022.findit"
-        minSdk 23
-        targetSdk 31
+        minSdk 26
+        targetSdk 32
         versionCode 1
         versionName "1.0.0"
 
@@ -38,6 +39,9 @@ android {
 }
 
 dependencies {
+    // Helper checking permission for AR
+    implementation project(":helpers")
+    implementation 'com.google.ar:core:1.30.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -61,6 +65,12 @@ dependencies {
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-database:20.0.3'
+
     // ML kit to scan QR code
     implementation 'com.google.mlkit:barcode-scanning:17.0.2'
+
+    // Google sign in
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
 }

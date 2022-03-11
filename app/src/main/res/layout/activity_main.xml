@@ -6,7 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".findit_feature.presentation.MainActivity">
 
-    <include layout="@layout/content_main"/>
+    <include layout="@layout/content_main" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:subtitle="Guide you to anywhere"
+        android:background="@color/blue_primary_light"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomNavBar"
@@ -22,9 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
-            app:itemRippleColor="@color/blue_primary_light"
             android:labelFor="@id/floatingActionButton"
             app:itemIconTint="@color/bottom_nav_selector"
+            app:itemRippleColor="@color/blue_primary_light"
             app:itemTextColor="@color/bottom_nav_selector"
             app:menu="@menu/bottom_nav_menu" />
 
@@ -34,7 +41,6 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:contentDescription="@string/bottom_nav_scan_qr"
         android:src="@drawable/ic_qr_scanner"
         app:fabCustomSize="80dp"

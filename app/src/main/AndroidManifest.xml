@@ -9,6 +9,9 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
+    <!-- This tag indicates that this application requires ARCore.  This results in the application
+      only being visible in the Google Play Store on devices that support ARCore. -->
+    <uses-feature android:name="android.hardware.camera.ar" android:required="true"/>
 
     <application
         android:allowBackup="true"
@@ -17,11 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FindIt">
-        <activity
-            android:name=".findit_feature.presentation.campus_info.ui.CampusActivity"
-            android:exported="false"
-            android:label="@string/title_activity_campus"
-            android:theme="@style/Theme.FindIt.NoActionBar" />
+        <activity android:name=".findit_feature.presentation.ar_map.ArMapActivity"/>
         <activity
             android:name=".findit_feature.presentation.campus_info.CampusInfoActivity"
             android:exported="false"
@@ -40,6 +39,8 @@
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="barcode" />
+        <meta-data android:name="com.google.ar.core" android:value="required" />
+
     </application>
 
 </manifest>
