@@ -18,6 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FindIt">
         <activity
+            android:name=".findit_feature.presentation.campus_info.ui.CampusActivity"
+            android:exported="false"
+            android:label="@string/title_activity_campus"
+            android:theme="@style/Theme.FindIt.NoActionBar" />
+        <activity
             android:name=".findit_feature.presentation.campus_info.CampusInfoActivity"
             android:exported="false"
             android:label="@string/title_activity_qr_scanner"

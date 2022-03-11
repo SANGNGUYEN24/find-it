@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,28 +13,24 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.mlkit.vision.barcode.BarcodeScanner
-import com.google.mlkit.vision.barcode.BarcodeScanning
-import com.google.mlkit.vision.barcode.common.Barcode
+import androidx.lifecycle.ViewModelProvider
 import com.google.mlkit.vision.common.InputImage
 import com.solution_challenge_2022.findit.databinding.ActivityQrScannerBinding
 import com.solution_challenge_2022.findit.util.Constant
 
-class CampusInfoActivity : AppCompatActivity() {
+class CampusInfoActivity: AppCompatActivity() {
     lateinit var binding: ActivityQrScannerBinding
-    lateinit var inputImage: InputImage
-    lateinit var tvQrResult: TextView
-    lateinit var barcodeScanner: BarcodeScanner
+    private lateinit var inputImage: InputImage
+    private lateinit var campusViewModel: CampusViewModel
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private val TAG = "CampusInfoActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        campusViewModel = ViewModelProvider(this)[CampusViewModel::class.java]
         binding = ActivityQrScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        tvQrResult = binding.tvQrResult
 
         val options = arrayOf("Use camera", "Photo from gallery")
         val builder = AlertDialog.Builder(this@CampusInfoActivity)
@@ -52,7 +47,6 @@ class CampusInfoActivity : AppCompatActivity() {
                 }
             }.show()
 
-        barcodeScanner = BarcodeScanning.getClient()
         cameraLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -60,7 +54,7 @@ class CampusInfoActivity : AppCompatActivity() {
             try {
                 val photo = data?.extras?.get("data") as Bitmap
                 inputImage = InputImage.fromBitmap(photo, 0)
-                processQr()
+                campusViewModel.readQr(inputImage)
 
             } catch (e: Exception) {
                 Log.d(TAG, "onActivityResult: " + e.message)
@@ -73,45 +67,13 @@ class CampusInfoActivity : AppCompatActivity() {
             val data = result?.data
             inputImage =
                 data?.data?.let { InputImage.fromFilePath(this@CampusInfoActivity, it) }!!
-            processQr()
+            campusViewModel.readQr(inputImage)
         }
     }
 
     override fun onResume() {
         super.onResume()
         checkPermission(android.Manifest.permission.CAMERA, Constant.CAMERA_PERMISSION_CODE)
-    }
-
-    private fun processQr() {
-        Log.d(TAG, "Process QR")
-
-        barcodeScanner.process(inputImage).addOnSuccessListener {
-            // handle success list
-            for (barcode: Barcode in it) {
-                var qrCodeData = ""
-                when (barcode.valueType) {
-                    Barcode.TYPE_WIFI -> {
-                        val ssid = barcode.wifi!!.ssid
-                        val password = barcode.wifi!!.password
-                        val type = barcode.wifi!!.encryptionType
-                        qrCodeData = "ssid: \n${ssid} password: \n${password} type: \n${type}"
-                    }
-                    Barcode.TYPE_URL -> {
-                        val title = barcode.url!!.title
-                        val url = barcode.url!!.url
-                        qrCodeData = "title: \n${title} url: \n${url}"
-                    }
-                    Barcode.TYPE_TEXT -> {
-                        val data = barcode.displayValue
-                        qrCodeData = "data: \n${data}"
-                    }
-                }
-                tvQrResult.text = qrCodeData
-                Toast.makeText(applicationContext, qrCodeData, Toast.LENGTH_SHORT).show()
-            }
-        }.addOnFailureListener {
-            Log.d(TAG, "processQr: ${it.message}")
-        }
     }
 
     private fun checkPermission(permission: String, requestCode: Int) {
