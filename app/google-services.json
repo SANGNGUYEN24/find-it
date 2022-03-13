@@ -44,6 +44,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "937196467179-jqld7ljlpp1q4iv5bjtcj7f8n5lm4kh1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.solution_challenge_2022.findit",
+            "certificate_hash": "c124886d6d2321772d8088e35fa8d02fb5fc0352"
+          }
+        },
+        {
           "client_id": "937196467179-mdkj8ag1538eag8fnvclqcf7478fpvmf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

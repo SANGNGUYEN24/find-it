@@ -32,6 +32,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.ArCoreApk;
 import com.google.ar.core.Camera;
@@ -51,6 +55,9 @@ import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.solution_challenge_2022.findit.R;
 import com.solution_challenge_2022.helpers.helpers.CameraPermissionHelper;
 import com.solution_challenge_2022.helpers.helpers.CloudAnchorManager;
@@ -66,6 +73,10 @@ import com.solution_challenge_2022.helpers.rendering.PlaneRenderer;
 import com.solution_challenge_2022.helpers.rendering.PointCloudRenderer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -101,6 +112,10 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     private FirebaseManager firebaseManager;
     @Nullable
     private Anchor currentAnchor = null;
+
+    private ArrayList<Anchor> currentAnchorList = new ArrayList<>();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<String> anchorIdList = new ArrayList<>();
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -332,14 +347,15 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             planeRenderer.drawPlanes(
                     session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
-            if (currentAnchor != null && currentAnchor.getTrackingState() == TrackingState.TRACKING) {
-                currentAnchor.getPose().toMatrix(anchorMatrix, 0);
-                // Update and draw the model and its shadow.
-                virtualObject.updateModelMatrix(anchorMatrix, 1f);
-                virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+            if (!currentAnchorList.isEmpty() && currentAnchorList.get(0).getTrackingState() == TrackingState.TRACKING) {
+                for (Anchor anchor : currentAnchorList){
+                    anchor.getPose().toMatrix(anchorMatrix,0);
+                    virtualObject.updateModelMatrix(anchorMatrix, 1f);
+                    virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
 
-                virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
-                virtualObjectShadow.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
+                    virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
+                    virtualObjectShadow.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
+                }
             }
         } catch (Throwable t) {
             // Avoid crashing the application due to unhandled exceptions.
@@ -349,9 +365,9 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
     // Handle only one tap per frame, as taps are usually low frequency compared to frame rate.
     private void handleTap(Frame frame, Camera camera) {
-        if (currentAnchor != null) {
-            return; // Do nothing if there was already an anchor.
-        }
+//        if (currentAnchor != null) {
+//            return; // Do nothing if there was already an anchor.
+//        }
 
         MotionEvent tap = tapHelper.poll();
         if (tap != null && camera.getTrackingState() == TrackingState.TRACKING) {
@@ -371,6 +387,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     // space. This anchor is created on the Plane to place the 3D model
                     // in the correct position relative both to the world and to the plane.
                     currentAnchor = hit.createAnchor();
+                    currentAnchorList.add(currentAnchor);
 
                     getActivity().runOnUiThread(() -> resolveButton.setEnabled(false));
 
@@ -400,12 +417,37 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         resolveButton.setEnabled(true);
         // Clear the anchor from the scene.
         currentAnchor = null;
+        currentAnchorList.clear();
     }
 
     private synchronized void onHostedAnchorAvailable(Anchor anchor) {
         Anchor.CloudAnchorState cloudState = anchor.getCloudAnchorState();
         if (cloudState == Anchor.CloudAnchorState.SUCCESS) {
             String cloudAnchorId = anchor.getCloudAnchorId();
+            anchorIdList.add(cloudAnchorId);
+            Map<String, Object> docData = new HashMap<>();
+            docData.put("anchorList", anchorIdList);
+            docData.put("num", currentAnchorList.size());
+
+            db.collection("test").document("hcmut")
+                    .collection("building")
+                    .document("hcmut-a4")
+                    .collection("destination")
+                    .document("hcmut-b4")
+                    .set(docData, SetOptions.merge())
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error writing document", e);
+                        }
+                    });
+
             firebaseManager.nextShortCode(shortCode -> {
                 if (shortCode != null) {
                     firebaseManager.storeUsingShortCode(shortCode, cloudAnchorId);
@@ -416,16 +458,44 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                             + "get a short code from Firebase.");
                 }
             });
-            currentAnchor = anchor;
+//            currentAnchor = anchor;
         } else {
             messageSnackbarHelper.showMessage(getActivity(), "Error while hosting: " + cloudState.toString());
         }
     }
 
     private synchronized void onResolveButtonPressed() {
-        ResolveDialogFragment dialog = ResolveDialogFragment.createWithOkListener(
-                this::onShortCodeEntered);
-        dialog.show(getActivity().getSupportFragmentManager(), "Resolve");
+//        ResolveDialogFragment dialog = ResolveDialogFragment.createWithOkListener(
+//                this::onShortCodeEntered);
+//        dialog.show(getActivity().getSupportFragmentManager(), "Resolve");
+        db.collection("test").document("hcmut")
+                .collection("building")
+                .document("hcmut-a4")
+                .collection("destination")
+                .document("hcmut-b4")
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            ArrayList<String> _anchorIdList = (ArrayList<String>)document.get("anchorList");
+                            for (String id : _anchorIdList){
+                                cloudAnchorManager.resolveCloudAnchor(
+                                        session,
+                                        id,
+                                        anchor -> onResolvedAnchorAvailable(anchor, 142));
+                            }
+                            if (document.exists()) {
+                                Log.e(TAG, "DocumentSnapshot data: " + document.getData());
+                            } else {
+                                Log.e(TAG, "No such document");
+                            }
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+        });
+
     }
 
     private synchronized void onShortCodeEntered(int shortCode) {
@@ -449,6 +519,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         if (cloudState == Anchor.CloudAnchorState.SUCCESS) {
             messageSnackbarHelper.showMessage(getActivity(), "Cloud Anchor Resolved. Short code: " + shortCode);
             currentAnchor = anchor;
+            currentAnchorList.add(anchor);
         } else {
             messageSnackbarHelper.showMessage(
                     getActivity(),
