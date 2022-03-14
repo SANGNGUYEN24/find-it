@@ -19,8 +19,8 @@ import com.google.mlkit.vision.common.InputImage
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.databinding.ActivityCampusInfoBinding
 import com.solution_challenge_2022.findit.findit_feature.presentation.MainActivity
-import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.test.ui.main.ViewPagerAdapter
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
+import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewPagerAdapter
 import com.solution_challenge_2022.findit.util.Constant
 
 class CampusInfoActivity : AppCompatActivity() {
@@ -94,7 +94,7 @@ class CampusInfoActivity : AppCompatActivity() {
         val pager = binding.viewPager
         val tabLayout = binding.tabs
 
-        pager.adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+        pager.adapter = CampusViewPagerAdapter(supportFragmentManager, lifecycle)
 
         TabLayoutMediator(tabLayout, pager) { tab, position ->
             tab.text = getString(Constant.TAB_TITLES[position])
