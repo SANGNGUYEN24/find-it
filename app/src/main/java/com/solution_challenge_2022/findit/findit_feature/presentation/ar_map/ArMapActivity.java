@@ -33,7 +33,6 @@ import com.solution_challenge_2022.helpers.helpers.FullScreenHelper;
  * the fragment and attaches it to this Activity.
  */
 public class ArMapActivity extends AppCompatActivity {
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

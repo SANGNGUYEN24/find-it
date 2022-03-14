@@ -21,16 +21,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_slide_in_bottom,
+            com.google.android.material.R.anim.abc_fade_out
+        )
 
         val toolbar = binding.toolbar
         val bottomNavView = binding.bottomNavView
         val floatingActionButton = binding.floatingActionButton
         val navController: NavController = Navigation.findNavController(this, R.id.navHostFragment)
-//        val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(
-//            R.id.homeFragment, R.id.settingFragment
-//        ).build()
 
         bottomNavView.background = null
         bottomNavView.menu.getItem(1).isEnabled = false // QR code scanner
@@ -38,11 +39,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         NavigationUI.setupWithNavController(bottomNavView, navController)
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
         // Show alert dialog
         floatingActionButton.setOnClickListener {
             startActivity(Intent(this, CampusInfoActivity::class.java))
+            finish()
         }
     }
 
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.arMap -> {
                 startActivity(Intent(this@MainActivity, ArMapActivity::class.java))
+//                startActivity(Intent(this@MainActivity, CampusActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -1,18 +1,17 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.solution_challenge_2022.findit.R
-import com.solution_challenge_2022.findit.databinding.FragmentCampusInfoBinding
-import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.CampusViewModel
+import com.solution_challenge_2022.findit.databinding.FragmentCampusEventBinding
 
-class CampusInfoFragment : Fragment() {
-    private lateinit var binding: FragmentCampusInfoBinding
+class CampusEventFragment : Fragment() {
+    private lateinit var binding: FragmentCampusEventBinding
 
     // Get ViewModel from parent Activity
     private val campusViewModel: CampusViewModel by activityViewModels()
@@ -22,7 +21,7 @@ class CampusInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout XML file and return a binding object instance
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_campus_info, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_campus_event, container, false)
         return binding.root
     }
 
