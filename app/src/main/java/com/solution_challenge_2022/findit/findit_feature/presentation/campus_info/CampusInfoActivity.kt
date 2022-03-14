@@ -9,17 +9,22 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.mlkit.vision.common.InputImage
-import com.solution_challenge_2022.findit.databinding.ActivityQrScannerBinding
+import com.solution_challenge_2022.findit.R
+import com.solution_challenge_2022.findit.databinding.ActivityCampusInfoBinding
+import com.solution_challenge_2022.findit.findit_feature.presentation.MainActivity
+import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
+import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewPagerAdapter
 import com.solution_challenge_2022.findit.util.Constant
 
-class CampusInfoActivity: AppCompatActivity() {
-    lateinit var binding: ActivityQrScannerBinding
+class CampusInfoActivity : AppCompatActivity() {
+    lateinit var binding: ActivityCampusInfoBinding
     private lateinit var inputImage: InputImage
     private lateinit var campusViewModel: CampusViewModel
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
@@ -29,12 +34,27 @@ class CampusInfoActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         campusViewModel = ViewModelProvider(this)[CampusViewModel::class.java]
-        binding = ActivityQrScannerBinding.inflate(layoutInflater)
+        binding = ActivityCampusInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener {
+            startActivity(Intent(this@CampusInfoActivity, MainActivity::class.java))
+            finish()
+        }
+
+        // Handle alert dialog
         val options = arrayOf("Use camera", "Photo from gallery")
-        val builder = AlertDialog.Builder(this@CampusInfoActivity)
-        builder.setTitle("Pick an option")
+        val dialog = MaterialAlertDialogBuilder(this@CampusInfoActivity, R.style.AlertDialogCustom)
+        dialog.setTitle("Pick an option")
+            .setNeutralButton(
+                resources.getString(R.string.cancel)
+            ) { _, _ ->
+                startActivity(Intent(this@CampusInfoActivity, MainActivity::class.java))
+                finish()
+            }
+            .setCancelable(false)
             .setItems(options) { _, which ->
                 if (which == 0) {
                     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -69,6 +89,17 @@ class CampusInfoActivity: AppCompatActivity() {
                 data?.data?.let { InputImage.fromFilePath(this@CampusInfoActivity, it) }!!
             campusViewModel.readQr(inputImage)
         }
+
+        // Handle view pager
+        val pager = binding.viewPager
+        val tabLayout = binding.tabs
+
+        pager.adapter = CampusViewPagerAdapter(supportFragmentManager, lifecycle)
+
+        TabLayoutMediator(tabLayout, pager) { tab, position ->
+            tab.text = getString(Constant.TAB_TITLES[position])
+        }.attach()
+
     }
 
     override fun onResume() {

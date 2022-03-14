@@ -1,4 +1,4 @@
-package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info
+package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -12,7 +12,7 @@ import com.google.mlkit.vision.common.InputImage
 class CampusViewModel : ViewModel() {
     lateinit var barcodeScanner: BarcodeScanner
 
-    private var _qrCodeData = MutableLiveData<String>("Initial string")
+    private var _qrCodeData = MutableLiveData("Scan QR code\n to explore campus")
     val qrCodeData: LiveData<String> get() = _qrCodeData
 
     fun readQr(inputImage: InputImage) {
