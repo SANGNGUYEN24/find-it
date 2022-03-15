@@ -1,15 +1,19 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
@@ -22,6 +26,7 @@ import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.databinding.ActivityMainBinding
 import com.solution_challenge_2022.findit.findit_feature.presentation.ar_map.ArMapActivity
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.CampusInfoActivity
+import com.solution_challenge_2022.findit.util.Constant
 import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
 
 
@@ -76,13 +81,6 @@ class MainActivity : AppCompatActivity() {
         val options = arrayOf("Use camera", "Photo from gallery")
         val dialog = MaterialAlertDialogBuilder(this@MainActivity, R.style.AlertDialogCustom)
         dialog.setTitle("Pick an option")
-            .setNeutralButton(
-                resources.getString(R.string.cancel)
-            ) { _, _ ->
-                startActivity(Intent(this@MainActivity, MainActivity::class.java))
-                finish()
-            }
-            // TODO uncomment this
             .setItems(options) { _, which ->
                 if (which == 0) {
                     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -98,6 +96,69 @@ class MainActivity : AppCompatActivity() {
         // Show alert dialog
         floatingActionButton.setOnClickListener {
             dialog.show()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkPermission(android.Manifest.permission.CAMERA, Constant.CAMERA_PERMISSION_CODE)
+    }
+
+    private fun checkPermission(permission: String, requestCode: Int) {
+        if (ContextCompat.checkSelfPermission(
+                this@MainActivity,
+                permission
+            ) == PackageManager.PERMISSION_DENIED
+        ) {
+            ActivityCompat.requestPermissions(
+                this@MainActivity,
+                arrayOf(permission),
+                requestCode
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == Constant.CAMERA_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                checkPermission(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Constant.READ_STORAGE_PERMISSION_CODE
+                )
+            } else {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Camera Permission Denied",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        } else if (requestCode == Constant.READ_STORAGE_PERMISSION_CODE) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                checkPermission(
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Constant.WRITE_STORAGE_PERMISSION_CODE
+                )
+            } else {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Storage Permission Denied",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        } else if (requestCode == Constant.WRITE_STORAGE_PERMISSION_CODE) {
+            if (!(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Storage Permission Denied",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 

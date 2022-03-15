@@ -13,4 +13,8 @@ class CampusViewModel : ViewModel() {
     lateinit var barcodeScanner: BarcodeScanner
     var _qrCodeData = MutableLiveData("Scan QR code to explore campus")
     val qrCodeData: LiveData<String> get() = _qrCodeData
+
+    fun updateQrCodeData(input: String){
+        _qrCodeData.value = input
+    }
 }

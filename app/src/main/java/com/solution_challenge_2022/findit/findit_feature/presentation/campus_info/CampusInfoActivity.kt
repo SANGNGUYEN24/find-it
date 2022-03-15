@@ -52,69 +52,7 @@ class CampusInfoActivity : AppCompatActivity() {
          * Receive QR code output from [MainActivity]
          * */
         qrCodeOutput = intent.getStringExtra(QR_CODE_KEY).toString()
+        campusViewModel.updateQrCodeData(qrCodeOutput)
         Toast.makeText(this, qrCodeOutput, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        checkPermission(android.Manifest.permission.CAMERA, Constant.CAMERA_PERMISSION_CODE)
-    }
-
-    private fun checkPermission(permission: String, requestCode: Int) {
-        if (ContextCompat.checkSelfPermission(
-                this@CampusInfoActivity,
-                permission
-            ) == PackageManager.PERMISSION_DENIED
-        ) {
-            ActivityCompat.requestPermissions(
-                this@CampusInfoActivity,
-                arrayOf(permission),
-                requestCode
-            )
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == Constant.CAMERA_PERMISSION_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                checkPermission(
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Constant.READ_STORAGE_PERMISSION_CODE
-                )
-            } else {
-                Toast.makeText(
-                    this@CampusInfoActivity,
-                    "Camera Permission Denied",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        } else if (requestCode == Constant.READ_STORAGE_PERMISSION_CODE) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                checkPermission(
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Constant.WRITE_STORAGE_PERMISSION_CODE
-                )
-            } else {
-                Toast.makeText(
-                    this@CampusInfoActivity,
-                    "Storage Permission Denied",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        } else if (requestCode == Constant.WRITE_STORAGE_PERMISSION_CODE) {
-            if (!(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                Toast.makeText(
-                    this@CampusInfoActivity,
-                    "Storage Permission Denied",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
     }
 }
