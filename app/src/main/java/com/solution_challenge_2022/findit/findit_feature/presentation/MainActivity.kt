@@ -44,6 +44,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_slide_in_top,
+            com.google.android.material.R.anim.abc_fade_out
+        )
+
         val toolbar = binding.toolbar
         val bottomNavView = binding.bottomNavView
         val floatingActionButton = binding.floatingActionButton
@@ -173,21 +178,41 @@ class MainActivity : AppCompatActivity() {
                         val password = barcode.wifi!!.password
                         val type = barcode.wifi!!.encryptionType
                         qrCodeOutput = "ssid: \n${ssid} password: \n${password} type: \n${type}"
+                        Toast.makeText(
+                            this,
+                            "Invalid QR information: $qrCodeOutput",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
                     }
                     Barcode.TYPE_URL -> {
                         val title = barcode.url!!.title
                         val url = barcode.url!!.url
                         qrCodeOutput = "title: \n${title} url: \n${url}"
+                        Toast.makeText(
+                            this,
+                            "Invalid QR information: $qrCodeOutput",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
                     }
                     Barcode.TYPE_TEXT -> {
                         val data = barcode.displayValue
                         qrCodeOutput = "data: \n${data}"
+                        val gotoCampusInfo = Intent(this, CampusInfoActivity::class.java)
+                        gotoCampusInfo.putExtra(QR_CODE_KEY, qrCodeOutput)
+                        startActivity(gotoCampusInfo)
+                        Log.d("MainActivity", qrCodeOutput)
+                        finish()
+                    }
+                    else -> {
+                        Toast.makeText(this, " Invalid QR, please try again!", Toast.LENGTH_SHORT)
+                            .show()
+                        Log.d("MainActivity", qrCodeOutput)
+
                     }
                 }
             }
-            val gotoCampusInfo = Intent(this, CampusInfoActivity::class.java)
-            gotoCampusInfo.putExtra(QR_CODE_KEY, qrCodeOutput)
-            startActivity(gotoCampusInfo)
         }.addOnFailureListener {
             Log.d("CampusViewModel", "processQr: ${it.message}")
         }
@@ -203,7 +228,6 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.arMap -> {
                 startActivity(Intent(this@MainActivity, ArMapActivity::class.java))
-//                startActivity(Intent(this@MainActivity, CampusActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
