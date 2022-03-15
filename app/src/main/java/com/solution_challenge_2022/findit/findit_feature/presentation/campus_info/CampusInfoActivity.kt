@@ -2,40 +2,36 @@ package com.solution_challenge_2022.findit.findit_feature.presentation.campus_in
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.mlkit.vision.common.InputImage
-import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.databinding.ActivityCampusInfoBinding
 import com.solution_challenge_2022.findit.findit_feature.presentation.MainActivity
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewPagerAdapter
 import com.solution_challenge_2022.findit.util.Constant
+import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
+
 
 class CampusInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityCampusInfoBinding
-    private lateinit var inputImage: InputImage
-    private lateinit var campusViewModel: CampusViewModel
-    private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
-    private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private val TAG = "CampusInfoActivity"
+    lateinit var qrCodeOutput: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        campusViewModel = ViewModelProvider(this)[CampusViewModel::class.java]
+        val campusViewModel: CampusViewModel by viewModels()
         binding = ActivityCampusInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_slide_in_bottom,
+            com.google.android.material.R.anim.abc_fade_out
+        )
 
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
@@ -44,62 +40,19 @@ class CampusInfoActivity : AppCompatActivity() {
             finish()
         }
 
-        // Handle alert dialog
-        val options = arrayOf("Use camera", "Photo from gallery")
-        val dialog = MaterialAlertDialogBuilder(this@CampusInfoActivity, R.style.AlertDialogCustom)
-        dialog.setTitle("Pick an option")
-            .setNeutralButton(
-                resources.getString(R.string.cancel)
-            ) { _, _ ->
-                startActivity(Intent(this@CampusInfoActivity, MainActivity::class.java))
-                finish()
-            }
-            .setCancelable(false)
-            .setItems(options) { _, which ->
-                if (which == 0) {
-                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    cameraLauncher.launch(cameraIntent)
-                } else {
-                    val storageIntent = Intent()
-                    storageIntent.type = "image/*"
-                    storageIntent.action = Intent.ACTION_GET_CONTENT
-                    galleryLauncher.launch(storageIntent)
-                }
-            }.show()
-
-        cameraLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            val data = result?.data
-            try {
-                val photo = data?.extras?.get("data") as Bitmap
-                inputImage = InputImage.fromBitmap(photo, 0)
-                campusViewModel.readQr(inputImage)
-
-            } catch (e: Exception) {
-                Log.d(TAG, "onActivityResult: " + e.message)
-            }
-        }
-
-        galleryLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            val data = result?.data
-            inputImage =
-                data?.data?.let { InputImage.fromFilePath(this@CampusInfoActivity, it) }!!
-            campusViewModel.readQr(inputImage)
-        }
-
         // Handle view pager
         val pager = binding.viewPager
         val tabLayout = binding.tabs
-
         pager.adapter = CampusViewPagerAdapter(supportFragmentManager, lifecycle)
-
         TabLayoutMediator(tabLayout, pager) { tab, position ->
             tab.text = getString(Constant.TAB_TITLES[position])
         }.attach()
 
+        /**
+         * Receive QR code output from [MainActivity]
+         * */
+        qrCodeOutput = intent.getStringExtra(QR_CODE_KEY).toString()
+        Toast.makeText(this, qrCodeOutput, Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {
