@@ -68,6 +68,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-database:20.0.3'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 
     // ML kit to scan QR code
     implementation 'com.google.mlkit:barcode-scanning:17.0.2'
@@ -75,6 +76,11 @@ dependencies {
     // Google sign in
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
 
-    // Kotlin Coroutine
+    // Kotlin Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-native-mt'
+
+    // Coroutine Lifecycle Scopes
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
 }
