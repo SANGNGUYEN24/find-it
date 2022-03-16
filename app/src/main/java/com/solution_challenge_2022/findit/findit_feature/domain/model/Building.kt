@@ -4,3 +4,7 @@ data class Building(
     val buildingName: String? = null,
     val desc: String? = null
 )
+
+fun Building.toBuilding(): Building {
+    return Building(buildingName = buildingName, desc = desc)
+}

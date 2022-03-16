@@ -12,5 +12,6 @@ class Constant {
             R.string.tab_text_2
         )
         const val QR_CODE_KEY = "qr_code_key"
+        const val FIRESTORE_CAMPUS = "campus"
     }
 }

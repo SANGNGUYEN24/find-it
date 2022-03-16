@@ -28,14 +28,15 @@ import com.solution_challenge_2022.findit.findit_feature.presentation.ar_map.ArM
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.CampusInfoActivity
 import com.solution_challenge_2022.findit.util.Constant
 import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var inputImage: InputImage
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
-    lateinit var barcodeScanner: BarcodeScanner
+    private lateinit var barcodeScanner: BarcodeScanner
     lateinit var qrCodeOutput: String
 
     override fun onCreate(savedInstanceState: Bundle?) {

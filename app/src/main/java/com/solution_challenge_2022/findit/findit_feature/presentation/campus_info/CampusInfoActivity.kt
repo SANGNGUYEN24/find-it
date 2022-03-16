@@ -1,13 +1,10 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.solution_challenge_2022.findit.databinding.ActivityCampusInfoBinding
 import com.solution_challenge_2022.findit.findit_feature.presentation.MainActivity
@@ -15,16 +12,17 @@ import com.solution_challenge_2022.findit.findit_feature.presentation.campus_inf
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewPagerAdapter
 import com.solution_challenge_2022.findit.util.Constant
 import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class CampusInfoActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class CampusInfoActivity  : AppCompatActivity() {
     lateinit var binding: ActivityCampusInfoBinding
     private val TAG = "CampusInfoActivity"
     lateinit var qrCodeOutput: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val campusViewModel: CampusViewModel by viewModels()
+        val campusViewModel = ViewModelProvider(this)[CampusViewModel::class.java]
         binding = ActivityCampusInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
