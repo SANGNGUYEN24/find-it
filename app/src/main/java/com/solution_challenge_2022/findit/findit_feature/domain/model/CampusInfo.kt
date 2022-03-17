@@ -4,7 +4,3 @@ data class CampusInfo(
     var campusName: String? = null,
     var mapLink: String? = null,
 )
-
-fun CampusInfo.toCampusInfo(): CampusInfo {
-    return CampusInfo(campusName = campusName, mapLink = mapLink)
-}

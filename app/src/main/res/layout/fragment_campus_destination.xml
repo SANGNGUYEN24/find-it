@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:hint="ssssssssssssssssssss"
-                        android:text="@{campusViewModel.qrCodeData}"
+                        android:text="@{campusViewModel.campusInfo.campusName}"
                         android:textColor="@color/grey" />
 
                     <ImageView
@@ -110,12 +110,6 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="start"
                 android:text="Popular Areas" />
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/qrData"
-                android:textSize="24sp"
-                android:text="Hello"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
 
 

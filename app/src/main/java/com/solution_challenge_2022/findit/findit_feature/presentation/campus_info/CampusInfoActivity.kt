@@ -3,8 +3,8 @@ package com.solution_challenge_2022.findit.findit_feature.presentation.campus_in
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.solution_challenge_2022.findit.databinding.ActivityCampusInfoBinding
 import com.solution_challenge_2022.findit.findit_feature.presentation.MainActivity
@@ -15,14 +15,14 @@ import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CampusInfoActivity  : AppCompatActivity() {
+class CampusInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityCampusInfoBinding
     private val TAG = "CampusInfoActivity"
     lateinit var qrCodeOutput: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val campusViewModel = ViewModelProvider(this)[CampusViewModel::class.java]
+        val campusViewModel: CampusViewModel by viewModels()
         binding = ActivityCampusInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -54,3 +54,4 @@ class CampusInfoActivity  : AppCompatActivity() {
         Toast.makeText(this, qrCodeOutput, Toast.LENGTH_SHORT).show()
     }
 }
+
