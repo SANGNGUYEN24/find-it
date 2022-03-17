@@ -419,6 +419,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         // Clear the anchor from the scene.
         currentAnchor = null;
         currentAnchorList.clear();
+        anchorIdList.clear();
     }
 
     private synchronized void onHostedAnchorAvailable(Anchor anchor) {
