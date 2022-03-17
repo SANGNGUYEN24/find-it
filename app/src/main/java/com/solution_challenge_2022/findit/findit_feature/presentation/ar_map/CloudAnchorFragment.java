@@ -92,7 +92,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     private final CloudAnchorManager cloudAnchorManager = new CloudAnchorManager();
     private final BackgroundRenderer backgroundRenderer = new BackgroundRenderer();
     private final ObjectRenderer virtualObject = new ObjectRenderer();
-    private final ObjectRenderer virtualObjectShadow = new ObjectRenderer();
+    // private final ObjectRenderer virtualObjectShadow = new ObjectRenderer();
     private final PlaneRenderer planeRenderer = new PlaneRenderer();
     private final PointCloudRenderer pointCloudRenderer = new PointCloudRenderer();
     // Temporary matrix allocated here to reduce number of allocations for each frame.
@@ -260,13 +260,13 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             planeRenderer.createOnGlThread(getContext(), "models/trigrid.png");
             pointCloudRenderer.createOnGlThread(getContext());
 
-            virtualObject.createOnGlThread(getContext(), "models/andy.obj", "models/andy.png");
+            virtualObject.createOnGlThread(getContext(), "models/Locator.obj", "models/andy.png");
             virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
-            virtualObjectShadow
-                    .createOnGlThread(getContext(), "models/andy_shadow.obj", "models/andy_shadow.png");
-            virtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
-            virtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
+//            virtualObjectShadow
+//                    .createOnGlThread(getContext(), "models/andy_shadow.obj", "models/andy_shadow.png");
+//            virtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
+//            virtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
 
         } catch (IOException e) {
             Log.e(TAG, "Failed to read an asset file", e);
@@ -352,10 +352,10 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                 for (Anchor anchor : currentAnchorList){
                     anchor.getPose().toMatrix(anchorMatrix,0);
                     virtualObject.updateModelMatrix(anchorMatrix, 1f);
-                    virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+                    //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
 
                     virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
-                    virtualObjectShadow.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
+                    //virtualObjectShadow.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
                 }
             }
         } catch (Throwable t) {
