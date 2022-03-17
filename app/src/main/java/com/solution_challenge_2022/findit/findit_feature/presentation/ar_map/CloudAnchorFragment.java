@@ -260,7 +260,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             planeRenderer.createOnGlThread(getContext(), "models/trigrid.png");
             pointCloudRenderer.createOnGlThread(getContext());
 
-            virtualObject.createOnGlThread(getContext(), "models/Locator.obj", "models/andy.png");
+            virtualObject.createOnGlThread(getContext(), "models/Locator.obj", "models/color_warp.png");
             virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
 //            virtualObjectShadow
@@ -353,8 +353,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     anchor.getPose().toMatrix(anchorMatrix,0);
                     virtualObject.updateModelMatrix(anchorMatrix, 1f);
                     //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
-
-                    virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
+                    final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+                    virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
                     //virtualObjectShadow.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
                 }
             }
