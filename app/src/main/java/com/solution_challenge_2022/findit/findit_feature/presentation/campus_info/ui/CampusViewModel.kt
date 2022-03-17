@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.solution_challenge_2022.findit.findit_feature.domain.model.CampusInfo
 import com.solution_challenge_2022.findit.findit_feature.domain.use_case.GetCampusInfoUserCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,18 +21,15 @@ class CampusViewModel @Inject constructor(
     private val _campusInfo = MutableLiveData<CampusInfo?>()
     val campusInfo: MutableLiveData<CampusInfo?> get() = _campusInfo
 
-    init {
-//      qrCodeData.value?.let { getCampusInfo(it) }
-        getCampusInfo("hcmut")
-    }
-
     private fun getCampusInfo(campusId: String) {
-        runBlocking {
+        CoroutineScope(Dispatchers.Main).launch {
             _campusInfo.value = getCampusInfoUserCase("hcmut")
         }
     }
 
     fun updateQrCodeData(input: String) {
         _qrCodeData.value = input
+        val contentList = input.split('-')
+        getCampusInfo(contentList[0])
     }
 }

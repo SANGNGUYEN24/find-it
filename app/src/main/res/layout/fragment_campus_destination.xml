@@ -53,7 +53,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
             <TextView
                 android:id="@+id/tvQrResult"
                 style="@style/TextAppearance.AppCompat.Headline"
@@ -87,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:hint="ssssssssssssssssssss"
+                        android:hint="Fetching data..."
                         android:text="@{campusViewModel.campusInfo.campusName}"
                         android:textColor="@color/grey" />
 
