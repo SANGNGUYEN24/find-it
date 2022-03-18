@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/whereToGo"
+                android:id="@+id/destinationSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -63,7 +63,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="start"
-                android:text="Map" />
+                android:text="Campus map" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardCampusMap"
@@ -85,7 +85,9 @@
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/placeholder"
                         app:imageUrl="@{campusViewModel.campusInfo.mapLink}"
@@ -95,14 +97,23 @@
                         app:riv_corner_radius_top_right="8dp" />
 
                     <TextView
-                        style="@style/TextAppearance.AppCompat.Caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:hint="Fetching data..."
+                        android:text="@{campusViewModel.campusInfo.campusName}"
+                        android:textColor="@color/blue_secondary_dark"
+                        android:textSize="16sp" />
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:hint="Fetching data..."
-                        android:text="@{campusViewModel.campusInfo.campusName}"
-                        android:textColor="@color/grey" />
-
+                        android:text="@{campusViewModel.campusInfo.address}"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -119,6 +130,7 @@
                 android:text="You are here" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/currentBuilding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -142,7 +154,7 @@
                         android:maxWidth="100dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/placeholder"
-                        app:imageUrl="@{campusViewModel.campusInfo.mapLink}"
+                        app:imageUrl="@{campusViewModel.building.imageLink}"
                         app:riv_corner_radius_bottom_left="8dp"
                         app:riv_corner_radius_bottom_right="8dp"
                         app:riv_corner_radius_top_left="8dp"
@@ -162,7 +174,7 @@
                             android:layout_height="wrap_content"
                             android:hint="Fetching data..."
                             android:maxWidth="200dp"
-                            android:text="Building A4"
+                            android:text="@{campusViewModel.building.buildingName}"
                             android:textColor="@color/grey" />
 
                         <TextView
@@ -170,9 +182,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:hint="Fetching data..."
+                            android:ellipsize="end"
                             android:maxWidth="200dp"
-                            android:text="Building A4 is a beautiful building ..."
+                            android:maxLines="3"
+                            android:text="@{campusViewModel.building.desc}"
                             android:textColor="@color/grey" />
                     </LinearLayout>
 
@@ -190,7 +203,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="start"
-                android:text="Popular Areas" />
+                android:text="Popular areas" />
 
 
         </LinearLayout>

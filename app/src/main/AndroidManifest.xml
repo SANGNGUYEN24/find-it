@@ -26,6 +26,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FindIt">
         <activity
+            android:name=".findit_feature.presentation.campus_info.ui.destination.DestinationSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".findit_feature.presentation.campus_info.ui.destination.BuildingDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".findit_feature.presentation.campus_info.ui.destination.FullMapActivity"
             android:exported="false" />
         <activity android:name=".findit_feature.presentation.ar_map.ArMapActivity" />

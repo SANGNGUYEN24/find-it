@@ -11,9 +11,18 @@ import javax.inject.Inject
 class CampusInfoImpl @Inject constructor(
     private val db: FirebaseFirestore
 ) : CampusInfoRepository {
+    private lateinit var campusId: String
     override suspend fun getCampusInfo(campusId: String): CampusInfo {
+        this.campusId = campusId
         return db.collection(Constant.CAMPUS)
             .document(campusId).get().await().toObject(CampusInfo::class.java)!!
+    }
+
+    override suspend fun getCurrentBuilding(buildingId: String): Building {
+        return db.collection(Constant.CAMPUS)
+            .document(this.campusId).collection(Constant.BUILDING_INFO).document(buildingId).get()
+            .await()
+            .toObject(Building::class.java)!!
     }
 
     override suspend fun getBuildingList(campusId: String, buildingId: String): List<Building> {

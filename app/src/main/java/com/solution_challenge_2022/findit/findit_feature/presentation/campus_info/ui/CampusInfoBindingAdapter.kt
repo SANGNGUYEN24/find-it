@@ -7,7 +7,7 @@ import com.solution_challenge_2022.findit.R
 
 // Binding adapter for Campus Map using Glide
 @BindingAdapter("imageUrl")
-fun bindCampusMapImage(image: RoundedImageView, imageUrl: String?) {
+fun bindImage(image: RoundedImageView, imageUrl: String?) {
     imageUrl?.let {
         Glide.with(image.context).load(imageUrl)
             .placeholder(R.drawable.placeholder)

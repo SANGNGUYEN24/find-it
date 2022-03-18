@@ -46,10 +46,21 @@ class CampusDestinationFragment : Fragment() {
             Log.d("CampusDestinationFragment", campusInfo?.mapLink.toString())
         }
 
+        binding.destinationSearch.setOnClickListener {
+            val gotoDestinationSearch = Intent(activity, DestinationSearchActivity::class.java)
+            startActivity(gotoDestinationSearch)
+        }
+
         binding.cardCampusMap.setOnClickListener {
             val goToFullMap = Intent(activity, FullMapActivity::class.java)
             startActivity(goToFullMap)
         }
+
+        binding.currentBuilding.setOnClickListener {
+            val gotoBuildingDetail = Intent(activity, BuildingDetailActivity::class.java)
+            startActivity(gotoBuildingDetail)
+        }
+
 
     }
 }

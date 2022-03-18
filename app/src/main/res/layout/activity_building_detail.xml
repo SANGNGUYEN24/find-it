@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".findit_feature.presentation.campus_info.ui.destination.BuildingDetailActivity">
 
+    <TextView
+        android:gravity="center"
+        android:text="Building Detail"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
