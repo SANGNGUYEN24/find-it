@@ -43,9 +43,5 @@ class CampusDestinationFragment : Fragment() {
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.whereToGo.setOnClickListener {
-            findNavController()
-                .navigate(R.id.action_campusDestinationFragment_to_whereToGoFragment)
-        }
     }
 }
