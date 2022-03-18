@@ -4,13 +4,34 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.mlkit.vision.barcode.BarcodeScanner
-import com.google.mlkit.vision.barcode.BarcodeScanning
-import com.google.mlkit.vision.barcode.common.Barcode
-import com.google.mlkit.vision.common.InputImage
+import com.solution_challenge_2022.findit.findit_feature.domain.model.CampusInfo
+import com.solution_challenge_2022.findit.findit_feature.domain.use_case.GetCampusInfoUserCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CampusViewModel : ViewModel() {
-    lateinit var barcodeScanner: BarcodeScanner
-    var _qrCodeData = MutableLiveData("Scan QR code to explore campus")
+@HiltViewModel
+class CampusViewModel @Inject constructor(
+    private val getCampusInfoUserCase: GetCampusInfoUserCase,
+) : ViewModel() {
+    private val _qrCodeData = MutableLiveData("Scan QR code to explore campus")
     val qrCodeData: LiveData<String> get() = _qrCodeData
+
+    private val _campusInfo = MutableLiveData<CampusInfo?>()
+    val campusInfo: MutableLiveData<CampusInfo?> get() = _campusInfo
+
+    private fun getCampusInfo(campusId: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            _campusInfo.value = getCampusInfoUserCase(campusId)
+        }
+    }
+
+    fun updateQrCodeData(input: String) {
+        _qrCodeData.value = input
+        val contentList = input.split("-")
+        Log.d("contentList[0]", contentList[0])
+        getCampusInfo(contentList[0])
+    }
 }

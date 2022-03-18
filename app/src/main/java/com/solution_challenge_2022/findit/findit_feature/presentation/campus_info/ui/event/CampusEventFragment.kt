@@ -1,4 +1,4 @@
-package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui
+package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.event
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.databinding.FragmentCampusEventBinding
+import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
 
 class CampusEventFragment : Fragment() {
     private lateinit var binding: FragmentCampusEventBinding

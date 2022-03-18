@@ -18,6 +18,7 @@
         android:required="true" />
 
     <application
+        android:name=".findit_feature.presentation.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,10 +26,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FindIt">
         <activity
-            android:name=".findit_feature.presentation.campus_info.test.CampusActivity"
-            android:exported="false"
-            android:label="@string/title_activity_campus"
-            android:theme="@style/Theme.FindIt.NoActionBar" />
+            android:name=".findit_feature.presentation.campus_info.ui.destination.FullMapActivity"
+            android:exported="false" />
         <activity android:name=".findit_feature.presentation.ar_map.ArMapActivity" />
         <activity
             android:name=".findit_feature.presentation.campus_info.CampusInfoActivity"
