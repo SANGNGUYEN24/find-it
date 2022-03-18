@@ -3,6 +3,7 @@ buildscript {
     ext {
         kotlin_version = "1.6.10"
         daggerHiltVersion = "2.41"
+        coroutineVersion = "1.6.0-native-mt"
     }
     repositories {
         google()
