@@ -25,6 +25,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FindIt">
+        <activity
+            android:name=".findit_feature.presentation.campus_info.ui.destination.FullMapActivity"
+            android:exported="false" />
         <activity android:name=".findit_feature.presentation.ar_map.ArMapActivity" />
         <activity
             android:name=".findit_feature.presentation.campus_info.CampusInfoActivity"

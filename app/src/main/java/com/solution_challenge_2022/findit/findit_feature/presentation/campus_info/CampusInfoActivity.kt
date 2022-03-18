@@ -2,6 +2,7 @@ package com.solution_challenge_2022.findit.findit_feature.presentation.campus_in
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
