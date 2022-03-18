@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.databinding.FragmentCampusDestinationBinding
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
@@ -22,7 +25,12 @@ class CampusDestinationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout XML file and return a binding object instance
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_campus_destination, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_campus_destination,
+            container,
+            false
+        )
         return binding.root
     }
 
@@ -35,8 +43,9 @@ class CampusDestinationFragment : Fragment() {
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.whereToGo.setOnClickListener(){
-
+        binding.whereToGo.setOnClickListener {
+            findNavController()
+                .navigate(R.id.action_campusDestinationFragment_to_whereToGoFragment)
         }
     }
 }
