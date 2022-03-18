@@ -15,10 +15,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/whereToGo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -32,9 +33,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="32dp"
+                    android:layout_height="48dp"
                     android:background="@color/blue_primary_light"
-                    android:clickable="true"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -55,7 +55,7 @@
 
             <TextView
                 android:id="@+id/tvQrResult"
-                style="@style/TextAppearance.AppCompat.Headline"
+                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -81,8 +81,21 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/ivCampusMap"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_margin="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/placeholder"
+                        app:imageUrl="@{campusViewModel.campusInfo.mapLink}"
+                        app:riv_corner_radius_bottom_left="8dp"
+                        app:riv_corner_radius_bottom_right="8dp"
+                        app:riv_corner_radius_top_left="8dp"
+                        app:riv_corner_radius_top_right="8dp" />
+
                     <TextView
-                        style="@style/TextAppearance.AppCompat.Title"
+                        style="@style/TextAppearance.AppCompat.Caption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -90,17 +103,86 @@
                         android:text="@{campusViewModel.campusInfo.campusName}"
                         android:textColor="@color/grey" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        app:srcCompat="@drawable/ic_launcher_background" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                style="@style/TextAppearance.AppCompat.Headline"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="start"
+                android:text="You are here" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/grey_more_light"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/ivCurrentPosition"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:maxWidth="100dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/placeholder"
+                        app:imageUrl="@{campusViewModel.campusInfo.mapLink}"
+                        app:riv_corner_radius_bottom_left="8dp"
+                        app:riv_corner_radius_bottom_right="8dp"
+                        app:riv_corner_radius_top_left="8dp"
+                        app:riv_corner_radius_top_right="8dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Body2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="Fetching data..."
+                            android:maxWidth="200dp"
+                            android:text="Building A4"
+                            android:textColor="@color/grey" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Body1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:hint="Fetching data..."
+                            android:maxWidth="200dp"
+                            android:text="Building A4 is a beautiful building ..."
+                            android:textColor="@color/grey" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -109,9 +191,9 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="start"
                 android:text="Popular Areas" />
+
+
         </LinearLayout>
-
-
     </ScrollView>
 
 </layout>

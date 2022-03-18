@@ -1,4 +1,4 @@
-package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui
+package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.destination
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.databinding.FragmentCampusDestinationBinding
+import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
 
 class CampusDestinationFragment : Fragment() {
     private lateinit var binding: FragmentCampusDestinationBinding
@@ -33,5 +34,9 @@ class CampusDestinationFragment : Fragment() {
         // Specify the fragment view as the lifecycle owner of the binding.
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.whereToGo.setOnClickListener(){
+
+        }
     }
 }

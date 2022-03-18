@@ -92,6 +92,9 @@ dependencies {
     // Glide for loading image
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+    // Rounded image view
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }
 
 

@@ -199,7 +199,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     Barcode.TYPE_TEXT -> {
                         val data = barcode.displayValue
-                        qrCodeOutput = "data: \n${data}"
+                        qrCodeOutput = "$data"
                         val gotoCampusInfo = Intent(this, CampusInfoActivity::class.java)
                         gotoCampusInfo.putExtra(QR_CODE_KEY, qrCodeOutput)
                         startActivity(gotoCampusInfo)

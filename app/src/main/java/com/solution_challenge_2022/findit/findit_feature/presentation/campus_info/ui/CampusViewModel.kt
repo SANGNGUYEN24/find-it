@@ -1,5 +1,6 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,13 +24,14 @@ class CampusViewModel @Inject constructor(
 
     private fun getCampusInfo(campusId: String) {
         CoroutineScope(Dispatchers.Main).launch {
-            _campusInfo.value = getCampusInfoUserCase("hcmut")
+            _campusInfo.value = getCampusInfoUserCase(campusId)
         }
     }
 
     fun updateQrCodeData(input: String) {
         _qrCodeData.value = input
-        val contentList = input.split('-')
+        val contentList = input.split("-")
+        Log.d("contentList[0]", contentList[0])
         getCampusInfo(contentList[0])
     }
 }
