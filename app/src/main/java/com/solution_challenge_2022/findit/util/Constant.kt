@@ -13,5 +13,6 @@ class Constant {
         )
         const val QR_CODE_KEY = "qr_code_key"
         const val CAMPUS = "campus"
+        const val BUILDING_INFO = "buildingInfo"
     }
 }

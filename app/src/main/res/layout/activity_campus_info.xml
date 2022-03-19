@@ -14,8 +14,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            app:title="Information"
+            app:title="Campus Information"
             android:elevation="0dp"
+            app:navigationContentDescription="Go back home screen"
             app:navigationIcon="@drawable/ic_home"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_height="?actionBarSize">
@@ -32,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="0dp"
-                app:tabIndicatorAnimationDuration="200"
+                app:tabIndicatorAnimationDuration="400"
                 app:tabIndicatorColor="@color/blue_secondary"
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorGravity="bottom"
