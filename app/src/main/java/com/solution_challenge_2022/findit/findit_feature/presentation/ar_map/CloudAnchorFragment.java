@@ -16,7 +16,9 @@
 
 package com.solution_challenge_2022.findit.findit_feature.presentation.ar_map;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -62,7 +64,6 @@ import com.solution_challenge_2022.findit.R;
 import com.solution_challenge_2022.helpers.helpers.CameraPermissionHelper;
 import com.solution_challenge_2022.helpers.helpers.CloudAnchorManager;
 import com.solution_challenge_2022.helpers.helpers.DisplayRotationHelper;
-import com.solution_challenge_2022.helpers.helpers.FirebaseManager;
 import com.solution_challenge_2022.helpers.helpers.SnackbarHelper;
 import com.solution_challenge_2022.helpers.helpers.TapHelper;
 import com.solution_challenge_2022.helpers.helpers.TrackingStateHelper;
@@ -115,6 +116,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<String> anchorIdList = new ArrayList<>();
     private String src, des;
+    private boolean isAddAnchorAvailable = false;
+    private boolean isOverridingAvailable = false;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -363,7 +366,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             Log.e(TAG, "Exception on the OpenGL thread", t);
         }
     }
-
+    private boolean isExisted = false;
     // Handle only one tap per frame, as taps are usually low frequency compared to frame rate.
     private void handleTap(Frame frame, Camera camera) {
 //        if (currentAnchor != null) {
@@ -384,22 +387,59 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                         == OrientationMode.ESTIMATED_SURFACE_NORMAL)) {
                     // Hits are sorted by depth. Consider only closest hit on a plane or oriented point.
 
-                    // Adding an Anchor tells ARCore that it should track this position in
-                    // space. This anchor is created on the Plane to place the 3D model
-                    // in the correct position relative both to the world and to the plane.
-                    currentAnchor = hit.createAnchor();
-                    currentAnchorList.add(currentAnchor);
+                    readData(anchorIsExisted -> {
+                        Log.e(TAG, "onCallBack anchorIdExist = " + anchorIsExisted);
+                        if (isAddAnchorAvailable){
+                            // Adding an Anchor tells ARCore that it should track this position in
+                            // space. This anchor is created on the Plane to place the 3D model
+                            // in the correct position relative both to the world and to the plane.
+                            currentAnchor = hit.createAnchor();
+                            currentAnchorList.add(currentAnchor);
 
-                    getActivity().runOnUiThread(() -> resolveButton.setEnabled(false));
+                            getActivity().runOnUiThread(() -> resolveButton.setEnabled(false));
 
-                    messageSnackbarHelper.showMessage(getActivity(), "Now hosting anchor...");
-                    cloudAnchorManager.hostCloudAnchor(session, currentAnchor, /* ttl= */ 300, this::onHostedAnchorAvailable);
+                            messageSnackbarHelper.showMessage(getActivity(), "Now hosting anchor...");
+                            cloudAnchorManager.hostCloudAnchor(session, currentAnchor,
+                                    /* ttl= */ 300, this::onHostedAnchorAvailable);
+                        }
+                        else {
+                            if (isOverridingAvailable) {
+                                isAddAnchorAvailable = true;
+                            }
+                            if (anchorIsExisted) {
+                                getActivity().runOnUiThread(() -> {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setMessage("The Path from " + src + " to " + des
+                                        + " is already existed! Do you want to override it?")
+                                        .setPositiveButton("Yes", dialogClickListener)
+                                        .setNegativeButton("No", dialogClickListener).show();
+                                    }
+                                );
+                            }
 
+                        }
+                    });
                     break;
                 }
             }
         }
     }
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    isOverridingAvailable = true;
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    isOverridingAvailable = false;
+                    break;
+            }
+        }
+    };
 
     /**
      * Checks if we detected at least one plane.
@@ -420,6 +460,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         currentAnchor = null;
         currentAnchorList.clear();
         anchorIdList.clear();
+        isAddAnchorAvailable = false;
     }
 
     private synchronized void onHostedAnchorAvailable(Anchor anchor) {
@@ -463,6 +504,59 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         } else {
             messageSnackbarHelper.showMessage(getActivity(), "Error while hosting: " + cloudState.toString());
         }
+    }
+//    private boolean anchorIsExist() {
+//        final boolean[] ret = new boolean[1];
+//        readData(new FirestoreCallBack() {
+//            @Override
+//            public boolean onCallBack(boolean anchorIsExisted) {
+//                Log.e(TAG, "onCallBack anchorIdExisted: " + String.valueOf(anchorIsExisted));
+//                ret[0] = anchorIsExisted;
+//                return anchorIsExisted;
+//            }
+//        });
+//        return ret[0];
+//    }
+    private void readData(FirestoreCallBack firestoreCallBack){
+        boolean[] anchorExisted = {false};
+        db.collection("campus").document("hcmut")
+                .collection("arPath")
+                .document(src + "-" + des)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    ArrayList<String> _anchorIdList =
+                            (ArrayList<String>) document.get("anchorIdList");
+                    if (document.exists()) {
+                        if (_anchorIdList != null && _anchorIdList.size()>0) {
+                            messageSnackbarHelper.showMessage(getActivity(),
+                                    "Anchors are already existed");
+                            anchorExisted[0] = true;
+                            Log.e(TAG, "inside anchorIdExist = " + String.valueOf(anchorExisted[0]));
+
+                        } else {
+                            messageSnackbarHelper.showMessage(getActivity(),
+                                    "Path from " + src + "to" + des +
+                                            " is created but no such Anchor id");
+                        }
+                        Log.e(TAG, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        messageSnackbarHelper.showMessage(getActivity(),
+                                "No such path is created");
+                        Log.e(TAG, "No such document");
+                    }
+                    firestoreCallBack.onCallBack(anchorExisted[0]);
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
+    private interface FirestoreCallBack{
+        void onCallBack(boolean anchorIsExisted);
     }
 
     private synchronized void onResolveButtonPressed() {
