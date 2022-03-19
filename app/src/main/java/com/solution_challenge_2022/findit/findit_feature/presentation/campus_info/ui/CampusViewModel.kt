@@ -49,7 +49,9 @@ class CampusViewModel @Inject constructor(
     fun updateQrCodeData(input: String) {
         _qrCodeData.value = input
         val contentList = input.split("-")
-        Log.d("contentList[0]", contentList[0])
+        Log.d("contentList", contentList.toString())
         getCampusDestinationInfo(campusId = contentList[0], buildingId = contentList[1])
     }
 }
+
+// Edit
