@@ -5,6 +5,10 @@
     <data>
 
         <variable
+            name="clickListener"
+            type="com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.destination.PopularAreaListener" />
+
+        <variable
             name="building"
             type="com.solution_challenge_2022.findit.findit_feature.domain.model.Building" />
     </data>
@@ -21,6 +25,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="8dp"
             android:clickable="true"
+            android:onClick="@{() -> clickListener.onClick(building)}"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
             app:strokeColor="@color/grey_more_light"
@@ -50,16 +55,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:textColor="@color/blue_secondary_dark"
-                    android:text="@{building.buildingName}" />
+                    android:text="@{building.buildingName}"
+                    android:textColor="@color/blue_secondary_dark" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:ellipsize="end"
                     android:maxLines="3"
                     android:text="@{building.desc}"
