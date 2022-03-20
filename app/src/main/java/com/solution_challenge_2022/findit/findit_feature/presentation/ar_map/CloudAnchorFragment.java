@@ -62,7 +62,6 @@ import com.solution_challenge_2022.findit.R;
 import com.solution_challenge_2022.helpers.helpers.CameraPermissionHelper;
 import com.solution_challenge_2022.helpers.helpers.CloudAnchorManager;
 import com.solution_challenge_2022.helpers.helpers.DisplayRotationHelper;
-import com.solution_challenge_2022.helpers.helpers.FirebaseManager;
 import com.solution_challenge_2022.helpers.helpers.SnackbarHelper;
 import com.solution_challenge_2022.helpers.helpers.TapHelper;
 import com.solution_challenge_2022.helpers.helpers.TrackingStateHelper;
@@ -98,6 +97,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     // Temporary matrix allocated here to reduce number of allocations for each frame.
     private final float[] anchorMatrix = new float[16];
     private final float[] andyColor = {139.0f, 195.0f, 74.0f, 255.0f};
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<String> anchorIdList = new ArrayList<>();
     // Rendering. The Renderers are created here, and initialized when the GL surface is created.
     private GLSurfaceView surfaceView;
     private Button resolveButton;
@@ -110,10 +111,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 //    private FirebaseManager firebaseManager;
     @Nullable
     private Anchor currentAnchor = null;
-
     private ArrayList<Anchor> currentAnchorList = new ArrayList<>();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList<String> anchorIdList = new ArrayList<>();
     private String src, des;
 
     @Override
@@ -149,6 +147,13 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         resolveButton = rootView.findViewById(R.id.resolve_button);
         resolveButton.setOnClickListener(v -> onResolveButtonPressed());
         resolveButton.setOnClickListener(v -> onResolveButtonPressed());
+
+        // Get input data: currentBuildingId and destinationId
+        assert getArguments() != null;
+        src = getArguments().getString("currentBuildingId");
+        des = getArguments().getString("destinationId");
+
+        Toast.makeText(getContext(), "From fragment: " + src + des, Toast.LENGTH_LONG).show();
 
         return rootView;
     }
@@ -349,8 +354,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
             if (!currentAnchorList.isEmpty() && currentAnchorList.get(0).getTrackingState() == TrackingState.TRACKING) {
-                for (Anchor anchor : currentAnchorList){
-                    anchor.getPose().toMatrix(anchorMatrix,0);
+                for (Anchor anchor : currentAnchorList) {
+                    anchor.getPose().toMatrix(anchorMatrix, 0);
                     virtualObject.updateModelMatrix(anchorMatrix, 1f);
                     virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
 
@@ -430,7 +435,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             Map<String, Object> docData = new HashMap<>();
             docData.put("anchorIdList", anchorIdList);
 //            docData.put("num", currentAnchorList.size());
-            messageSnackbarHelper.showMessage(getActivity(), anchorIdList.size() + " Cloud Anchor are hosted." );
+            messageSnackbarHelper.showMessage(getActivity(), anchorIdList.size() + " Cloud Anchor are hosted.");
 
             db.collection("campus").document("hcmut")
                     .collection("arPath")
@@ -474,32 +479,31 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                 .collection("arPath")
                 .document(src + "-" + des)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            ArrayList<String> _anchorIdList = (ArrayList<String>)document.get("anchorIdList");
-                            if (document.exists()) {
-                                if (_anchorIdList != null) {
-                                    for (String id : _anchorIdList){
-                                        cloudAnchorManager.resolveCloudAnchor(
-                                                session,
-                                                id,
-                                                anchor -> onResolvedAnchorAvailable(anchor));
-                                    }
-                                }
-                                else {
-                                    messageSnackbarHelper.showMessage(getActivity(),
-                                            "No such anchor" );
-                                }
-                                Log.e(TAG, "DocumentSnapshot data: " + document.getData());
-                            } else {
-                                Log.e(TAG, "No such document");
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    ArrayList<String> _anchorIdList = (ArrayList<String>) document.get("anchorIdList");
+                    if (document.exists()) {
+                        if (_anchorIdList != null) {
+                            for (String id : _anchorIdList) {
+                                cloudAnchorManager.resolveCloudAnchor(
+                                        session,
+                                        id,
+                                        anchor -> onResolvedAnchorAvailable(anchor));
                             }
                         } else {
-                            Log.d(TAG, "get failed with ", task.getException());
+                            messageSnackbarHelper.showMessage(getActivity(),
+                                    "No such anchor");
                         }
+                        Log.e(TAG, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.e(TAG, "No such document");
                     }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
         });
 
     }
@@ -520,7 +524,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 //        });
 //    }
 
-//    private synchronized void onResolvedAnchorAvailable(Anchor anchor, int shortCode) {
+    //    private synchronized void onResolvedAnchorAvailable(Anchor anchor, int shortCode) {
 //        Anchor.CloudAnchorState cloudState = anchor.getCloudAnchorState();
 //        if (cloudState == Anchor.CloudAnchorState.SUCCESS) {
 //            messageSnackbarHelper.showMessage(getActivity(), "Cloud Anchor Resolved. Short code: " + shortCode);

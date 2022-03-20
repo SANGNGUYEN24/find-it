@@ -22,5 +22,13 @@ class Constant {
             "campus_info_to_building_detail_campus_id"
         const val CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID =
             "campus_info_to_building_detail_building_id"
+        const val CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_ID =
+            "campus_info_to_building_detail_current_building_id"
+        const val CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_NAME =
+            "campus_info_to_building_detail_current_building_name"
+        const val BUILDING_DETAIL_TO_AR_MAP_CURRENT_BUILDING_ID =
+            "building_detail_to_ar_map_current_building_id"
+        const val BUILDING_DETAIL_TO_AR_MAP_DESTINATION_ID =
+            "building_detail_to_ar_map_destination_id"
     }
 }

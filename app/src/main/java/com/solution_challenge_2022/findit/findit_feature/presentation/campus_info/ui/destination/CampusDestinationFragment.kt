@@ -14,6 +14,8 @@ import com.solution_challenge_2022.findit.findit_feature.presentation.campus_inf
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailActivity
 import com.solution_challenge_2022.findit.util.Constant.Companion.CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID
 import com.solution_challenge_2022.findit.util.Constant.Companion.CAMPUS_INFO_TO_BUILDING_DETAIL_CAMPUS_ID
+import com.solution_challenge_2022.findit.util.Constant.Companion.CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_ID
+import com.solution_challenge_2022.findit.util.Constant.Companion.CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_NAME
 
 class CampusDestinationFragment : Fragment() {
     private lateinit var binding: FragmentCampusDestinationBinding
@@ -39,6 +41,16 @@ class CampusDestinationFragment : Fragment() {
                 val goToBuildingDetail = Intent(context, BuildingDetailActivity::class.java)
                 goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_CAMPUS_ID, campusId)
                 goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID, buildingId)
+                val currentBuildingId = campusViewModel.currentBuilding.value?.buildingId
+                val currentBuildingName = campusViewModel.currentBuilding.value?.buildingName
+                goToBuildingDetail.putExtra(
+                    CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_ID,
+                    currentBuildingId
+                )
+                goToBuildingDetail.putExtra(
+                    CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_NAME,
+                    currentBuildingName
+                )
                 Log.d("Find It CampusDestinationFragment", "$campusId, $buildingId")
                 startActivity(goToBuildingDetail)
             })

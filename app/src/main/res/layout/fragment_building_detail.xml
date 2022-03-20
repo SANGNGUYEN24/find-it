@@ -10,10 +10,9 @@
             type="com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
 
         <LinearLayout
@@ -21,64 +20,107 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Headline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:hint="Fetching data..."
-                android:paddingStart="16dp"
-                android:text="@{buildingDetailViewModel.building.buildingName}"
-                android:textColor="@color/blue_secondary_dark" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="start"
-                android:hint="lkjshdlkf"
-                android:paddingStart="16dp"
-                android:text="@{buildingDetailViewModel.building.campusName}"
-                android:textColor="@color/blue_secondary_dark"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                tools:context=".findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailActivity">
+                android:orientation="vertical">
 
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="8dp"
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Headline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="Fetching data..."
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/placeholder"
-                    app:imageUrl="@{buildingDetailViewModel.building.imageLink}"
-                    app:riv_corner_radius_bottom_left="8dp"
-                    app:riv_corner_radius_bottom_right="8dp"
-                    app:riv_corner_radius_top_left="8dp"
-                    app:riv_corner_radius_top_right="8dp" />
+                    android:text="@{buildingDetailViewModel.building.buildingName}"
+                    android:textColor="@color/blue_secondary_dark" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="@{buildingDetailViewModel.building.desc}"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:layout_marginBottom="8dp"
+                    android:gravity="start"
+                    android:hint="..."
+                    android:paddingStart="16dp"
+                    android:text="@{buildingDetailViewModel.building.campusName}"
+                    android:textColor="@color/blue_secondary_dark"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_light" />
 
             </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    tools:context=".findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailActivity">
+
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="8dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/placeholder"
+                        app:imageUrl="@{buildingDetailViewModel.building.imageLink}"
+                        app:riv_corner_radius_bottom_left="8dp"
+                        app:riv_corner_radius_bottom_right="8dp"
+                        app:riv_corner_radius_top_left="8dp"
+                        app:riv_corner_radius_top_right="8dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="64dp"
+                        android:padding="16dp"
+                        android:text="@{buildingDetailViewModel.building.desc}"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fabStartArMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:text="Start"
+            android:textAllCaps="false"
+            app:icon="@drawable/ic_round_navigation_24">
+
+        </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="@color/white"
+            android:gravity="start"
+            android:maxWidth="224dp"
+            android:text="@{buildingDetailViewModel.currentBuildingName + ` \n-> ` + buildingDetailViewModel.building.buildingName}"
+            android:textAllCaps="false"
+            android:textColor="@color/blue_secondary"
+            app:cornerRadius="60dp"
+            app:strokeColor="@color/blue_secondary" />
+    </RelativeLayout>
 
 </layout>
