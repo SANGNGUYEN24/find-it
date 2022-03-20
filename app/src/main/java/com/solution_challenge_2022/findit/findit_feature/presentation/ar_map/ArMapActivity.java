@@ -17,14 +17,19 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.ar_map;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.solution_challenge_2022.findit.R;
 import com.solution_challenge_2022.helpers.helpers.FullScreenHelper;
+
+import java.util.Objects;
 
 
 /**
@@ -41,6 +46,12 @@ public class ArMapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar_map);
+
+//        Toolbar toolbar = findViewById(R.id.arMapToolbar);
+//        setSupportActionBar(toolbar);
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         final String currentBuildingId = getIntent().getStringExtra(BUILDING_DETAIL_TO_AR_MAP_CURRENT_BUILDING_ID);
         final String destinationId = getIntent().getStringExtra(BUILDING_DETAIL_TO_AR_MAP_DESTINATION_ID);
@@ -65,4 +76,13 @@ public class ArMapActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
         FullScreenHelper.setFullScreenOnWindowFocusChanged(this, hasFocus);
     }
+
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if (item.getItemId() == android.R.id.home) {
+//            this.finish();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }
