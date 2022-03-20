@@ -1,14 +1,16 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.building_detail
 
+import android.R
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.solution_challenge_2022.findit.databinding.ActivityBuildingDetailBinding
 import com.solution_challenge_2022.findit.util.Constant.Companion.CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID
 import com.solution_challenge_2022.findit.util.Constant.Companion.CAMPUS_INFO_TO_BUILDING_DETAIL_CAMPUS_ID
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class BuildingDetailActivity : AppCompatActivity() {
@@ -22,7 +24,9 @@ class BuildingDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
 
         campusId = intent.getStringExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_CAMPUS_ID).toString()
         buildingId = intent.getStringExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID).toString()
@@ -34,5 +38,16 @@ class BuildingDetailActivity : AppCompatActivity() {
 //                .show()
 //            i++;
 //        }
+    }
+
+    // Handle when pressing back button
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
