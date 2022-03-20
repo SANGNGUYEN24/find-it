@@ -4,13 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".findit_feature.presentation.campus_info.ui.destination.BuildingDetailActivity">
+    android:orientation="vertical"
+    tools:context=".findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailActivity">
 
-    <TextView
-        android:gravity="center"
-        android:text="Building Detail"
-        style="@style/TextAppearance.AppCompat.Headline"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            app:title="Building Information" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <fragment
+        android:name="com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailFragment"
+        android:id="@+id/buildingDetailFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

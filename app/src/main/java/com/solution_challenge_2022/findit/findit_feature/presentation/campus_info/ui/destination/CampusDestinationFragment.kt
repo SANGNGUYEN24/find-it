@@ -6,10 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.solution_challenge_2022.findit.databinding.FragmentCampusDestinationBinding
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
+import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailActivity
+import com.solution_challenge_2022.findit.util.Constant.Companion.CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID
+import com.solution_challenge_2022.findit.util.Constant.Companion.CAMPUS_INFO_TO_BUILDING_DETAIL_CAMPUS_ID
 
 class CampusDestinationFragment : Fragment() {
     private lateinit var binding: FragmentCampusDestinationBinding
@@ -29,8 +33,15 @@ class CampusDestinationFragment : Fragment() {
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = this
 
-        binding.recyclerViewPopularAreas.adapter = PopularAreasAdapter()
-
+        binding.recyclerViewPopularAreas.adapter =
+            PopularAreasAdapter(PopularAreaListener { campusId, buildingId ->
+                Toast.makeText(context, "$campusId-$buildingId", Toast.LENGTH_SHORT).show()
+                val goToBuildingDetail = Intent(context, BuildingDetailActivity::class.java)
+                goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_CAMPUS_ID, campusId)
+                goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID, buildingId)
+                Log.d("Find It CampusDestinationFragment", "$campusId, $buildingId")
+                startActivity(goToBuildingDetail)
+            })
         return binding.root
     }
 
@@ -54,10 +65,10 @@ class CampusDestinationFragment : Fragment() {
             startActivity(goToFullMap)
         }
 
-        binding.currentBuilding.setOnClickListener {
-            val gotoBuildingDetail = Intent(activity, BuildingDetailActivity::class.java)
-            startActivity(gotoBuildingDetail)
-        }
+//        binding.currentBuilding.setOnClickListener {
+//            val gotoBuildingDetail = Intent(activity, BuildingDetailActivity::class.java)
+//            startActivity(gotoBuildingDetail)
+//        }
 
     }
 }

@@ -29,7 +29,7 @@
             android:name=".findit_feature.presentation.campus_info.ui.destination.DestinationSearchActivity"
             android:exported="false" />
         <activity
-            android:name=".findit_feature.presentation.campus_info.ui.destination.BuildingDetailActivity"
+            android:name=".findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailActivity"
             android:exported="false" />
         <activity
             android:name=".findit_feature.presentation.campus_info.ui.destination.FullMapActivity"

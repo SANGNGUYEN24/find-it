@@ -132,29 +132,29 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_round_person_pin_circle_24" />
-
-            <TextView
-                style="@style/TextAppearance.AppCompat.Title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:gravity="start"
-                android:text="You are here" />
-        </LinearLayout>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_round_person_pin_circle_24" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:gravity="start"
+                    android:text="You are here" />
+            </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/currentBuilding"
@@ -181,7 +181,7 @@
                         android:maxWidth="100dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/placeholder"
-                        app:imageUrl="@{campusViewModel.building.imageLink}"
+                        app:imageUrl="@{campusViewModel.currentBuilding.imageLink}"
                         app:riv_corner_radius_bottom_left="8dp"
                         app:riv_corner_radius_bottom_right="8dp"
                         app:riv_corner_radius_top_left="8dp"
@@ -201,7 +201,7 @@
                             android:layout_height="wrap_content"
                             android:hint="Fetching data..."
                             android:maxWidth="200dp"
-                            android:text="@{campusViewModel.building.buildingName}"
+                            android:text="@{campusViewModel.currentBuilding.buildingName}"
                             android:textColor="@color/blue_secondary_dark" />
 
                         <TextView
@@ -212,7 +212,7 @@
                             android:ellipsize="end"
                             android:maxWidth="200dp"
                             android:maxLines="3"
-                            android:text="@{campusViewModel.building.desc}"
+                            android:text="@{campusViewModel.currentBuilding.desc}"
                             android:textColor="@color/grey" />
                     </LinearLayout>
 
