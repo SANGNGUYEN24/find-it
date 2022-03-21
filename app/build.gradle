@@ -96,6 +96,8 @@ dependencies {
 
     // Rounded image view
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
 }
 
 

@@ -12,7 +12,7 @@
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_setting.xml" value="0.1715" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/placeholder.xml" value="0.2415" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_ar_map.xml" value="0.18982471141513468" />
-        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_building_detail.xml" value="0.16" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_building_detail.xml" value="0.1" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_campus.xml" value="0.2" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_campus_info.xml" value="0.1" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_destination_search.xml" value="0.10128205128205128" />
@@ -31,7 +31,7 @@
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_campus_info.xml" value="0.17657118426678067" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_event_detail.xml" value="0.18974358974358974" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_first.xml" value="0.18982471141513468" />
-        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_full_map.xml" value="0.18974358974358974" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_full_map.xml" value="0.2" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_home.xml" value="0.23125" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_second.xml" value="0.18982471141513468" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_setting.xml" value="0.18974358974358974" />

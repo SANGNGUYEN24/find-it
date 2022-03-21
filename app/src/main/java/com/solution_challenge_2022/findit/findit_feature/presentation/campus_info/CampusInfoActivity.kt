@@ -2,7 +2,6 @@ package com.solution_challenge_2022.findit.findit_feature.presentation.campus_in
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,14 +10,13 @@ import com.solution_challenge_2022.findit.databinding.ActivityCampusInfoBinding
 import com.solution_challenge_2022.findit.findit_feature.presentation.MainActivity
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewPagerAdapter
-import com.solution_challenge_2022.findit.util.Constant
 import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
+import com.solution_challenge_2022.findit.util.Constant.Companion.TAB_TITLES
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CampusInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityCampusInfoBinding
-    private val TAG = "CampusInfoActivity"
     lateinit var qrCodeOutput: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +42,7 @@ class CampusInfoActivity : AppCompatActivity() {
         val tabLayout = binding.tabs
         pager.adapter = CampusViewPagerAdapter(supportFragmentManager, lifecycle)
         TabLayoutMediator(tabLayout, pager) { tab, position ->
-            tab.text = getString(Constant.TAB_TITLES[position])
+            tab.text = getString(TAB_TITLES[position])
         }.attach()
 
         /**

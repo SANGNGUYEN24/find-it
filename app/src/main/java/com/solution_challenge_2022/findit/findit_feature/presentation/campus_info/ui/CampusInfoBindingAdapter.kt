@@ -3,6 +3,7 @@ package com.solution_challenge_2022.findit.findit_feature.presentation.campus_in
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.github.chrisbanes.photoview.PhotoView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Building
@@ -11,6 +12,15 @@ import com.solution_challenge_2022.findit.findit_feature.presentation.campus_inf
 // Binding adapter for Campus Map using Glide
 @BindingAdapter("imageUrl")
 fun bindImage(image: RoundedImageView, imageUrl: String?) {
+    imageUrl?.let {
+        Glide.with(image.context).load(imageUrl)
+            .placeholder(R.drawable.placeholder)
+            .into(image)
+    }
+}
+
+@BindingAdapter("imageUrl")
+fun bindFullImage(image: PhotoView, imageUrl: String?) {
     imageUrl?.let {
         Glide.with(image.context).load(imageUrl)
             .placeholder(R.drawable.placeholder)
