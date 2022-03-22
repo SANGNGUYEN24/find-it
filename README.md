@@ -25,10 +25,10 @@
 
 
 ## Technologies Used
-- Kotlin - version 1.6.10
-- Firebase - version 20.0.3
-- AR Core - version 1.30.0
-- Java GL (Open GL for Java) - version 0.2.1
+- Android with Kotlin, Java
+- Firebase (Authentication, Cloud Firestore, Storage, ML Kit, App Distribution)
+- AR Core
+- Java GL (Open GL for Java)
 
 
 <!-- ## Features
