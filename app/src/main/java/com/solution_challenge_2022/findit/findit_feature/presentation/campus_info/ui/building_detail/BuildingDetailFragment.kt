@@ -33,7 +33,6 @@ class BuildingDetailFragment : Fragment() {
 
         binding.fabStartArMap.setOnClickListener {
             val currentBuildingId = buildingDetailViewModel.currentBuildingId.value
-            val currentBuildingName = buildingDetailViewModel.currentBuildingName.value
             val destinationBuildingId = buildingDetailViewModel.building.value?.buildingId
             Toast.makeText(
                 context,

@@ -7,7 +7,9 @@ import com.github.chrisbanes.photoview.PhotoView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Building
+import com.solution_challenge_2022.findit.findit_feature.domain.model.Service
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.destination.PopularAreasAdapter
+import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.event.ServiceAdapter
 
 // Binding adapter for Campus Map using Glide
 @BindingAdapter("imageUrl")
@@ -29,7 +31,13 @@ fun bindFullImage(image: PhotoView, imageUrl: String?) {
 }
 
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<Building>?) {
+fun bindPopularAreasRecyclerView(recyclerView: RecyclerView, data: List<Building>?) {
     val adapter = recyclerView.adapter as PopularAreasAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("listData")
+fun bindServiceRecyclerView(recyclerView: RecyclerView, data: List<Service>?) {
+    val adapter = recyclerView.adapter as ServiceAdapter
     adapter.submitList(data)
 }

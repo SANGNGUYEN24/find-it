@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Building
 import com.solution_challenge_2022.findit.findit_feature.domain.model.CampusInfo
+import com.solution_challenge_2022.findit.findit_feature.domain.model.Service
 import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.GetCampusInfoUseCase
 import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.GetCurrentBuildingUseCase
 import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.GetPopularAreasListUseCase
+import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.GetServiceListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +20,8 @@ import javax.inject.Inject
 class CampusViewModel @Inject constructor(
     private val getCampusInfoUseCase: GetCampusInfoUseCase,
     private val getCurrentBuildingUseCase: GetCurrentBuildingUseCase,
-    private val getPopularAreasListUseCase: GetPopularAreasListUseCase
+    private val getPopularAreasListUseCase: GetPopularAreasListUseCase,
+    private val getServiceListUseCase: GetServiceListUseCase
 ) : ViewModel() {
     // TODO handle campusId, save it into viewmodel
     private lateinit var campusId: String
@@ -35,6 +38,9 @@ class CampusViewModel @Inject constructor(
     private val _popularAreasList = MutableLiveData<List<Building>?>()
     val popularAreasList: LiveData<List<Building>?> get() = _popularAreasList
 
+    private val _serviceList = MutableLiveData<List<Service>?>()
+    val serviceList: LiveData<List<Service>?> get() = _serviceList
+
     private fun getCampusDestinationInfo(campusId: String, buildingId: String) {
         viewModelScope.launch {
             launch {
@@ -46,7 +52,9 @@ class CampusViewModel @Inject constructor(
             launch {
                 _popularAreasList.value = getPopularAreasListUseCase(campusId)
             }
-            Log.d("Find It campus info", _campusInfo.value.toString())
+            launch {
+                _serviceList.value = getServiceListUseCase(campusId)
+            }
         }
     }
 

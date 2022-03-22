@@ -15,6 +15,7 @@ class Constant {
         // Firebase
         const val CAMPUS = "campus"
         const val BUILDING_INFO = "buildingInfo"
+        const val SERVICE = "service"
 
         // Key to transfer data between activities
         const val QR_CODE_KEY = "qr_code_key"

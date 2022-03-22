@@ -42,7 +42,6 @@ class BuildingDetailActivity : AppCompatActivity() {
             currentBuildingId,
             currentBuildingName
         )
-
     }
 
     // Handle when pressing back button

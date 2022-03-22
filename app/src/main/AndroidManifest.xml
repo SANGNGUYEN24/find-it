@@ -26,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FindIt">
         <activity
+            android:name=".findit_feature.presentation.campus_info.ui.service_route.ServiceRouteActivity"
+            android:exported="false" />
+        <activity
             android:name=".findit_feature.presentation.campus_info.ui.destination.DestinationSearchActivity"
             android:exported="false" />
         <activity
