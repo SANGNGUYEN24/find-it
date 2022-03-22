@@ -1,16 +1,17 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.event
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.databinding.FragmentCampusServiceBinding
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
+import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.service_route.ServiceRouteActivity
 
 class CampusServiceFragment : Fragment() {
     private lateinit var binding: FragmentCampusServiceBinding
@@ -39,8 +40,8 @@ class CampusServiceFragment : Fragment() {
 
         binding.recyclerViewService.adapter = ServiceAdapter(
             ServiceListener { campusId, serviceId ->
-                Toast.makeText(context, "$campusId-$serviceId", Toast.LENGTH_SHORT).show()
-
+                val goToServiceRouteActivity = Intent(context, ServiceRouteActivity::class.java)
+                startActivity(goToServiceRouteActivity)
             }
         )
     }
