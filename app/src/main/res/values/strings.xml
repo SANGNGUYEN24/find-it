@@ -19,6 +19,6 @@
     <string name="scan_a_qr_code">Scan a QR code</string>
     <string name="title_activity_campus">CampusActivity</string>
     <string name="tab_text_1">Destination</string>
-    <string name="tab_text_2">Event</string>
+    <string name="tab_text_2">Service</string>
     <string name="cancel">Cancel</string>
 </resources>
