@@ -6,8 +6,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,10 +22,10 @@ import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.databinding.ActivityMainBinding
-import com.solution_challenge_2022.findit.findit_feature.presentation.ar_map.ArMapActivity
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.CampusInfoActivity
 import com.solution_challenge_2022.findit.util.Constant
 import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
+import com.solution_challenge_2022.findit.util.DataMethod
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

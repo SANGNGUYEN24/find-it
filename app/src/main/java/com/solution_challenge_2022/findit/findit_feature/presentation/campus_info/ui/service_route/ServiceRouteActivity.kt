@@ -1,10 +1,13 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.service_route
 
 import android.R
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.solution_challenge_2022.findit.databinding.ActivityServiceRouteBinding
+import com.solution_challenge_2022.findit.findit_feature.presentation.ar_map.ArMapActivity
 
 class ServiceRouteActivity : AppCompatActivity() {
     lateinit var binding: ActivityServiceRouteBinding
@@ -15,6 +18,21 @@ class ServiceRouteActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.buttonStart1.setOnClickListener {
+            startActivity(Intent(this, ArMapActivity::class.java))
+        }
+        binding.buttonStart2.setOnClickListener {
+            startActivity(Intent(this, ArMapActivity::class.java))
+        }
+        binding.buttonStart3.setOnClickListener {
+            startActivity(Intent(this, ArMapActivity::class.java))
+        }
+
+        binding.buttonComleted.setOnClickListener {
+            Toast.makeText(this, "Your information is sent to the admin!", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     // Handle when pressing back button

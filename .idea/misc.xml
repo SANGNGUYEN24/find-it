@@ -11,13 +11,14 @@
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_round_map_24.xml" value="0.187" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_setting.xml" value="0.1715" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/placeholder.xml" value="0.2415" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout-v28/activity_destination_search.xml" value="0.23125" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_ar_map.xml" value="0.18982471141513468" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_building_detail.xml" value="0.1" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_campus.xml" value="0.2" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_campus_info.xml" value="0.1" />
-        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_destination_search.xml" value="0.10128205128205128" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_destination_search.xml" value="0.176" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_full_map.xml" value="0.1" />
-        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_qr_scanner.xml" value="0.18982471141513468" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_service_route.xml" value="0.264" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/cloud_anchor_fragment.xml" value="0.2" />
@@ -47,7 +48,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

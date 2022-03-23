@@ -153,7 +153,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:gravity="start"
-                    android:text="You are here" />
+                    android:text="You are here"
+                    android:textColor="@color/red" />
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -165,7 +166,7 @@
                 android:clickable="true"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/blue_secondary"
+                app:strokeColor="@color/red"
                 app:strokeWidth="1dp">
 
                 <LinearLayout

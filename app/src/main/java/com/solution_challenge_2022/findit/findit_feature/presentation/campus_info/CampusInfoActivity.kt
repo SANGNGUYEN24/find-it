@@ -1,7 +1,6 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
@@ -48,7 +47,6 @@ class CampusInfoActivity : AppCompatActivity() {
          * */
         qrCodeOutput = intent.getStringExtra(QR_CODE_KEY).toString()
         campusViewModel.updateQrCodeData(qrCodeOutput)
-        Toast.makeText(this, qrCodeOutput, Toast.LENGTH_SHORT).show()
     }
 }
 

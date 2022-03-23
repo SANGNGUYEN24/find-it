@@ -2,11 +2,13 @@ package com.solution_challenge_2022.findit.findit_feature.presentation.campus_in
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.solution_challenge_2022.findit.R
+import com.solution_challenge_2022.findit.databinding.ActivityDestinationSearchBinding
 
 class DestinationSearchActivity : AppCompatActivity() {
+    lateinit var binding: ActivityDestinationSearchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_destination_search)
+        binding = ActivityDestinationSearchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }

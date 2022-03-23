@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.solution_challenge_2022.findit.databinding.FragmentCampusDestinationBinding
@@ -43,17 +42,10 @@ class CampusDestinationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        campusViewModel.campusInfo.observe(viewLifecycleOwner) { campusInfo ->
-            Log.d("CampusDestinationFragment", campusInfo?.mapLink.toString())
-        }
-        campusViewModel.popularAreasList.observe(viewLifecycleOwner) { x ->
-            Log.d("CampusDestinationFragment", x.toString())
-        }
-
-        binding.destinationSearch.setOnClickListener {
-            val gotoDestinationSearch = Intent(activity, DestinationSearchActivity::class.java)
-            startActivity(gotoDestinationSearch)
-        }
+        //        binding.destinationSearch.setOnClickListener {
+//            val gotoDestinationSearch = Intent(activity, DestinationSearchActivity::class.java)
+//            startActivity(gotoDestinationSearch)
+//        }
 
         binding.cardCampusMap.setOnClickListener {
             val goToFullMap = Intent(activity, FullMapActivity::class.java)
@@ -66,7 +58,6 @@ class CampusDestinationFragment : Fragment() {
 
         binding.recyclerViewPopularAreas.adapter =
             PopularAreasAdapter(PopularAreaListener { campusId, buildingId ->
-                Toast.makeText(context, "$campusId-$buildingId", Toast.LENGTH_SHORT).show()
                 val goToBuildingDetail = Intent(context, BuildingDetailActivity::class.java)
                 goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_CAMPUS_ID, campusId)
                 goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID, buildingId)

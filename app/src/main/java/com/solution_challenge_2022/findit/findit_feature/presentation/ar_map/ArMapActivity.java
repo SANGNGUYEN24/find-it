@@ -40,8 +40,6 @@ public class ArMapActivity extends AppCompatActivity {
         final String currentBuildingId = getIntent().getStringExtra(BUILDING_DETAIL_TO_AR_MAP_CURRENT_BUILDING_ID);
         final String destinationId = getIntent().getStringExtra(BUILDING_DETAIL_TO_AR_MAP_DESTINATION_ID);
 
-        Toast.makeText(this, currentBuildingId + destinationId, Toast.LENGTH_SHORT).show();
-
         Bundle sendDataToArFragment = new Bundle();
         sendDataToArFragment.putString("currentBuildingId", currentBuildingId);
         sendDataToArFragment.putString("destinationId", destinationId);

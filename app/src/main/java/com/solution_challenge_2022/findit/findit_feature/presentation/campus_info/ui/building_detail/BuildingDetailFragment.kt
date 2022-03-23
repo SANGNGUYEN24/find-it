@@ -36,7 +36,7 @@ class BuildingDetailFragment : Fragment() {
             val destinationBuildingId = buildingDetailViewModel.building.value?.buildingId
             Toast.makeText(
                 context,
-                "$currentBuildingId-$destinationBuildingId ",
+                "Setting up AR map...",
                 Toast.LENGTH_SHORT
             ).show()
 

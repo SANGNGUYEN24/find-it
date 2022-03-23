@@ -131,11 +131,15 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         resolveButton.setOnClickListener(v -> onResolveButtonPressed());
 
         // Get input data: currentBuildingId and destinationId
-        assert getArguments() != null;
-        src = getArguments().getString("currentBuildingId");
-        des = getArguments().getString("destinationId");
+        if (getArguments() != null) {
+            src = getArguments().getString("currentBuildingId");
+            des = getArguments().getString("destinationId");
+        } else {
+            src = "temp_src";
+            des = "temp_des";
+        }
 
-        Toast.makeText(getContext(), "From fragment: " + src + des, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Connected to AR Map!", Toast.LENGTH_LONG).show();
 
         return rootView;
     }
