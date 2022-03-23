@@ -1,6 +1,5 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -33,7 +32,6 @@ class CampusInfoActivity : AppCompatActivity() {
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
-            startActivity(Intent(this@CampusInfoActivity, MainActivity::class.java))
             finish()
         }
 

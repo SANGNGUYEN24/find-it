@@ -37,9 +37,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="120dp"
         android:gravity="end"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/clear_button"

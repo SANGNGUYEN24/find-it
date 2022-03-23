@@ -173,29 +173,6 @@ class MainActivity : AppCompatActivity() {
             // handle success list
             for (barcode: Barcode in it) {
                 when (barcode.valueType) {
-                    Barcode.TYPE_WIFI -> {
-                        val ssid = barcode.wifi!!.ssid
-                        val password = barcode.wifi!!.password
-                        val type = barcode.wifi!!.encryptionType
-                        qrCodeOutput = "ssid: \n${ssid} password: \n${password} type: \n${type}"
-                        Toast.makeText(
-                            this,
-                            "Invalid QR information: $qrCodeOutput",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
-                    Barcode.TYPE_URL -> {
-                        val title = barcode.url!!.title
-                        val url = barcode.url!!.url
-                        qrCodeOutput = "title: \n${title} url: \n${url}"
-                        Toast.makeText(
-                            this,
-                            "Invalid QR information: $qrCodeOutput",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
                     Barcode.TYPE_TEXT -> {
                         val data = barcode.displayValue
                         qrCodeOutput = "$data"
@@ -203,34 +180,15 @@ class MainActivity : AppCompatActivity() {
                         gotoCampusInfo.putExtra(QR_CODE_KEY, qrCodeOutput)
                         startActivity(gotoCampusInfo)
                         Log.d("MainActivity", qrCodeOutput)
-                        finish()
                     }
                     else -> {
-                        Toast.makeText(this, " Invalid QR, please try again!", Toast.LENGTH_SHORT)
+                        Toast.makeText(this, "Invalid QR, please try again!", Toast.LENGTH_LONG)
                             .show()
-                        Log.d("MainActivity", qrCodeOutput)
-
                     }
                 }
             }
         }.addOnFailureListener {
-            Log.d("CampusViewModel", "processQr: ${it.message}")
-        }
-    }
-
-    // Customize toolbar with menu item
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.arMap -> {
-                startActivity(Intent(this@MainActivity, ArMapActivity::class.java))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+            Toast.makeText(this, "Invalid QR, please try again!", Toast.LENGTH_LONG).show()
         }
     }
 }

@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:gravity="start"
-                    android:text="Campus map" />
+                    android:text="Place map" />
 
             </LinearLayout>
 
