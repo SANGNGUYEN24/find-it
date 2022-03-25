@@ -121,9 +121,10 @@
             android:backgroundTint="@color/white"
             android:ellipsize="end"
             android:gravity="start"
-            android:text="@{`From: `+buildingDetailViewModel.currentBuildingName + ` \nTo: ` + buildingDetailViewModel.building.buildingName}"
+            android:text="@{`From: `+buildingDetailViewModel.currentBuildingName + ` \nTo    : ` + buildingDetailViewModel.building.buildingName?? `...`}"
             android:textAllCaps="false"
             android:textColor="@color/blue_secondary"
+            android:textSize="12sp"
             app:cornerRadius="60dp"
             app:strokeColor="@color/blue_secondary" />
     </RelativeLayout>

@@ -13,13 +13,13 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
-            app:title="Campus Information"
+            android:layout_height="?actionBarSize"
             android:elevation="0dp"
             app:navigationContentDescription="Go back home screen"
             app:navigationIcon="@drawable/ic_home"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            android:layout_height="?actionBarSize">
+            app:title="Place Information">
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -54,8 +54,7 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-    </androidx.viewpager2.widget.ViewPager2>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></androidx.viewpager2.widget.ViewPager2>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

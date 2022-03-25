@@ -10,27 +10,18 @@
         android:layout_height="match_parent"
         android:orientation="horizontal" />
 
-    <!--    <com.google.android.material.appbar.AppBarLayout-->
-    <!--        android:id="@+id/appBarLayout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="@android:color/transparent"-->
-    <!--        android:fitsSystemWindows="true"-->
-    <!--        app:elevation="0dp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--        <com.google.android.material.appbar.MaterialToolbar-->
-    <!--            android:id="@+id/arMapToolbar"-->
-    <!--            style="@style/Widget.MaterialComponents.Toolbar.Primary"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:background="@android:color/transparent"-->
-    <!--            android:elevation="0dp" />-->
-
-    <!--    </com.google.android.material.appbar.AppBarLayout>-->
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/editArMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/image_button_rounded_corner"
+        android:padding="16dp"
+        android:src="@drawable/ic_round_arrow_back_24"
+        app:tint="@color/white" />
 
 
     <LinearLayout

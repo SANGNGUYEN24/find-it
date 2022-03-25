@@ -9,6 +9,7 @@ import com.solution_challenge_2022.findit.findit_feature.presentation.MainActivi
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewPagerAdapter
 import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
+import com.solution_challenge_2022.findit.util.Constant.Companion.SRC_TO_GET_PLACE_DETAIL
 import com.solution_challenge_2022.findit.util.Constant.Companion.TAB_TITLES
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CampusInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityCampusInfoBinding
     lateinit var qrCodeOutput: String
+    lateinit var srcToGetData: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,10 @@ class CampusInfoActivity : AppCompatActivity() {
          * Receive QR code output from [MainActivity]
          * */
         qrCodeOutput = intent.getStringExtra(QR_CODE_KEY).toString()
+        srcToGetData = intent.getStringExtra(SRC_TO_GET_PLACE_DETAIL).toString()
+
         campusViewModel.updateQrCodeData(qrCodeOutput)
+        campusViewModel.updateSrcToGetData(srcToGetData)
     }
 }
 

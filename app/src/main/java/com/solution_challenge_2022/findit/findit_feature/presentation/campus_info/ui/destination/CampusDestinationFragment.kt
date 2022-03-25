@@ -42,11 +42,6 @@ class CampusDestinationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //        binding.destinationSearch.setOnClickListener {
-//            val gotoDestinationSearch = Intent(activity, DestinationSearchActivity::class.java)
-//            startActivity(gotoDestinationSearch)
-//        }
-
         binding.cardCampusMap.setOnClickListener {
             val goToFullMap = Intent(activity, FullMapActivity::class.java)
             goToFullMap.putExtra(
@@ -75,11 +70,11 @@ class CampusDestinationFragment : Fragment() {
                 startActivity(goToBuildingDetail)
             })
 
-
-//        binding.currentBuilding.setOnClickListener {
-//            val gotoBuildingDetail = Intent(activity, BuildingDetailActivity::class.java)
-//            startActivity(gotoBuildingDetail)
-//        }
-
+        campusViewModel.srcToGetData.observe(viewLifecycleOwner) { srcToGetData ->
+            if (srcToGetData == "from_home") {
+                binding.currentBuilding.visibility = View.GONE
+                binding.youAreHere.visibility = View.GONE
+            }
+        }
     }
 }
