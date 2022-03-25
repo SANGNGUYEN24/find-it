@@ -14,6 +14,7 @@ import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,5 +50,9 @@ class HomeFragment : Fragment() {
             ).show()
 
         }
+    }
+
+    private fun checkUser() {
+
     }
 }
