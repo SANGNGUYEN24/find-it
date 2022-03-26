@@ -1,4 +1,4 @@
-package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui
+package com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -8,8 +8,8 @@ import com.makeramen.roundedimageview.RoundedImageView
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Building
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Service
-import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.destination.PopularAreasAdapter
-import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.event.ServiceAdapter
+import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.PopularAreasAdapter
+import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.service.ServiceAdapter
 
 // Binding adapter for Campus Map using Glide
 @BindingAdapter("imageUrl")

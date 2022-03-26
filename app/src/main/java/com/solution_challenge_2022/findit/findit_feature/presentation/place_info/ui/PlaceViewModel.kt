@@ -1,4 +1,4 @@
-package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui
+package com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CampusViewModel @Inject constructor(
+class PlaceViewModel @Inject constructor(
     private val getCampusInfoUseCase: GetCampusInfoUseCase,
     private val getCurrentBuildingUseCase: GetCurrentBuildingUseCase,
     private val getPopularAreasListUseCase: GetPopularAreasListUseCase,

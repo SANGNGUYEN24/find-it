@@ -7,7 +7,7 @@
 
         <variable
             name="campusViewModel"
-            type="com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel" />
+            type="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.PlaceViewModel" />
     </data>
 
     <LinearLayout

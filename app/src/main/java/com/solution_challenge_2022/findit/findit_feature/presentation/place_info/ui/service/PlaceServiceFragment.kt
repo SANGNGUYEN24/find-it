@@ -1,4 +1,4 @@
-package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.event
+package com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.service
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,15 +9,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.solution_challenge_2022.findit.R
-import com.solution_challenge_2022.findit.databinding.FragmentCampusServiceBinding
-import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.CampusViewModel
-import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.service_route.ServiceRouteActivity
+import com.solution_challenge_2022.findit.databinding.FragmentPlaceServiceBinding
+import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.PlaceViewModel
+import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.service.service_route.ServiceRouteActivity
 
-class CampusServiceFragment : Fragment() {
-    private lateinit var binding: FragmentCampusServiceBinding
+class PlaceServiceFragment : Fragment() {
+    private lateinit var binding: FragmentPlaceServiceBinding
 
     // Get ViewModel from parent Activity
-    private val campusViewModel: CampusViewModel by activityViewModels()
+    private val placeViewModel: PlaceViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +25,7 @@ class CampusServiceFragment : Fragment() {
     ): View {
         // Inflate the layout XML file and return a binding object instance
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_campus_service, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_place_service, container, false)
         return binding.root
     }
 
@@ -33,7 +33,7 @@ class CampusServiceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Set the viewModel for data binding - this allows the bound layout access
         // to all the data in the VieWModel
-        binding.campusViewModel = campusViewModel
+        binding.campusViewModel = placeViewModel
         // Specify the fragment view as the lifecycle owner of the binding.
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner

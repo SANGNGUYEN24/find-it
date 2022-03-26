@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.solution_challenge_2022.findit.databinding.FragmentHomeBinding
-import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.CampusInfoActivity
+import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.PlaceInfoActivity
 import com.solution_challenge_2022.findit.util.Constant
 import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
 
@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.hcmutPlace.setOnClickListener {
-            val gotoCampusInfo = Intent(context, CampusInfoActivity::class.java)
+            val gotoCampusInfo = Intent(context, PlaceInfoActivity::class.java)
             gotoCampusInfo.putExtra(QR_CODE_KEY, "hcmut-a4")
             gotoCampusInfo.putExtra(Constant.SRC_TO_GET_PLACE_DETAIL, "from_home")
             startActivity(gotoCampusInfo)

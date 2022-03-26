@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".findit_feature.presentation.campus_info.ui.full_map.FullMapActivity">
+    tools:context=".findit_feature.presentation.place_info.ui.destination.full_map.FullMapActivity">
 
     <fragment
         android:id="@+id/fullMapFragment"
-        android:name="com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.full_map.FullMapFragment"
+        android:name="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.full_map.FullMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

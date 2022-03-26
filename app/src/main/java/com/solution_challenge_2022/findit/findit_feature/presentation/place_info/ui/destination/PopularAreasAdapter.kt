@@ -1,4 +1,4 @@
-package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.destination
+package com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

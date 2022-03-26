@@ -1,4 +1,4 @@
-package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.full_map
+package com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.full_map
 
 import android.os.Bundle
 import androidx.activity.viewModels

@@ -1,4 +1,4 @@
-package com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.building_detail
+package com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.building_detail
 
 import android.content.Intent
 import android.os.Bundle

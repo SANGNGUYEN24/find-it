@@ -9,7 +9,8 @@ class Constant {
         const val WRITE_STORAGE_PERMISSION_CODE = 102
         val TAB_TITLES = arrayOf(
             R.string.tab_text_1,
-            R.string.tab_text_2
+            R.string.tab_text_2,
+            R.string.tab_text_3
         )
 
         // Firebase

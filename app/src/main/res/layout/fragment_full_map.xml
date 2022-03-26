@@ -6,7 +6,7 @@
 
         <variable
             name="fullMapViewModel"
-            type="com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.full_map.FullMapViewModel" />
+            type="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.full_map.FullMapViewModel" />
 
     </data>
 

@@ -26,20 +26,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FindIt">
         <activity
-            android:name=".findit_feature.presentation.campus_info.ui.service_route.ServiceRouteActivity"
+            android:name="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.service.service_route.ServiceRouteActivity"
             android:exported="false" />
         <activity
-            android:name=".findit_feature.presentation.campus_info.ui.destination.DestinationSearchActivity"
+            android:name=".findit_feature.presentation.place_info.ui.destination.DestinationSearchActivity"
             android:exported="false" />
         <activity
-            android:name=".findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailActivity"
+            android:name=".findit_feature.presentation.place_info.ui.building_detail.BuildingDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".findit_feature.presentation.campus_info.ui.full_map.FullMapActivity"
+            android:name="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.full_map.FullMapActivity"
             android:exported="false" />
         <activity android:name=".findit_feature.presentation.ar_map.ArMapActivity" />
         <activity
-            android:name=".findit_feature.presentation.campus_info.CampusInfoActivity"
+            android:name=".findit_feature.presentation.place_info.PlaceInfoActivity"
             android:exported="false"
             android:label="@string/title_activity_qr_scanner"
             android:theme="@style/Theme.FindIt.NoActionBar" />
