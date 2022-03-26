@@ -2,6 +2,7 @@ package com.solution_challenge_2022.findit.util
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Building
 
 class DataMethod {
@@ -15,9 +16,7 @@ class DataMethod {
             buildingId = "a1",
             campusName = "Ho Chi Minh City University of Technology",
             campusId = "hcmut",
-            desc = "The Building A1. The Ho Chi Minh City University of Technology (abbreviation: HCMUT Vietnamese: Trường Đại học Bách khoa, Đại học Quốc gia Thành phố Hồ Chí Minh)[1] is a key member university of Vietnam National University, Ho Chi Minh City and is the flagship university in technology teaching and research activities in Vietnam.\n" +
-                    "\n" +
-                    "HCMUT is a center of technology - industry and management training. Up to May 2005, HCMUT has 11 faculties, 14 research and development (R&D) centers, 4 training centers, 10 functioning offices and one joint-stock company. During the past 40 years since Vietnam's unification, 60,000 Engineers and Bachelors have graduated from HCMUT. Up to now, HCMUT have trained 60,000 Engineers and Bachelors, more than 10,000 Masters and 200 Doctors."
+            desc = "The Building A1. The Department has the function of advising and assisting the Principal in the school's short-term and long-term training plans. Organizing, directing, inspecting and supervising all teaching and learning activities in schools, undergraduate and graduate formal training systems. Research and propose training objectives, training systems, industry structure, training scale and methods, as well as the development of necessary facilities for teaching and learning.  In addition, the department is responsible for coordinating with units in the school to organize the teaching schedule, register for tests, exams and evaluate learning results. Along with monitoring and checking the implementation of teaching and learning regulations, promptly proposing necessary issues, the reporter also collects, statistics, processes and stores academic information provided by the faculties. providing, as well as building and guiding the faculties to set up uniform academic management statistical forms throughout the school."
         )
 
         val buildingA2 = Building(
@@ -26,9 +25,17 @@ class DataMethod {
             buildingId = "a2",
             campusName = "Ho Chi Minh City University of Technology",
             campusId = "hcmut",
-            desc = "The Building A2. The Ho Chi Minh City University of Technology (abbreviation: HCMUT Vietnamese: Trường Đại học Bách khoa, Đại học Quốc gia Thành phố Hồ Chí Minh)[1] is a key member university of Vietnam National University, Ho Chi Minh City and is the flagship university in technology teaching and research activities in Vietnam.\n" +
-                    "\n" +
-                    "HCMUT is a center of technology - industry and management training. Up to May 2005, HCMUT has 11 faculties, 14 research and development (R&D) centers, 4 training centers, 10 functioning offices and one joint-stock company. During the past 40 years since Vietnam's unification, 60,000 Engineers and Bachelors have graduated from HCMUT. Up to now, HCMUT have trained 60,000 Engineers and Bachelors, more than 10,000 Masters and 200 Doctors."
+            desc = "The Buidling A2 as known as Central Library of Ho Chi Minh City University of Technology is one of the largest libraries in the city today with hundreds of thousands of regularly updated books, the Central Library of Vietnam National University Ho Chi Minh City. Ho Chi Minh City consists of three floors containing books, rooms used for group study, reading room, and self-study area. In addition, the Central Library of the National University of Ho Chi Minh City. HCM also provides on-site printing and copying equipment, audio-visual equipment such as TVs, videos, Cassettes, CDs. In particular, the library also has a system to borrow and return electronic documents so that you can be proactive in your work."
+        )
+
+
+        val buildingA3 = Building(
+            imageLink = "https://firebasestorage.googleapis.com/v0/b/sc2022-find-it.appspot.com/o/hcmut%2Fbuilding%2Fa3.jpg?alt=media&token=55866086-ea20-4159-872c-747b1fddcc28",
+            buildingName = "The Building A3",
+            buildingId = "a3",
+            campusName = "Ho Chi Minh City University of Technology",
+            campusId = "hcmut",
+            desc = "The Building A3. Computer Science was trained very early at the University of Technology, starting in 1977. Currently, the Faculty of Computer Science and Engineering is a leading faculty in the field of information technology in Vietnam and Now there are other faculties. training and research programs at undergraduate, master's and doctoral levels.  The Faculty of Engineering and Computer Science trains engineers according to international standards ABET (http://www.abet.org/) in two fields of Computer Science and Computer Engineering. These are the first and only two programs currently in Vietnam that meet the ABET international standards of the United States that leading companies in the world such as Intel, IBM, and Boeing all desire. In both Computer Science and Computer Engineering, there are specialized training directions in Software Engineering, Information Systems, Network & Data Security, Computer Structures & IC Design, Computer Networks , High performance computing & super big data."
         )
 
         val buildingA4 = Building(
@@ -37,9 +44,7 @@ class DataMethod {
             buildingId = "a4",
             campusName = "Ho Chi Minh City University of Technology",
             campusId = "hcmut",
-            desc = "The Building A4. The Ho Chi Minh City University of Technology (abbreviation: HCMUT Vietnamese: Trường Đại học Bách khoa, Đại học Quốc gia Thành phố Hồ Chí Minh)[1] is a key member university of Vietnam National University, Ho Chi Minh City and is the flagship university in technology teaching and research activities in Vietnam.\n" +
-                    "\n" +
-                    "HCMUT is a center of technology - industry and management training. Up to May 2005, HCMUT has 11 faculties, 14 research and development (R&D) centers, 4 training centers, 10 functioning offices and one joint-stock company. During the past 40 years since Vietnam's unification, 60,000 Engineers and Bachelors have graduated from HCMUT. Up to now, HCMUT have trained 60,000 Engineers and Bachelors, more than 10,000 Masters and 200 Doctors."
+            desc = "The Building A4. The Office of International Studies Programs (OISP) was established in 2006, in order to professionalize international training activities at undergraduate and postgraduate levels of Ho Chi Minh City University of Technology (HCMUT) - University of Science and Technology. Science and technology. Hometown HCMC.  Up to now, OISP has been implementing dozens of international training programs, spanning the fields of engineering, technology, and administration.  OISP's affiliate partners are famous universities of Australia, USA, Japan, Switzerland... Students can choose to study full-time at HCMUT or transfer to foreign universities.  International training programs are taught entirely in English, taught by a team of excellent lecturers from HCMUT and partner universities. Therefore, it attracts more and more students not only from Vietnam but also international students from France, Japan, Korea, Philippines, Laos, Burma, Pakistan, Egypt, Nigeria, Zambia... multicultural learning environment at HCMUT."
         )
 
         val buildingA5 = Building(
@@ -48,9 +53,7 @@ class DataMethod {
             buildingId = "a5",
             campusName = "Ho Chi Minh City University of Technology",
             campusId = "hcmut",
-            desc = "The Building A5. The Ho Chi Minh City University of Technology (abbreviation: HCMUT Vietnamese: Trường Đại học Bách khoa, Đại học Quốc gia Thành phố Hồ Chí Minh)[1] is a key member university of Vietnam National University, Ho Chi Minh City and is the flagship university in technology teaching and research activities in Vietnam.\n" +
-                    "\n" +
-                    "HCMUT is a center of technology - industry and management training. Up to May 2005, HCMUT has 11 faculties, 14 research and development (R&D) centers, 4 training centers, 10 functioning offices and one joint-stock company. During the past 40 years since Vietnam's unification, 60,000 Engineers and Bachelors have graduated from HCMUT. Up to now, HCMUT have trained 60,000 Engineers and Bachelors, more than 10,000 Masters and 200 Doctors."
+            desc = "Hall A5 is the venue for major and important events at the University of Technology Ho Chi Minh city: Graduation ceremony, Admission ceremony, annual meetings,..."
         )
 
         val buildingB1A = Building(
@@ -59,9 +62,7 @@ class DataMethod {
             buildingId = "b1a",
             campusName = "Ho Chi Minh City University of Technology",
             campusId = "hcmut",
-            desc = "The Building B1-A. The Ho Chi Minh City University of Technology (abbreviation: HCMUT Vietnamese: Trường Đại học Bách khoa, Đại học Quốc gia Thành phố Hồ Chí Minh)[1] is a key member university of Vietnam National University, Ho Chi Minh City and is the flagship university in technology teaching and research activities in Vietnam.\n" +
-                    "\n" +
-                    "HCMUT is a center of technology - industry and management training. Up to May 2005, HCMUT has 11 faculties, 14 research and development (R&D) centers, 4 training centers, 10 functioning offices and one joint-stock company. During the past 40 years since Vietnam's unification, 60,000 Engineers and Bachelors have graduated from HCMUT. Up to now, HCMUT have trained 60,000 Engineers and Bachelors, more than 10,000 Masters and 200 Doctors."
+            desc = "ELECTRICAL & ELECTRONIC ENGINEERING Faculty The program is a part of the National Project and operates according to the latest curriculum from UIUC (USA).   The program equips students with modern knowledge, professional skills and abilities to use informatics & communication tools. It was developed to apply advanced training technology from United States partner universities."
         )
         val buildingB1B = Building(
             imageLink = "https://firebasestorage.googleapis.com/v0/b/sc2022-find-it.appspot.com/o/hcmut%2Fbuilding%2FB1B.jpg?alt=media&token=c1310f98-391f-4a4d-902d-f6ae7e9b62f2",
@@ -136,18 +137,6 @@ class DataMethod {
             campusName = "Ho Chi Minh City University of Technology",
             campusId = "hcmut",
             desc = "Football Pitch. The Ho Chi Minh City University of Technology (abbreviation: HCMUT Vietnamese: Trường Đại học Bách khoa, Đại học Quốc gia Thành phố Hồ Chí Minh)[1] is a key member university of Vietnam National University, Ho Chi Minh City and is the flagship university in technology teaching and research activities in Vietnam.\n" +
-                    "\n" +
-                    "HCMUT is a center of technology - industry and management training. Up to May 2005, HCMUT has 11 faculties, 14 research and development (R&D) centers, 4 training centers, 10 functioning offices and one joint-stock company. During the past 40 years since Vietnam's unification, 60,000 Engineers and Bachelors have graduated from HCMUT. Up to now, HCMUT have trained 60,000 Engineers and Bachelors, more than 10,000 Masters and 200 Doctors."
-        )
-
-
-        val buildingA3 = Building(
-            imageLink = "https://firebasestorage.googleapis.com/v0/b/sc2022-find-it.appspot.com/o/hcmut%2Fbuilding%2Fa3.jpg?alt=media&token=55866086-ea20-4159-872c-747b1fddcc28",
-            buildingName = "The Building A3",
-            buildingId = "a3",
-            campusName = "Ho Chi Minh City University of Technology",
-            campusId = "hcmut",
-            desc = "The Building A3. The Ho Chi Minh City University of Technology (abbreviation: HCMUT Vietnamese: Trường Đại học Bách khoa, Đại học Quốc gia Thành phố Hồ Chí Minh)[1] is a key member university of Vietnam National University, Ho Chi Minh City and is the flagship university in technology teaching and research activities in Vietnam.\n" +
                     "\n" +
                     "HCMUT is a center of technology - industry and management training. Up to May 2005, HCMUT has 11 faculties, 14 research and development (R&D) centers, 4 training centers, 10 functioning offices and one joint-stock company. During the past 40 years since Vietnam's unification, 60,000 Engineers and Bachelors have graduated from HCMUT. Up to now, HCMUT have trained 60,000 Engineers and Bachelors, more than 10,000 Masters and 200 Doctors."
         )
@@ -230,7 +219,7 @@ class DataMethod {
 
         for (i in list) {
             db.collection(Constant.CAMPUS).document("hcmut").collection(Constant.BUILDING_INFO)
-                .document(i.buildingId.toString()).set(i).addOnSuccessListener {
+                .document(i.buildingId.toString()).set(i, SetOptions.merge()).addOnSuccessListener {
                     Log.d("Find It uploaded: ", i.buildingId.toString())
                 }
         }

@@ -25,6 +25,7 @@ import com.solution_challenge_2022.findit.databinding.ActivityMainBinding
 import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.CampusInfoActivity
 import com.solution_challenge_2022.findit.util.Constant
 import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
+import com.solution_challenge_2022.findit.util.Constant.Companion.SRC_TO_GET_PLACE_DETAIL
 import com.solution_challenge_2022.findit.util.DataMethod
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -166,23 +167,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun readQr(inputImage: InputImage) {
+        Toast.makeText(this, "Wait a second", Toast.LENGTH_LONG)
+            .show()
         barcodeScanner = BarcodeScanning.getClient()
+        Log.d("FindIt barcodeScanner", barcodeScanner.toString())
         barcodeScanner.process(inputImage).addOnSuccessListener {
             // handle success list
             for (barcode: Barcode in it) {
-                when (barcode.valueType) {
-                    Barcode.TYPE_TEXT -> {
-                        val data = barcode.displayValue
-                        qrCodeOutput = "$data"
-                        val gotoCampusInfo = Intent(this, CampusInfoActivity::class.java)
-                        gotoCampusInfo.putExtra(QR_CODE_KEY, qrCodeOutput)
-                        startActivity(gotoCampusInfo)
-                        Log.d("MainActivity", qrCodeOutput)
-                    }
-                    else -> {
-                        Toast.makeText(this, "Invalid QR, please try again!", Toast.LENGTH_LONG)
-                            .show()
-                    }
+                Log.d("FindIt raw value", barcode.rawValue.toString())
+                val data = barcode.rawValue
+                if (data != null) {
+                    qrCodeOutput = "$data"
+                    val gotoCampusInfo = Intent(this, CampusInfoActivity::class.java)
+                    gotoCampusInfo.putExtra(QR_CODE_KEY, qrCodeOutput)
+                    gotoCampusInfo.putExtra(SRC_TO_GET_PLACE_DETAIL, "from_qr")
+                    startActivity(gotoCampusInfo)
+                } else {
+                    Toast.makeText(this, "Invalid QR, please try again!", Toast.LENGTH_LONG).show()
                 }
             }
         }.addOnFailureListener {

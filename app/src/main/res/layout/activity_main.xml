@@ -73,7 +73,6 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/bottom_nav_scan_qr"
         android:elevation="24dp"
-        android:outlineSpotShadowColor="@color/blue_secondary"
         android:src="@drawable/ic_qr_scanner"
         app:borderWidth="4dp"
         app:fabCustomSize="80dp"

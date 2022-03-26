@@ -1,10 +1,13 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.ar_map;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -75,7 +79,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     private final CloudAnchorManager cloudAnchorManager = new CloudAnchorManager();
     private final BackgroundRenderer backgroundRenderer = new BackgroundRenderer();
     private final ObjectRenderer virtualObject = new ObjectRenderer();
-    // private final ObjectRenderer virtualObjectShadow = new ObjectRenderer();
     private final PlaneRenderer planeRenderer = new PlaneRenderer();
     private final PointCloudRenderer pointCloudRenderer = new PointCloudRenderer();
     // Temporary matrix allocated here to reduce number of allocations for each frame.
@@ -86,17 +89,17 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     // Rendering. The Renderers are created here, and initialized when the GL surface is created.
     private GLSurfaceView surfaceView;
     private Button resolveButton;
+    private AppCompatImageButton exitArMap;
     private boolean installRequested;
     private Session session;
     private DisplayRotationHelper displayRotationHelper;
     private TrackingStateHelper trackingStateHelper;
     private TapHelper tapHelper;
-    //  private final StorageManager storageManager = new StorageManager();
-//    private FirebaseManager firebaseManager;
+
     @Nullable
     private Anchor currentAnchor = null;
     private ArrayList<Anchor> currentAnchorList = new ArrayList<>();
-    private String src, des;
+    private String src = "temp_src", des = "temp_des";
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -130,19 +133,27 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         resolveButton.setOnClickListener(v -> onResolveButtonPressed());
         resolveButton.setOnClickListener(v -> onResolveButtonPressed());
 
+        exitArMap = rootView.findViewById(R.id.editArMap);
+        exitArMap.setOnClickListener(v -> requireActivity().finish());
+
         // Get input data: currentBuildingId and destinationId
-        if (getArguments() != null) {
-            src = getArguments().getString("currentBuildingId");
-            des = getArguments().getString("destinationId");
-        } else {
-            src = "temp_src";
-            des = "temp_des";
-        }
+        assert getArguments() != null;
+        src = getArguments().getString("currentBuildingId");
+        des = getArguments().getString("destinationId");
 
         Toast.makeText(getContext(), "Connected to AR Map!", Toast.LENGTH_LONG).show();
 
+        // Show AR tutorial
+        AlertDialog.Builder alertadd = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.AlertDialogCustom));
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View view = factory.inflate(R.layout.ar_tutorial, null);
+        alertadd.setView(view);
+        alertadd.setNeutralButton("OK", (dlg, sumthin) -> dlg.dismiss());
+        alertadd.show();
+
         return rootView;
     }
+
 
     @Override
     public void onResume() {
@@ -494,36 +505,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
     }
 
-//    private synchronized void onShortCodeEntered(int shortCode) {
-//        firebaseManager.getCloudAnchorId(shortCode, cloudAnchorId -> {
-//            if (cloudAnchorId == null || cloudAnchorId.isEmpty()) {
-//                messageSnackbarHelper.showMessage(
-//                        getActivity(),
-//                        "A Cloud Anchor ID for the short code " + shortCode + " was not found.");
-//                return;
-//            }
-//            resolveButton.setEnabled(false);
-//            cloudAnchorManager.resolveCloudAnchor(
-//                    session,
-//                    cloudAnchorId,
-//                    anchor -> onResolvedAnchorAvailable(anchor, shortCode));
-//        });
-//    }
-
-    //    private synchronized void onResolvedAnchorAvailable(Anchor anchor, int shortCode) {
-//        Anchor.CloudAnchorState cloudState = anchor.getCloudAnchorState();
-//        if (cloudState == Anchor.CloudAnchorState.SUCCESS) {
-//            messageSnackbarHelper.showMessage(getActivity(), "Cloud Anchor Resolved. Short code: " + shortCode);
-//            currentAnchor = anchor;
-//            currentAnchorList.add(anchor);
-//        } else {
-//            messageSnackbarHelper.showMessage(
-//                    getActivity(),
-//                    "Error while resolving anchor with short code " + shortCode + ". Error: "
-//                            + cloudState.toString());
-//            resolveButton.setEnabled(true);
-//        }
-//    }
     private synchronized void onResolvedAnchorAvailable(Anchor anchor) {
         Anchor.CloudAnchorState cloudState = anchor.getCloudAnchorState();
         if (cloudState == Anchor.CloudAnchorState.SUCCESS) {

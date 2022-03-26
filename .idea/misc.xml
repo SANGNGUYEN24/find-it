@@ -3,13 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/SANG NGUYEN DINH/.gradle/caches/transforms-3/0014181e5fb101bcef637bc58f07eb79/transformed/jetified-play-services-base-18.0.1/res/drawable/common_google_signin_btn_icon_light.xml" value="0.193" />
+        <entry key="..\:/Users/SANG NGUYEN DINH/.gradle/caches/transforms-3/0014181e5fb101bcef637bc58f07eb79/transformed/jetified-play-services-base-18.0.1/res/drawable/common_google_signin_btn_text_light_normal.xml" value="0.193" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.2235" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_home.xml" value="0.1715" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1855" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_map.xml" value="0.187" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_qr_scanner.xml" value="0.1715" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_round_arrow_back_24.xml" value="0.2005" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_round_map_24.xml" value="0.187" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_setting.xml" value="0.1715" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/image_button_rounded_corner.xml" value="0.2005" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/placeholder.xml" value="0.2415" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout-v28/activity_destination_search.xml" value="0.23125" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_ar_map.xml" value="0.18982471141513468" />
@@ -18,9 +22,10 @@
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_campus_info.xml" value="0.1" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_destination_search.xml" value="0.176" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_full_map.xml" value="0.1" />
-        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_qr_scanner.xml" value="0.18982471141513468" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/activity_service_route.xml" value="0.264" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/ar_tutorial.xml" value="0.2" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/cloud_anchor_fragment.xml" value="0.2" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/content_main.xml" value="0.18982471141513468" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/content_qr_scanner.xml" value="0.1" />
@@ -37,9 +42,9 @@
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_full_map.xml" value="0.2" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_home.xml" value="0.19484240687679083" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_second.xml" value="0.18982471141513468" />
-        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_setting.xml" value="0.18974358974358974" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_setting.xml" value="0.264" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/fragment_where_to_go.xml" value="0.18974358974358974" />
-        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/popular_area_item.xml" value="0.2" />
+        <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/popular_area_item.xml" value="0.264" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/service_item.xml" value="0.18974358974358974" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/layout/toolbar.xml" value="0.4" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18974358974358974" />

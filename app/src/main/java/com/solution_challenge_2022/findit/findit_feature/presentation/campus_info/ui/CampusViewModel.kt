@@ -41,6 +41,9 @@ class CampusViewModel @Inject constructor(
     private val _serviceList = MutableLiveData<List<Service>?>()
     val serviceList: LiveData<List<Service>?> get() = _serviceList
 
+    private val _srcToGetData = MutableLiveData<String?>()
+    val srcToGetData: LiveData<String?> get() = _srcToGetData
+
     private fun getCampusDestinationInfo(campusId: String, buildingId: String) {
         viewModelScope.launch {
             launch {
@@ -63,6 +66,10 @@ class CampusViewModel @Inject constructor(
         val contentList = input.split("-")
         Log.d("contentList", contentList.toString())
         getCampusDestinationInfo(campusId = contentList[0], buildingId = contentList[1])
+    }
+
+    fun updateSrcToGetData(input: String) {
+        _srcToGetData.value = input
     }
 }
 
