@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.gms.auth.api.signin.*
@@ -45,29 +46,60 @@ class SettingFragment : Fragment() {
         binding.mainViewModel = mainViewModel
         binding.lifecycleOwner = this
 
+        val googleSignInButton = binding.googleSignInButton
+
         // configure the Google SignIn
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) //don't worry if shows in red, will be resolved when build first time
+            .requestIdToken(getString(R.string.default_web_client_id)) // Resolve when building
             .requestEmail() //we only need email from google account
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
         //init firebase auth
-        checkUser()
+        if (hasUser()) {
 
-        //Google SignIn Button, Click to begin Google SignIn
-        binding.googleSignInButton.setOnClickListener {
-            //begin Google SignIn
-            Log.d(TAG, "onCreate: begin Google SignIn")
-            val intent = googleSignInClient.signInIntent
-            startActivityForResult(intent, RC_SIGN_IN)
+            googleSignInButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.red
+                )
+            )
+            googleSignInButton.text = getString(R.string.sign_out)
+            googleSignInButton.icon = null
+            googleSignInButton.setOnClickListener {
+                firebaseAuth.signOut()
+                mainViewModel.updateUser(null)
+                Toast.makeText(context, "Signed out", Toast.LENGTH_LONG).show()
+            }
+        } else {
+            //Google SignIn Button, Click to begin Google SignIn
+            googleSignInButton.setOnClickListener {
+                //begin Google SignIn
+                val intent = googleSignInClient.signInIntent
+                startActivityForResult(intent, RC_SIGN_IN)
+            }
         }
+
     }
 
-    private fun checkUser() {
+    private fun hasUser(): Boolean {
         val firebaseUser = firebaseAuth.currentUser
         if (firebaseUser != null) {
-            Toast.makeText(context, "Already logged in", Toast.LENGTH_LONG).show()
+            val uid = firebaseUser.uid
+            val email = firebaseUser.email
+            val displayName = firebaseUser.displayName
+            val profileUrl = firebaseUser.photoUrl
+
+            mainViewModel.updateUser(
+                User(
+                    uid = uid,
+                    email = email,
+                    userName = displayName,
+                    profileUrl = profileUrl
+                )
+            )
+            return true
         }
+        return false
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -90,9 +122,6 @@ class SettingFragment : Fragment() {
         val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
 
         firebaseAuth.signInWithCredential(credential).addOnSuccessListener { authResult ->
-            // Login success
-            Log.d(TAG, "firebaseAuthwithGoog leAccount: LoggedIn")
-
             // Get logged in user
             val firebaseUser = firebaseAuth.currentUser
             // Get user info
@@ -110,25 +139,17 @@ class SettingFragment : Fragment() {
                 )
             )
 
-            Log.d(TAG, "firebaseAuthWithGoogleAccount: Uid: $uid")
-            Log.d(TAG, "firebaseAuthWithGoogleAccount: Email: $email")
-            Log.d(TAG, "firebaseAuthWithGoogleAccount: User Name: $displayName")
-            Log.d(TAG, "firebaseAuthWithGoogleAccount: PhotoUri: $profileUrl")
-
             // check if user is new or existing
             if (authResult.additionalUserInfo!!.isNewUser) {
                 //user is new - Account created
-                Log.d(TAG, "firebaseAuthwithGoogleAccount: Account created... \nsemail")
-                Toast.makeText(context, "Account created... \nsemail", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Account created", Toast.LENGTH_SHORT).show()
             } else {
                 //existing user - LoggedIn
-                Log.d(TAG, "firebaseAuthWithGoogleAccount: Existing user... \nsemail")
-                Toast.makeText(context, "LoggedIn... \nsemail", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Logged in", Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener { e ->
             //login failed
-            Log.d(TAG, "firebaseAuthWithGoogleAccount: Loggin Failed due to ${e.message}")
-            Toast.makeText(context, "Loggin Failed due to ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Login failed due to ${e.message}", Toast.LENGTH_SHORT).show()
 
         }
     }

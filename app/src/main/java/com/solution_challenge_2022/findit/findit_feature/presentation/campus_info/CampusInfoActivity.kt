@@ -25,11 +25,6 @@ class CampusInfoActivity : AppCompatActivity() {
         binding = ActivityCampusInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        overridePendingTransition(
-            com.google.android.material.R.anim.abc_slide_in_bottom,
-            com.google.android.material.R.anim.abc_fade_out
-        )
-
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
