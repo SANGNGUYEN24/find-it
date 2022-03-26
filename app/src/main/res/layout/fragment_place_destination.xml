@@ -104,7 +104,7 @@
                         android:layout_marginEnd="8dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/placeholder"
-                        app:imageUrl="@{placeViewModel.campusInfo.mapLink}"
+                        app:imageUrl="@{placeViewModel.placeInfo.mapLink}"
                         app:riv_corner_radius_bottom_left="8dp"
                         app:riv_corner_radius_bottom_right="8dp"
                         app:riv_corner_radius_top_left="8dp"
@@ -117,7 +117,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:hint="Fetching data..."
-                        android:text="@{placeViewModel.campusInfo.campusName}"
+                        android:text="@{placeViewModel.placeInfo.campusName}"
                         android:textColor="@color/blue_secondary_dark"
                         android:textSize="16sp" />
 
@@ -125,7 +125,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:text="@{placeViewModel.campusInfo.address}"
+                        android:text="@{placeViewModel.placeInfo.address}"
                         android:textColor="@color/grey"
                         android:textSize="12sp" />
 

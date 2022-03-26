@@ -2,9 +2,9 @@ package com.solution_challenge_2022.findit.di
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.solution_challenge_2022.findit.findit_feature.data.repository.BuildingDetailImpl
-import com.solution_challenge_2022.findit.findit_feature.data.repository.CampusInfoImpl
+import com.solution_challenge_2022.findit.findit_feature.data.repository.PlaceInfoImpl
 import com.solution_challenge_2022.findit.findit_feature.domain.repository.BuildingDetailRepository
-import com.solution_challenge_2022.findit.findit_feature.domain.repository.CampusInfoRepository
+import com.solution_challenge_2022.findit.findit_feature.domain.repository.PlaceInfoRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,8 +22,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCampusInfoRepository(db: FirebaseFirestore): CampusInfoRepository {
-        return CampusInfoImpl(db)
+    fun provideCampusInfoRepository(db: FirebaseFirestore): PlaceInfoRepository {
+        return PlaceInfoImpl(db)
     }
 
     @Provides

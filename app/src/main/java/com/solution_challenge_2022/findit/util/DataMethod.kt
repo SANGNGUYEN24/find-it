@@ -144,7 +144,7 @@ class DataMethod {
         val buildingGate1 = Building(
             starNum = 4.8,
             reviewNum = 111,
-            imageLink = "https://firebasestorage.googleapis.com/v0/b/sc2022-find-it.appspot.com/o/hcmut%2Fbuilding%2FGate1.jpg?alt=media&token=7fe342b1-3bc1-432b-8f14-726b2288c47d",
+            imageLink = "https://firebasestorage.googleapis.com/v0/b/sc2022-find-it.appspot.com/o/hcmut%2Fbuilding%2Fmain-gate.jpg?alt=media&token=eb507d02-4348-4ccd-a865-0801ec40251d",
             buildingName = "The Main Gate",
             buildingId = "gate1",
             campusName = "Ho Chi Minh City University of Technology",

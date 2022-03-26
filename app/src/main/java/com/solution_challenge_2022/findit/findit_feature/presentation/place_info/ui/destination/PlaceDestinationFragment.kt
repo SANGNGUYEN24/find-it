@@ -46,7 +46,7 @@ class PlaceDestinationFragment : Fragment() {
             val goToFullMap = Intent(activity, FullMapActivity::class.java)
             goToFullMap.putExtra(
                 CAMPUS_INFO_TO_FULL_MAP_LINK,
-                placeViewModel.campusInfo.value?.mapLink
+                placeViewModel.placeInfo.value?.mapLink
             )
             startActivity(goToFullMap)
         }
@@ -72,6 +72,7 @@ class PlaceDestinationFragment : Fragment() {
 
         placeViewModel.srcToGetData.observe(viewLifecycleOwner) { srcToGetData ->
             if (srcToGetData == "from_home") {
+                binding.destinationSearch.visibility = View.GONE
                 binding.currentBuilding.visibility = View.GONE
                 binding.youAreHere.visibility = View.GONE
             }

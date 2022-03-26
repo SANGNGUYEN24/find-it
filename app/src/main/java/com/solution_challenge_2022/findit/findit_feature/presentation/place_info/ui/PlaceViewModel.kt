@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Building
-import com.solution_challenge_2022.findit.findit_feature.domain.model.CampusInfo
+import com.solution_challenge_2022.findit.findit_feature.domain.model.PlaceInfo
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Service
 import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.GetCampusInfoUseCase
 import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.GetCurrentBuildingUseCase
@@ -29,8 +29,8 @@ class PlaceViewModel @Inject constructor(
     private val _qrCodeData = MutableLiveData<String>()
     val qrCodeData: LiveData<String> get() = _qrCodeData
 
-    private val _campusInfo = MutableLiveData<CampusInfo?>()
-    val campusInfo: LiveData<CampusInfo?> get() = _campusInfo
+    private val _campusInfo = MutableLiveData<PlaceInfo?>()
+    val placeInfo: LiveData<PlaceInfo?> get() = _campusInfo
 
     private val _building = MutableLiveData<Building?>()
     val currentBuilding: LiveData<Building?> get() = _building
