@@ -9,13 +9,16 @@ class Constant {
         const val WRITE_STORAGE_PERMISSION_CODE = 102
         val TAB_TITLES = arrayOf(
             R.string.tab_text_1,
-            R.string.tab_text_2
+            R.string.tab_text_2,
+            R.string.tab_text_3
         )
 
         // Firebase
         const val CAMPUS = "campus"
+        const val REVIEW = "review"
         const val BUILDING_INFO = "buildingInfo"
         const val SERVICE = "service"
+        const val USER_REVIEW = "userReview"
 
         // Key to transfer data between activities
         const val QR_CODE_KEY = "qr_code_key"
@@ -34,5 +37,6 @@ class Constant {
         const val BUILDING_DETAIL_TO_AR_MAP_DESTINATION_ID =
             "building_detail_to_ar_map_destination_id"
         const val SRC_TO_GET_PLACE_DETAIL = "src_to_get_place_detail"
+        const val REVIEW_FRAGMENT_TO_REVIEW_UPLOAD_RATING = "review_fragment_to_review_upload_rating"
     }
 }

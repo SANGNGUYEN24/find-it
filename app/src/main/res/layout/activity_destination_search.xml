@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".findit_feature.presentation.campus_info.ui.destination.DestinationSearchActivity">
+    tools:context=".findit_feature.presentation.place_info.ui.destination.DestinationSearchActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

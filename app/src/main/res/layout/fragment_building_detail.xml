@@ -7,7 +7,7 @@
 
         <variable
             name="buildingDetailViewModel"
-            type="com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailViewModel" />
+            type="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.building_detail.BuildingDetailViewModel" />
     </data>
 
     <RelativeLayout
@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    tools:context=".findit_feature.presentation.campus_info.ui.building_detail.BuildingDetailActivity">
+                    tools:context=".findit_feature.presentation.place_info.ui.building_detail.BuildingDetailActivity">
 
 
                     <com.makeramen.roundedimageview.RoundedImageView

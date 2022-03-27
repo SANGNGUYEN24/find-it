@@ -6,7 +6,7 @@
 
         <variable
             name="clickListener"
-            type="com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.destination.PopularAreaListener" />
+            type="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.PopularAreaListener" />
 
         <variable
             name="building"
@@ -61,7 +61,7 @@
                     android:maxLines="1"
                     android:text="@{building.buildingName}"
                     android:textColor="@color/blue_secondary_dark"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,9 +80,9 @@
                         style="@style/TextAppearance.AppCompat.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4.7"
+                        android:text="@{building.starNum.toString()}"
                         android:textColor="@color/black"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
 
                     <ImageView
                         android:layout_width="20dp"
@@ -97,9 +97,9 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="3"
-                        android:text="60+ reviews"
+                        android:text="@{(building.reviewNum &lt; 100 ? building.reviewNum : `100+`) + ` reviews`}"
                         android:textColor="@color/black"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 

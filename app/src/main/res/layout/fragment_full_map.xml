@@ -6,25 +6,39 @@
 
         <variable
             name="fullMapViewModel"
-            type="com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.full_map.FullMapViewModel" />
+            type="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.full_map.FullMapViewModel" />
 
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.github.chrisbanes.photoview.PhotoView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder"
-            app:imageUrl="@{fullMapViewModel.mapLink}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:imageUrl="@{fullMapViewModel.mapLink}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/editFullMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/image_button_rounded_corner"
+            android:padding="16dp"
+            android:src="@drawable/ic_round_arrow_back_24"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
 </layout>

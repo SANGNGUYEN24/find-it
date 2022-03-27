@@ -22,11 +22,10 @@ import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.databinding.ActivityMainBinding
-import com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.CampusInfoActivity
+import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.PlaceInfoActivity
 import com.solution_challenge_2022.findit.util.Constant
 import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
 import com.solution_challenge_2022.findit.util.Constant.Companion.SRC_TO_GET_PLACE_DETAIL
-import com.solution_challenge_2022.findit.util.DataMethod
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,11 +42,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        overridePendingTransition(
-            com.google.android.material.R.anim.abc_slide_in_top,
-            com.google.android.material.R.anim.abc_fade_out
-        )
 
         val toolbar = binding.toolbar
         val bottomNavView = binding.bottomNavView
@@ -178,7 +172,7 @@ class MainActivity : AppCompatActivity() {
                 val data = barcode.rawValue
                 if (data != null) {
                     qrCodeOutput = "$data"
-                    val gotoCampusInfo = Intent(this, CampusInfoActivity::class.java)
+                    val gotoCampusInfo = Intent(this, PlaceInfoActivity::class.java)
                     gotoCampusInfo.putExtra(QR_CODE_KEY, qrCodeOutput)
                     gotoCampusInfo.putExtra(SRC_TO_GET_PLACE_DETAIL, "from_qr")
                     startActivity(gotoCampusInfo)

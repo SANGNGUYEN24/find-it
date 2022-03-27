@@ -6,7 +6,7 @@
 
         <variable
             name="clickListener"
-            type="com.solution_challenge_2022.findit.findit_feature.presentation.campus_info.ui.event.ServiceListener" />
+            type="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.service.ServiceListener" />
 
         <variable
             name="service"

@@ -3,9 +3,9 @@ package com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus
 import com.solution_challenge_2022.findit.findit_feature.domain.repository.PlaceInfoRepository
 import javax.inject.Inject
 
-class GetServiceListUseCase @Inject constructor(
+class GetReviewListUseCase @Inject constructor(
     private val placeInfoRepository: PlaceInfoRepository
 ) {
     suspend operator fun invoke(campusId: String) =
-        placeInfoRepository.getServiceList(campusId)
+        placeInfoRepository.getReviewList(campusId)
 }

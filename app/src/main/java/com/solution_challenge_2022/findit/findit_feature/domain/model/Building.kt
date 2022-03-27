@@ -6,5 +6,7 @@ data class Building(
     val buildingId: String? = null,
     val campusName: String? = null,
     val campusId: String? = null,
-    var desc: String? = null
+    var desc: String? = null,
+    var starNum: Double? = null,
+    var reviewNum: Int? = null
 )

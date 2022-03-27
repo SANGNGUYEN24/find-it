@@ -20,6 +20,7 @@
     <string name="title_activity_campus">CampusActivity</string>
     <string name="tab_text_1">Destination</string>
     <string name="tab_text_2">Service</string>
+    <string name="tab_text_3">Review</string>
     <string name="cancel">Cancel</string>
     <string name="sign_out">Sign out</string>
 
