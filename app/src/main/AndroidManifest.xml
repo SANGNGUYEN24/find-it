@@ -26,7 +26,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FindIt">
         <activity
-            android:name="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.service.service_route.ServiceRouteActivity"
+            android:name=".findit_feature.presentation.place_info.ui.review.ReviewUploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".findit_feature.presentation.place_info.ui.service.service_route.ServiceRouteActivity"
             android:exported="false" />
         <activity
             android:name=".findit_feature.presentation.place_info.ui.destination.DestinationSearchActivity"
@@ -35,7 +38,7 @@
             android:name=".findit_feature.presentation.place_info.ui.building_detail.BuildingDetailActivity"
             android:exported="false" />
         <activity
-            android:name="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.full_map.FullMapActivity"
+            android:name=".findit_feature.presentation.place_info.ui.destination.full_map.FullMapActivity"
             android:exported="false" />
         <activity android:name=".findit_feature.presentation.ar_map.ArMapActivity" />
         <activity

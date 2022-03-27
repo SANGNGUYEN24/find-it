@@ -159,7 +159,6 @@
                         android:numStars="5"
                         android:scaleX=".7"
                         android:scaleY=".7"
-                        android:stepSize="1"
                         android:theme="@style/RatingBarCustom"
                         android:transformPivotX="32dp"
                         android:transformPivotY="32dp" />

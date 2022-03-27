@@ -37,5 +37,6 @@ class Constant {
         const val BUILDING_DETAIL_TO_AR_MAP_DESTINATION_ID =
             "building_detail_to_ar_map_destination_id"
         const val SRC_TO_GET_PLACE_DETAIL = "src_to_get_place_detail"
+        const val REVIEW_FRAGMENT_TO_REVIEW_UPLOAD_RATING = "review_fragment_to_review_upload_rating"
     }
 }
