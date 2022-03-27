@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:elevation="0dp"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:navigationContentDescription="Go back home screen"
             app:navigationIcon="@drawable/ic_home"
             app:title="Place Information">
@@ -33,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="0dp"
-                app:tabIndicatorAnimationDuration="400"
+                app:tabIndicatorAnimationDuration="200"
                 app:tabIndicatorColor="@color/blue_secondary"
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorGravity="bottom"

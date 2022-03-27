@@ -1,5 +1,6 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui
 
+import android.net.Uri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -7,8 +8,10 @@ import com.github.chrisbanes.photoview.PhotoView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Building
+import com.solution_challenge_2022.findit.findit_feature.domain.model.Review
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Service
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.PopularAreasAdapter
+import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.review.ReviewAdapter
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.service.ServiceAdapter
 
 // Binding adapter for Campus Map using Glide
@@ -39,5 +42,11 @@ fun bindPopularAreasRecyclerView(recyclerView: RecyclerView, data: List<Building
 @BindingAdapter("listData")
 fun bindServiceRecyclerView(recyclerView: RecyclerView, data: List<Service>?) {
     val adapter = recyclerView.adapter as ServiceAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("listData")
+fun bindReviewRecyclerView(recyclerView: RecyclerView, data: List<Review>?) {
+    val adapter = recyclerView.adapter as ReviewAdapter
     adapter.submitList(data)
 }

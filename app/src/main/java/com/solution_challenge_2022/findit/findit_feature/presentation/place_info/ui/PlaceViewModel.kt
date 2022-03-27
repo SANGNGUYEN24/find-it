@@ -1,17 +1,17 @@
 package com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Building
 import com.solution_challenge_2022.findit.findit_feature.domain.model.PlaceInfo
+import com.solution_challenge_2022.findit.findit_feature.domain.model.Review
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Service
-import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.GetCampusInfoUseCase
-import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.GetCurrentBuildingUseCase
-import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.GetPopularAreasListUseCase
-import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.GetServiceListUseCase
+import com.solution_challenge_2022.findit.findit_feature.domain.use_case.campus_info.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +21,9 @@ class PlaceViewModel @Inject constructor(
     private val getCampusInfoUseCase: GetCampusInfoUseCase,
     private val getCurrentBuildingUseCase: GetCurrentBuildingUseCase,
     private val getPopularAreasListUseCase: GetPopularAreasListUseCase,
-    private val getServiceListUseCase: GetServiceListUseCase
+    private val getServiceListUseCase: GetServiceListUseCase,
+    private val getReviewListUseCase: GetReviewListUseCase,
+    private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
     // TODO handle campusId, save it into viewmodel
     private lateinit var campusId: String
@@ -41,8 +43,19 @@ class PlaceViewModel @Inject constructor(
     private val _serviceList = MutableLiveData<List<Service>?>()
     val serviceList: LiveData<List<Service>?> get() = _serviceList
 
+    private val _reviewList = MutableLiveData<List<Review>?>()
+    val reviewList: LiveData<List<Review>?> get() = _reviewList
+
     private val _srcToGetData = MutableLiveData<String?>()
     val srcToGetData: LiveData<String?> get() = _srcToGetData
+
+    private val _profileUrl = MutableLiveData<Uri?>()
+    val profileUrl: LiveData<Uri?> get() = _profileUrl
+
+    init {
+        val currentUser = firebaseAuth.currentUser
+        _profileUrl.value = currentUser?.photoUrl
+    }
 
     private fun getCampusDestinationInfo(campusId: String, buildingId: String) {
         viewModelScope.launch {
@@ -57,6 +70,9 @@ class PlaceViewModel @Inject constructor(
             }
             launch {
                 _serviceList.value = getServiceListUseCase(campusId)
+            }
+            launch {
+                _reviewList.value = getReviewListUseCase(campusId)
             }
         }
     }

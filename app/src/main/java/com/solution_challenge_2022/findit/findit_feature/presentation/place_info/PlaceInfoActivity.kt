@@ -34,6 +34,8 @@ class PlaceInfoActivity : AppCompatActivity() {
         // Handle view pager
         val pager = binding.viewPager
         val tabLayout = binding.tabs
+        // Disable swipe because it cause laggy
+        pager.isUserInputEnabled = false
         pager.adapter = PlaceViewPagerAdapter(supportFragmentManager, lifecycle)
         TabLayoutMediator(tabLayout, pager) { tab, position ->
             tab.text = getString(TAB_TITLES[position])
