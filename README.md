@@ -26,7 +26,7 @@
 
 ## Technologies Used
 - Android with Kotlin, Java
-- Firebase (Authentication, Cloud Firestore, Storage, ML Kit, App Distribution)
+- Firebase (Authentication, Cloud Firestore, Storage, ML Kit, App Distribution, Crashlytics)
 - AR Core
 - Java GL (Open GL for Java)
 
