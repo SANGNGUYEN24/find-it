@@ -28,7 +28,7 @@ Find It, what? Here our app allows users to review all detailed information abou
 
 
 ## Screenshots
-![Home page](_readme/home.jpg) <br>
+![Home page](_readme/home.jpg)
 ![Desination page](_readme/destination.jpg)
 ![Service page](_readme/service.jpg)
 ![Review page](_readme/review.jpg)
