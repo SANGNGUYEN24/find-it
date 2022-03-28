@@ -28,16 +28,16 @@ Find It, what? Here our app allows users to review all detailed information abou
 
 
 ## Screenshots
-<!-- ![Home page](./_readme/home.jpg) <br>
+![Home page](./_readme/home.jpg) <br>
 ![Desination page](./_readme/destination.jpg)
 ![Service page](./_readme/service.jpg)
 ![Review page](./_readme/review.jpg)
-![User page](./_readme/user.jpg) -->
-<img src="./_readme/home.jpg" alt="home" width="200"/>
+![User page](./_readme/user.jpg)
+<!-- <img src="./_readme/home.jpg" alt="home" width="200"/>
 <img src="./_readme/destination.jpg" alt="destination" width="200"/>
 <img src="./_readme/service.jpg" alt="service" width="200"/>
 <img src="./_readme/review.jpg" alt="review" width="200"/>
-<img src="./_readme/user.jpg" alt="user" width="200"/>
+<img src="./_readme/user.jpg" alt="user" width="200"/> -->
 <!-- If you have screenshots you'd like to share, include them here.
 
 
