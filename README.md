@@ -1,4 +1,6 @@
 # Find It
+<img src="https://user-images.githubusercontent.com/78266241/161099748-0d735436-7d77-41cf-8f84-0da98e9b613c.png" width=50>
+
 > An app leveraging AR Core technology to help navigating and providing knowledge of places. <br>
 > Live demo [Find It video](https://www.youtube.com/watch?v=be_9zUZWJmU). <!-- If you have the project hosted somewhere, include the link here. -->
 
