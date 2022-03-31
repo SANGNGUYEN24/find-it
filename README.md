@@ -4,6 +4,7 @@
 
 ## Table of Contents
 * [Overview](#overview)
+* [How to run code?](#How to run code?)
 * [Technologies Used](#technologies-used)
 * [Screenshots](#screenshots)
 * [Contact](#contact)
@@ -16,6 +17,9 @@
 If you are from an area far away, going to a completely new place to attend an event, visiting campus for the first time as a new student or wanting to see what life out there, wandering throw places to raise knowledge about how big our world is. Maps will make you confuse a lot but not anymore because Find It is here to help.
 
 Find It, what? Here our app allows users to review all detailed information about the destinations, giving practical suggestions so that users can have an overview of places. Applying the most advanced AR technology from Google, we pride ourselves in providing users with immersive experiences that blend reality and virtual worlds to guide their destination. Bring services and events held at the venue with dedicated instructions, step-by-step processes with an intuitive and beautiful user interface. Find It is an application designed for all users, especially travelers from far away. They no longer have to worry about finding a new place without a map or guide, and even save a lot of time because everything to do is just a fingertip away.
+
+## How to run code?
+
 
 ## Technologies Used
 - Android with Kotlin, Java
