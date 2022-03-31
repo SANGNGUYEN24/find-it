@@ -1,7 +1,6 @@
 package com.solution_challenge_2022.findit.di
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.solution_challenge_2022.findit.findit_feature.data.repository.BuildingDetailImpl
 import com.solution_challenge_2022.findit.findit_feature.data.repository.PlaceInfoImpl
