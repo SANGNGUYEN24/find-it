@@ -42,7 +42,7 @@ In my case, I used command prompt on my Window computer to clone this repo
    
 6. After connecting to the phone successfully, click run button ![image](https://user-images.githubusercontent.com/78266241/161093587-f35d2949-4932-473d-b377-d4bb99e7da54.png) to build the app.
 
-7. To test the app, you can scan one of following QR code:
+7. To test the app, you can scan one of following QR codes:
 
     _Increase screen brightness to make QR scanning smoother_
     
@@ -53,10 +53,7 @@ In my case, I used command prompt on my Window computer to clone this repo
 ## Technologies Used
 - Android with Kotlin, Java
 - Firebase (Authentication, Cloud Firestore, Storage, ML Kit, App Distribution, Crashlytics)
-- AR Core
-- Java GL (Open GL for Java)
-
-
+- ARCore
 
 ## Screenshots
 ![Home page](_readme/home.jpg)
