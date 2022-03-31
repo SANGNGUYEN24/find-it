@@ -1,6 +1,6 @@
 # Find It
 > An app leveraging AR Core technology to help navigating and providing knowledge of places. <br>
-> Live demo [_here_](youtube link here or video link). <!-- If you have the project hosted somewhere, include the link here. -->
+> Live demo [Find It video](https://www.youtube.com/watch?v=be_9zUZWJmU). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 * [Overview](#overview)
