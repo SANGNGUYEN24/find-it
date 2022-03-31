@@ -48,7 +48,7 @@ In my case, I used command prompt on my Window computer to clone this repo
     
     <img src="https://user-images.githubusercontent.com/78266241/161094621-fedd4455-0f4b-4bf4-b599-da987272cdfa.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094628-c8ea3d3e-7314-4f8b-954d-77433abdec31.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094632-a388b792-a383-425a-9c94-ba24ffb8b75e.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094635-56621d1d-2bd0-419e-b88d-13abf3d504e2.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094640-39ce4a96-c56c-498b-84be-33ed0de243f9.png" width=200>
     
-    These QR codes are attached to Ho Chi Minh City University of Technology, VietNam  
+    These QR codes are attached to Ho Chi Minh City University of Technology, Vietnam  
 
 ## Technologies Used
 - Android with Kotlin, Java
