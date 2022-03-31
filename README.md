@@ -21,13 +21,13 @@ If you are from an area far away, going to a completely new place to attend an e
 Find It, what? Here our app allows users to review all detailed information about the destinations, giving practical suggestions so that users can have an overview of places. Applying the most advanced AR technology from Google, we pride ourselves in providing users with immersive experiences that blend reality and virtual worlds to guide their destination. Bring services and events held at the venue with dedicated instructions, step-by-step processes with an intuitive and beautiful user interface. Find It is an application designed for all users, especially travelers from far away. They no longer have to worry about finding a new place without a map or guide, and even save a lot of time because everything to do is just a fingertip away.
 
 ## How to run code
-1. Install [Android Studio](https://developer.android.com/studio?gclid=CjwKCAjwopWSBhB6EiwAjxmqDTWtCY4Ih65UNlYy5IjL_RpfmRggMSPU3mYgsPmexEnSMjJ1BWxiEhoCUn4QAvD_BwE&gclsrc=aw.ds)
-2. Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-3. Clone this repository (the main branch) on your computer by this commmand
+1. Install [Android Studio](https://developer.android.com/studio?gclid=CjwKCAjwopWSBhB6EiwAjxmqDTWtCY4Ih65UNlYy5IjL_RpfmRggMSPU3mYgsPmexEnSMjJ1BWxiEhoCUn4QAvD_BwE&gclsrc=aw.ds).
+2. Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+3. Clone this repository (the main branch) on your computer by this commmand.
 ```
 git clone https://github.com/SANGNGUYEN24/find-it.git
 ```
-In my case, I used command prompt on my Window computer to clone this repo
+In my case, I used command prompt on my Window computer to clone this repo.
 
 ![image](https://user-images.githubusercontent.com/78266241/161089521-f345f07c-5b5f-40eb-98c8-8dd54f2b1dd1.png)
 
@@ -44,11 +44,11 @@ In my case, I used command prompt on my Window computer to clone this repo
 
 7. To test the app, you can scan one of following QR codes:
 
-    _Increase screen brightness to make QR scanning smoother_
+    _Increase screen brightness to make QR scanning smoother_.
     
     <img src="https://user-images.githubusercontent.com/78266241/161094621-fedd4455-0f4b-4bf4-b599-da987272cdfa.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094628-c8ea3d3e-7314-4f8b-954d-77433abdec31.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094632-a388b792-a383-425a-9c94-ba24ffb8b75e.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094635-56621d1d-2bd0-419e-b88d-13abf3d504e2.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094640-39ce4a96-c56c-498b-84be-33ed0de243f9.png" width=200>
     
-    These QR codes are attached to Ho Chi Minh City University of Technology, Vietnam  
+    These QR codes are attached to Ho Chi Minh City University of Technology, Vietnam.
 
 ## Technologies Used
 - Android with Kotlin, Java
