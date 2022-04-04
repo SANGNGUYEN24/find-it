@@ -48,15 +48,19 @@ In my case, I used command prompt on my Window computer to clone this repo.
     
     <img src="https://user-images.githubusercontent.com/78266241/161094621-fedd4455-0f4b-4bf4-b599-da987272cdfa.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094628-c8ea3d3e-7314-4f8b-954d-77433abdec31.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094632-a388b792-a383-425a-9c94-ba24ffb8b75e.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094635-56621d1d-2bd0-419e-b88d-13abf3d504e2.png" width=200> <img src="https://user-images.githubusercontent.com/78266241/161094640-39ce4a96-c56c-498b-84be-33ed0de243f9.png" width=200>
     
-    Because these QR codes are attached to Ho Chi Minh City University of Technology, Vietnam.
-    After you scan a QR code, the app will show you are standing somewhere. 
-    To test the direction feature with AR map, select any destination then scan the surrounding environment until a virtual mesh appears, 
+    These QR codes are attached to Ho Chi Minh City University of Technology, Vietnam.
+    
+    To test the direction feature with AR map:
+    
+    - Firstly, LOGIN an account to the app (our Cloud Firestore security rules require you login to write data to database) 
+    - Secondly, scan a QR code, the app will show you are standing somewhere. 
+    - Thirdly, select any destination then scan the surrounding environment until a virtual mesh appears, 
     then you can act as admin to place some map pointers (anchor) , wait until the app notices that the anchors have been hosted.
     
     ![image](https://user-images.githubusercontent.com/78266241/161474577-50d02a31-855e-4600-a24f-a72533248f6d.png)
 
     
-    Press the clear button, now you are acting as a visitor, press the resolve button to make the anchors you set earlier appear again.
+    - Press the clear button, now you are acting as a visitor, press the resolve button to make the anchors you set earlier appear again.
 
     That's exactly how the AR navigation feature in Find It works.
     
