@@ -20,6 +20,8 @@ If you are from an area far away, going to a completely new place to attend an e
 
 Find It, what? Here our app allows users to review all detailed information about the destinations, giving practical suggestions so that users can have an overview of places. Applying the most advanced AR technology from Google, we pride ourselves in providing users with immersive experiences that blend reality and virtual worlds to guide their destination. Bring services and events held at the venue with dedicated instructions, step-by-step processes with an intuitive and beautiful user interface. Find It is an application designed for all users, especially travelers from far away. They no longer have to worry about finding a new place without a map or guide, and even save a lot of time because everything to do is just a fingertip away.
 
+Download Find It: https://bit.ly/FindItApp
+
 ## How to run code
 1. Install [Android Studio](https://developer.android.com/studio?gclid=CjwKCAjwopWSBhB6EiwAjxmqDTWtCY4Ih65UNlYy5IjL_RpfmRggMSPU3mYgsPmexEnSMjJ1BWxiEhoCUn4QAvD_BwE&gclsrc=aw.ds).
 2. Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
