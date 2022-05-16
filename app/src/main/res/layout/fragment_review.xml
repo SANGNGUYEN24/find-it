@@ -127,16 +127,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Your sharing"
+                    android:text="@string/your_sharing"
                     android:textColor="@color/black"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Share your thoughts about this place"
+                    android:text="@string/share_thought"
                     android:textColor="@color/grey"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -181,7 +181,7 @@
                 android:scrollbars="none">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -189,7 +189,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="Recently"
+                        android:text="@string/recently"
                         android:textColor="@color/black"
                         android:theme="@style/Theme.MaterialComponents.Light"
                         app:checkedIconTint="@color/blue_secondary"
@@ -202,7 +202,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:checkable="true"
-                        android:text="Most useful"
+                        android:text="@string/most_useful"
                         android:textColor="@color/black"
                         android:theme="@style/Theme.MaterialComponents.Light"
                         app:checkedIconTint="@color/blue_secondary"
@@ -215,7 +215,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:checkable="true"
-                        android:text="Positive"
+                        android:text="@string/positive"
                         android:textColor="@color/black"
                         android:theme="@style/Theme.MaterialComponents.Light"
                         app:checkedIconTint="@color/blue_secondary"
@@ -228,7 +228,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:checkable="true"
-                        android:text="Negative"
+                        android:text="@string/negative"
                         android:textColor="@color/black"
                         android:theme="@style/Theme.MaterialComponents.Light"
                         app:checkedIconTint="@color/blue_secondary"

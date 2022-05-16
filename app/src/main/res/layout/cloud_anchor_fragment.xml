@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/white"
-            android:text="Clear"
+            android:text="@string/clear"
             android:textAllCaps="false"
             android:textColor="@color/blue_secondary"
             app:cornerRadius="60dp"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/resolve_button_selector"
-            android:text="Resolve"
+            android:text="@string/resolve"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:cornerRadius="60dp" />

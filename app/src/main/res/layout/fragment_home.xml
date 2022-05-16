@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="Place you visited"
+                android:text="@string/place_visited"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:paddingEnd="8dp"
-                        android:text="Cre: HCMUT" />
+                        android:paddingStart="8dp"
+                        android:text="@string/cre_hcmut" />
 
                     <TextView
                         android:layout_width="match_parent"

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".findit_feature.presentation.place_info.ui.destination.full_map.FullMapActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fullMapFragment"
         android:name="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.full_map.FullMapFragment"
         android:layout_width="match_parent"

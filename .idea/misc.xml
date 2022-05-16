@@ -5,6 +5,26 @@
       <map>
         <entry key="..\:/Users/SANG NGUYEN DINH/.gradle/caches/transforms-3/0014181e5fb101bcef637bc58f07eb79/transformed/jetified-play-services-base-18.0.1/res/drawable/common_google_signin_btn_icon_light.xml" value="0.193" />
         <entry key="..\:/Users/SANG NGUYEN DINH/.gradle/caches/transforms-3/0014181e5fb101bcef637bc58f07eb79/transformed/jetified-play-services-base-18.0.1/res/drawable/common_google_signin_btn_text_light_normal.xml" value="0.193" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/activity_ar_map.xml" value="0.2296875" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/activity_building_detail.xml" value="0.2296875" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/activity_full_map.xml" value="0.2296875" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/activity_place_info.xml" value="0.1109375" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/activity_review_upload.xml" value="0.2296875" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/activity_service_route.xml" value="0.2296875" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/ar_tutorial.xml" value="0.2296875" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/cloud_anchor_fragment.xml" value="0.1" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/fragment_building_detail.xml" value="0.2296875" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/fragment_full_map.xml" value="0.1" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/fragment_place_destination.xml" value="0.1109375" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/fragment_place_service.xml" value="0.2296875" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/fragment_review.xml" value="0.1" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/fragment_setting.xml" value="0.1" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/popular_area_item.xml" value="0.15052083333333333" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/review_item.xml" value="0.15052083333333333" />
+        <entry key="..\:/development-area/find-it/app/src/main/res/layout/service_item.xml" value="0.15052083333333333" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.2235" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_home.xml" value="0.1715" />
         <entry key="..\:/development-area/kotlin-development/FindIt/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1855" />

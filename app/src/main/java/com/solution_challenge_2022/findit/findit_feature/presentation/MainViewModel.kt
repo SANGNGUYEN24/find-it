@@ -9,7 +9,7 @@ class MainViewModel : ViewModel() {
     private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> get() = _user
 
-    fun updateUser(user: User?){
+    fun updateUser(user: User?) {
         _user.value = user
     }
 }

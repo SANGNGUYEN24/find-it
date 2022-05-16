@@ -49,7 +49,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Where you want to go?" />
+                        android:text="@string/where_you_want_to_go" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:gravity="start"
-                    android:text="Place map" />
+                    android:text="@string/place_map" />
 
             </LinearLayout>
 
@@ -116,7 +116,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:hint="Fetching data..."
+                        android:hint="@string/loading"
                         android:text="@{placeViewModel.placeInfo.campusName}"
                         android:textColor="@color/blue_secondary_dark"
                         android:textSize="16sp" />
@@ -202,7 +202,7 @@
                             style="@style/TextAppearance.AppCompat.Body2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="Fetching data..."
+                            android:hint="@string/loading"
                             android:maxWidth="200dp"
                             android:text="@{placeViewModel.currentBuilding.buildingName}"
                             android:textColor="@color/blue_secondary_dark" />

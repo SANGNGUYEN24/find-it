@@ -47,7 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:hint="User Name"
             android:textColor="@color/black"
             android:textSize="24sp" />
 
@@ -72,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:hint="Share your experience about this place"
+                android:hint="@string/share_experience"
                 android:minHeight="100dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +85,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:backgroundTint="@color/blue_secondary"
-        android:text="Post"
+        android:text="@string/post"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:cornerRadius="60dp"
