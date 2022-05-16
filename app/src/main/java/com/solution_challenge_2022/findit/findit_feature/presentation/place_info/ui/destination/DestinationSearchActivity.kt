@@ -6,6 +6,15 @@ import com.solution_challenge_2022.findit.databinding.ActivityDestinationSearchB
 
 class DestinationSearchActivity : AppCompatActivity() {
     lateinit var binding: ActivityDestinationSearchBinding
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_fade_in,
+            com.google.android.material.R.anim.abc_fade_out
+        );
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
