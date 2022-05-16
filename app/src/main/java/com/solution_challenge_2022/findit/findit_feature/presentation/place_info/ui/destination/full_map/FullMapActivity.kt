@@ -11,6 +11,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class FullMapActivity : AppCompatActivity() {
     lateinit var binding: ActivityFullMapBinding
     private val fullMapViewModel: FullMapViewModel by viewModels()
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_fade_in,
+            com.google.android.material.R.anim.abc_fade_out
+        );
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

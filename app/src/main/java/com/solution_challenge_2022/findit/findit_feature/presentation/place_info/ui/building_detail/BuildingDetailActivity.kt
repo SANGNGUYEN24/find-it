@@ -21,6 +21,15 @@ class BuildingDetailActivity : AppCompatActivity() {
     private lateinit var currentBuildingName: String
     lateinit var binding: ActivityBuildingDetailBinding
     private val buildingDetailViewModel: BuildingDetailViewModel by viewModels()
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_fade_in,
+            com.google.android.material.R.anim.abc_fade_out
+        );
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

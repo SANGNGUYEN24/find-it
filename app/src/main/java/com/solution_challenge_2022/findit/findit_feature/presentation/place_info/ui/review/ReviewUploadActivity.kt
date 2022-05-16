@@ -14,6 +14,14 @@ class ReviewUploadActivity : AppCompatActivity() {
     lateinit var binding: ActivityReviewUploadBinding
     private val firebaseAuth = FirebaseAuth.getInstance()
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_fade_in,
+            com.google.android.material.R.anim.abc_fade_out
+        );
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
