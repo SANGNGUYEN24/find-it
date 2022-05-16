@@ -14,6 +14,15 @@ import com.solution_challenge_2022.findit.findit_feature.presentation.place_info
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.review.ReviewAdapter
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.service.ServiceAdapter
 
+@BindingAdapter("imageUrl")
+fun bindProfileImage(image: RoundedImageView, imageUrl: Uri?) {
+    imageUrl?.let {
+        Glide.with(image.context).load(imageUrl)
+            .placeholder(R.drawable.placeholder)
+            .into(image)
+    }
+}
+
 // Binding adapter for Campus Map using Glide
 @BindingAdapter("imageUrl")
 fun bindImage(image: RoundedImageView, imageUrl: String?) {

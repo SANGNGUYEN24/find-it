@@ -1,6 +1,5 @@
 package com.solution_challenge_2022.findit.findit_feature.data.repository
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Building
 import com.solution_challenge_2022.findit.findit_feature.domain.model.PlaceInfo
@@ -43,11 +42,8 @@ class PlaceInfoImpl @Inject constructor(
     }
 
     override suspend fun getReviewList(campusId: String): List<Review> {
-        val a = db.collection(REVIEW).document(campusId).collection(USER_REVIEW).get().await()
+        return db.collection(REVIEW).document(campusId).collection(USER_REVIEW).get().await()
             .toObjects(Review::class.java)
-        Log.d("FindIt data", a.toString())
-
-        return a
     }
 }
 

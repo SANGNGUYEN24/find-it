@@ -16,6 +16,12 @@ class ReviewUploadActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_fade_in,
+            com.google.android.material.R.anim.abc_fade_out
+        )
+
         binding = ActivityReviewUploadBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

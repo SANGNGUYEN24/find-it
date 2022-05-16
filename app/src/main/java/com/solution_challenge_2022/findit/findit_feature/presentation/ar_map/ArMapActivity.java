@@ -29,6 +29,12 @@ public class ArMapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        overridePendingTransition(
+                com.google.android.material.R.anim.abc_fade_in,
+                com.google.android.material.R.anim.abc_fade_out
+        );
+
         setContentView(R.layout.activity_ar_map);
 
         final String currentBuildingId = getIntent().getStringExtra(BUILDING_DETAIL_TO_AR_MAP_CURRENT_BUILDING_ID);

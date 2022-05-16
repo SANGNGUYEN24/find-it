@@ -23,6 +23,12 @@ class BuildingDetailActivity : AppCompatActivity() {
     private val buildingDetailViewModel: BuildingDetailViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_fade_in,
+            com.google.android.material.R.anim.abc_fade_out
+        )
+
         binding = ActivityBuildingDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

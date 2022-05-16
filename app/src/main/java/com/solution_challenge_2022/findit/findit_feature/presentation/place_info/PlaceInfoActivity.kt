@@ -21,6 +21,12 @@ class PlaceInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_fade_in,
+            com.google.android.material.R.anim.abc_fade_out
+        )
+
         val placeViewModel: PlaceViewModel by viewModels()
         binding = ActivityPlaceInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
