@@ -99,8 +99,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     @Nullable
     private Anchor currentAnchor = null;
     private ArrayList<Anchor> currentAnchorList = new ArrayList<>();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList<String> anchorIdList = new ArrayList<>();
+    //FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //ArrayList<String> anchorIdList = new ArrayList<>();
     private boolean isOverridingAvailable = false;
     private String src = "temp_src", des = "temp_des";
 
@@ -354,14 +354,41 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
             if (!currentAnchorList.isEmpty() && currentAnchorList.get(0).getTrackingState() == TrackingState.TRACKING) {
-                for (Anchor anchor : currentAnchorList) {
-                    anchor.getPose().toMatrix(anchorMatrix, 0);
-                    virtualObject.updateModelMatrix(anchorMatrix, 1f);
-                    //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
-                    final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
-                    virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
-                    //virtualObjectShadow.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
+                for (int i = 0; i < currentAnchorList.size(); i++) {
+                    if (i ==0) {
+                        Anchor anchor = currentAnchorList.get(i);
+                        anchor.getPose().toMatrix(anchorMatrix, 0);
+                        virtualObject.updateModelMatrix(anchorMatrix, 1f);
+                        //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+                        final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+                    }
+                    else if (i == currentAnchorList.size() - 1) {
+                        Anchor anchor = currentAnchorList.get(i);
+                        anchor.getPose().toMatrix(anchorMatrix, 0);
+                        virtualObject.updateModelMatrix(anchorMatrix, 1f);
+                        //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+                        final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+                    }
+                    else {
+                        Anchor anchor = currentAnchorList.get(i);
+                        anchor.getPose().toMatrix(anchorMatrix, 0);
+                        virtualObject.updateModelMatrix(anchorMatrix, 1f);
+                        //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+                        final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+                    }
                 }
+//                for (Anchor anchor : currentAnchorList) {
+//
+//                    anchor.getPose().toMatrix(anchorMatrix, 0);
+//                    virtualObject.updateModelMatrix(anchorMatrix, 1f);
+//                    //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+//                    final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+//                    virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+//                    //virtualObjectShadow.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
+//                }
             }
         } catch (Throwable t) {
             // Avoid crashing the application due to unhandled exceptions.
