@@ -1,19 +1,3 @@
-/*
- * Copyright 2019 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.solution_challenge_2022.findit.findit_feature.presentation.ar_map;
 
 import android.app.AlertDialog;
@@ -23,6 +7,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -93,36 +79,37 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     private final CloudAnchorManager cloudAnchorManager = new CloudAnchorManager();
     private final BackgroundRenderer backgroundRenderer = new BackgroundRenderer();
     private final ObjectRenderer virtualObject = new ObjectRenderer();
-    // private final ObjectRenderer virtualObjectShadow = new ObjectRenderer();
     private final PlaneRenderer planeRenderer = new PlaneRenderer();
     private final PointCloudRenderer pointCloudRenderer = new PointCloudRenderer();
     // Temporary matrix allocated here to reduce number of allocations for each frame.
     private final float[] anchorMatrix = new float[16];
     private final float[] andyColor = {139.0f, 195.0f, 74.0f, 255.0f};
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<String> anchorIdList = new ArrayList<>();
     // Rendering. The Renderers are created here, and initialized when the GL surface is created.
     private GLSurfaceView surfaceView;
     private Button resolveButton;
+    private AppCompatImageButton exitArMap;
     private boolean installRequested;
     private Session session;
     private DisplayRotationHelper displayRotationHelper;
     private TrackingStateHelper trackingStateHelper;
     private TapHelper tapHelper;
+
     @Nullable
     private Anchor currentAnchor = null;
-
     private ArrayList<Anchor> currentAnchorList = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<String> anchorIdList = new ArrayList<>();
-    private String src, des;
     private boolean isOverridingAvailable = false;
+    private String src = "temp_src", des = "temp_des";
+
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         tapHelper = new TapHelper(context);
         trackingStateHelper = new TrackingStateHelper(requireActivity());
-        src = "a4";
-        des = "b4";
     }
 
     @Override
@@ -149,8 +136,27 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         resolveButton.setOnClickListener(v -> onResolveButtonPressed());
         resolveButton.setOnClickListener(v -> onResolveButtonPressed());
 
+        exitArMap = rootView.findViewById(R.id.editArMap);
+        exitArMap.setOnClickListener(v -> requireActivity().finish());
+
+        // Get input data: currentBuildingId and destinationId
+        assert getArguments() != null;
+        src = getArguments().getString("currentBuildingId");
+        des = getArguments().getString("destinationId");
+
+        Toast.makeText(getContext(), "Connected to AR Map!", Toast.LENGTH_LONG).show();
+
+        // Show AR tutorial
+        AlertDialog.Builder alertadd = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.AlertDialogCustom));
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View view = factory.inflate(R.layout.ar_tutorial, null);
+        alertadd.setView(view);
+        alertadd.setNeutralButton("OK", (dlg, sumthin) -> dlg.dismiss());
+        alertadd.show();
+
         return rootView;
     }
+
 
     @Override
     public void onResume() {
@@ -348,8 +354,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
             if (!currentAnchorList.isEmpty() && currentAnchorList.get(0).getTrackingState() == TrackingState.TRACKING) {
-                for (Anchor anchor : currentAnchorList){
-                    anchor.getPose().toMatrix(anchorMatrix,0);
+                for (Anchor anchor : currentAnchorList) {
+                    anchor.getPose().toMatrix(anchorMatrix, 0);
                     virtualObject.updateModelMatrix(anchorMatrix, 1f);
                     //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
                     final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
@@ -462,7 +468,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             Map<String, Object> docData = new HashMap<>();
             docData.put("anchorIdList", anchorIdList);
 //            docData.put("num", currentAnchorList.size());
-            messageSnackbarHelper.showMessage(getActivity(), anchorIdList.size() + " Cloud Anchor are hosted." );
+            messageSnackbarHelper.showMessage(getActivity(), anchorIdList.size() + " Cloud Anchor are hosted.");
 
             db.collection("campus").document("hcmut")
                     .collection("arPath")
@@ -533,32 +539,31 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                 .collection("arPath")
                 .document(src + "-" + des)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            ArrayList<String> _anchorIdList = (ArrayList<String>)document.get("anchorIdList");
-                            if (document.exists()) {
-                                if (_anchorIdList != null) {
-                                    for (String id : _anchorIdList){
-                                        cloudAnchorManager.resolveCloudAnchor(
-                                                session,
-                                                id,
-                                                anchor -> onResolvedAnchorAvailable(anchor));
-                                    }
-                                }
-                                else {
-                                    messageSnackbarHelper.showMessage(getActivity(),
-                                            "No such anchor" );
-                                }
-                                Log.e(TAG, "DocumentSnapshot data: " + document.getData());
-                            } else {
-                                Log.e(TAG, "No such document");
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    ArrayList<String> _anchorIdList = (ArrayList<String>) document.get("anchorIdList");
+                    if (document.exists()) {
+                        if (_anchorIdList != null) {
+                            for (String id : _anchorIdList) {
+                                cloudAnchorManager.resolveCloudAnchor(
+                                        session,
+                                        id,
+                                        anchor -> onResolvedAnchorAvailable(anchor));
                             }
                         } else {
-                            Log.d(TAG, "get failed with ", task.getException());
+                            messageSnackbarHelper.showMessage(getActivity(),
+                                    "No such anchor");
                         }
+                        Log.e(TAG, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.e(TAG, "No such document");
                     }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
         });
 
     }
