@@ -107,8 +107,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     private DisplayRotationHelper displayRotationHelper;
     private TrackingStateHelper trackingStateHelper;
     private TapHelper tapHelper;
-    //  private final StorageManager storageManager = new StorageManager();
-//    private FirebaseManager firebaseManager;
     @Nullable
     private Anchor currentAnchor = null;
 
@@ -116,7 +114,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<String> anchorIdList = new ArrayList<>();
     private String src, des;
-    private boolean isAddAnchorAvailable = false;
     private boolean isOverridingAvailable = false;
 
     @Override
@@ -126,7 +123,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         trackingStateHelper = new TrackingStateHelper(requireActivity());
         src = "a4";
         des = "b4";
-//        firebaseManager = new FirebaseManager(context);
     }
 
     @Override
@@ -367,63 +363,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         }
     }
     private boolean isExisted = false;
-    // Handle only one tap per frame, as taps are usually low frequency compared to frame rate.
-    private void handleTap(Frame frame, Camera camera) {
-//        if (currentAnchor != null) {
-//            return; // Do nothing if there was already an anchor.
-//        }
-
-        MotionEvent tap = tapHelper.poll();
-        if (tap != null && camera.getTrackingState() == TrackingState.TRACKING) {
-            for (HitResult hit : frame.hitTest(tap)) {
-                // Check if any plane was hit, and if it was hit inside the plane polygon
-                Trackable trackable = hit.getTrackable();
-                // Creates an anchor if a plane or an oriented point was hit.
-                if ((trackable instanceof Plane
-                        && ((Plane) trackable).isPoseInPolygon(hit.getHitPose())
-                        && (PlaneRenderer.calculateDistanceToPlane(hit.getHitPose(), camera.getPose()) > 0))
-                        || (trackable instanceof Point
-                        && ((Point) trackable).getOrientationMode()
-                        == OrientationMode.ESTIMATED_SURFACE_NORMAL)) {
-                    // Hits are sorted by depth. Consider only closest hit on a plane or oriented point.
-
-                    readData(anchorIsExisted -> {
-                        Log.e(TAG, "onCallBack anchorIdExist = " + anchorIsExisted);
-                        if (isAddAnchorAvailable){
-                            // Adding an Anchor tells ARCore that it should track this position in
-                            // space. This anchor is created on the Plane to place the 3D model
-                            // in the correct position relative both to the world and to the plane.
-                            currentAnchor = hit.createAnchor();
-                            currentAnchorList.add(currentAnchor);
-
-                            getActivity().runOnUiThread(() -> resolveButton.setEnabled(false));
-
-                            messageSnackbarHelper.showMessage(getActivity(), "Now hosting anchor...");
-                            cloudAnchorManager.hostCloudAnchor(session, currentAnchor,
-                                    /* ttl= */ 300, this::onHostedAnchorAvailable);
-                        }
-                        else {
-                            if (isOverridingAvailable) {
-                                isAddAnchorAvailable = true;
-                            }
-                            if (anchorIsExisted) {
-                                getActivity().runOnUiThread(() -> {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                    builder.setMessage("The Path from " + src + " to " + des
-                                        + " is already existed! Do you want to override it?")
-                                        .setPositiveButton("Yes", dialogClickListener)
-                                        .setNegativeButton("No", dialogClickListener).show();
-                                    }
-                                );
-                            }
-
-                        }
-                    });
-                    break;
-                }
-            }
-        }
-    }
     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -440,6 +379,58 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             }
         }
     };
+
+    // Handle only one tap per frame, as taps are usually low frequency compared to frame rate.
+    private void handleTap(Frame frame, Camera camera) {
+        MotionEvent tap = tapHelper.poll();
+        if (tap != null && camera.getTrackingState() == TrackingState.TRACKING) {
+            for (HitResult hit : frame.hitTest(tap)) {
+                // Check if any plane was hit, and if it was hit inside the plane polygon
+                Trackable trackable = hit.getTrackable();
+                // Creates an anchor if a plane or an oriented point was hit.
+                if ((trackable instanceof Plane
+                        && ((Plane) trackable).isPoseInPolygon(hit.getHitPose())
+                        && (PlaneRenderer.calculateDistanceToPlane(hit.getHitPose(), camera.getPose()) > 0))
+                        || (trackable instanceof Point
+                        && ((Point) trackable).getOrientationMode()
+                        == OrientationMode.ESTIMATED_SURFACE_NORMAL)) {
+                    // Hits are sorted by depth. Consider only closest hit on a plane or oriented point.
+
+                    readData(anchorIsExisted -> {
+                        Log.e(TAG, "onCallBack anchorIdExist = " + anchorIsExisted);
+//                        if (isAddAnchorAvailable){
+                        if (isOverridingAvailable){
+                            // Adding an Anchor tells ARCore that it should track this position in
+                            // space. This anchor is created on the Plane to place the 3D model
+                            // in the correct position relative both to the world and to the plane.
+                            currentAnchor = hit.createAnchor();
+                            currentAnchorList.add(currentAnchor);
+
+                            getActivity().runOnUiThread(() -> resolveButton.setEnabled(false));
+
+                            messageSnackbarHelper.showMessage(getActivity(), "Now hosting anchor...");
+                            cloudAnchorManager.hostCloudAnchor(session, currentAnchor,
+                                    /* ttl= */ 300, this::onHostedAnchorAvailable);
+                        }
+                        else {
+                            if (anchorIsExisted) { // TODO: why this is dupicate
+                                getActivity().runOnUiThread(() -> {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setMessage("The Path from " + src + " to " + des
+                                        + " is already existed! Do you want to override it?")
+                                        .setPositiveButton("Yes", dialogClickListener)
+                                        .setNegativeButton("No", dialogClickListener).show();
+                                    }
+                                );
+                            }
+                        }
+                    });
+                    break;
+                }
+            }
+        }
+    }
+
 
     /**
      * Checks if we detected at least one plane.
@@ -460,10 +451,10 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         currentAnchor = null;
         currentAnchorList.clear();
         anchorIdList.clear();
-        isAddAnchorAvailable = false;
+        isOverridingAvailable = false;
     }
 
-    private synchronized void onHostedAnchorAvailable(Anchor anchor) {
+    private synchronized void onHostedAnchorAvailable(@NonNull Anchor anchor) {
         Anchor.CloudAnchorState cloudState = anchor.getCloudAnchorState();
         if (cloudState == Anchor.CloudAnchorState.SUCCESS) {
             String cloudAnchorId = anchor.getCloudAnchorId();
@@ -489,34 +480,11 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                             Log.w(TAG, "Error writing document", e);
                         }
                     });
-
-//            firebaseManager.nextShortCode(shortCode -> {
-//                if (shortCode != null) {
-//                    firebaseManager.storeUsingShortCode(shortCode, cloudAnchorId);
-//                    messageSnackbarHelper.showMessage(getActivity(), "Cloud Anchor Hosted. Short code: " + shortCode);
-//                } else {
-//                    // Firebase could not provide a short code.
-//                    messageSnackbarHelper.showMessage(getActivity(), "Cloud Anchor Hosted, but could not "
-//                            + "get a short code from Firebase.");
-//                }
-//            });
-//            currentAnchor = anchor;
         } else {
             messageSnackbarHelper.showMessage(getActivity(), "Error while hosting: " + cloudState.toString());
         }
     }
-//    private boolean anchorIsExist() {
-//        final boolean[] ret = new boolean[1];
-//        readData(new FirestoreCallBack() {
-//            @Override
-//            public boolean onCallBack(boolean anchorIsExisted) {
-//                Log.e(TAG, "onCallBack anchorIdExisted: " + String.valueOf(anchorIsExisted));
-//                ret[0] = anchorIsExisted;
-//                return anchorIsExisted;
-//            }
-//        });
-//        return ret[0];
-//    }
+
     private void readData(FirestoreCallBack firestoreCallBack){
         boolean[] anchorExisted = {false};
         db.collection("campus").document("hcmut")
@@ -560,9 +528,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     }
 
     private synchronized void onResolveButtonPressed() {
-//        ResolveDialogFragment dialog = ResolveDialogFragment.createWithOkListener(
-//                this::onShortCodeEntered);
-//        dialog.show(getActivity().getSupportFragmentManager(), "Resolve");
         resolveButton.setEnabled(false);
         db.collection("campus").document("hcmut")
                 .collection("arPath")
@@ -598,36 +563,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
     }
 
-//    private synchronized void onShortCodeEntered(int shortCode) {
-//        firebaseManager.getCloudAnchorId(shortCode, cloudAnchorId -> {
-//            if (cloudAnchorId == null || cloudAnchorId.isEmpty()) {
-//                messageSnackbarHelper.showMessage(
-//                        getActivity(),
-//                        "A Cloud Anchor ID for the short code " + shortCode + " was not found.");
-//                return;
-//            }
-//            resolveButton.setEnabled(false);
-//            cloudAnchorManager.resolveCloudAnchor(
-//                    session,
-//                    cloudAnchorId,
-//                    anchor -> onResolvedAnchorAvailable(anchor, shortCode));
-//        });
-//    }
-
-//    private synchronized void onResolvedAnchorAvailable(Anchor anchor, int shortCode) {
-//        Anchor.CloudAnchorState cloudState = anchor.getCloudAnchorState();
-//        if (cloudState == Anchor.CloudAnchorState.SUCCESS) {
-//            messageSnackbarHelper.showMessage(getActivity(), "Cloud Anchor Resolved. Short code: " + shortCode);
-//            currentAnchor = anchor;
-//            currentAnchorList.add(anchor);
-//        } else {
-//            messageSnackbarHelper.showMessage(
-//                    getActivity(),
-//                    "Error while resolving anchor with short code " + shortCode + ". Error: "
-//                            + cloudState.toString());
-//            resolveButton.setEnabled(true);
-//        }
-//    }
     private synchronized void onResolvedAnchorAvailable(Anchor anchor) {
         Anchor.CloudAnchorState cloudState = anchor.getCloudAnchorState();
         if (cloudState == Anchor.CloudAnchorState.SUCCESS) {
