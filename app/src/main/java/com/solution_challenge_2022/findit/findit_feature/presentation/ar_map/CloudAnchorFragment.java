@@ -79,6 +79,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     private final CloudAnchorManager cloudAnchorManager = new CloudAnchorManager();
     private final BackgroundRenderer backgroundRenderer = new BackgroundRenderer();
     private final ObjectRenderer virtualObject = new ObjectRenderer();
+    private final ObjectRenderer virtualObjectStart = new ObjectRenderer();
+    private final ObjectRenderer virtualObjectEnd = new ObjectRenderer();
     private final PlaneRenderer planeRenderer = new PlaneRenderer();
     private final PointCloudRenderer pointCloudRenderer = new PointCloudRenderer();
     // Temporary matrix allocated here to reduce number of allocations for each frame.
@@ -99,8 +101,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     @Nullable
     private Anchor currentAnchor = null;
     private ArrayList<Anchor> currentAnchorList = new ArrayList<>();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList<String> anchorIdList = new ArrayList<>();
+    //FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //ArrayList<String> anchorIdList = new ArrayList<>();
     private boolean isOverridingAvailable = false;
     private String src = "temp_src", des = "temp_des";
 
@@ -268,6 +270,12 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             virtualObject.createOnGlThread(getContext(), "models/Locator.obj", "models/color_warp.png");
             virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
+            virtualObjectStart.createOnGlThread(getContext(), "models/triceratops.obj", "models/color_warp.png");
+            virtualObjectStart.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
+
+            virtualObjectEnd.createOnGlThread(getContext(), "models/triceratops.obj", "models/color_warp.png");
+            virtualObjectEnd.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
+
 //            virtualObjectShadow
 //                    .createOnGlThread(getContext(), "models/andy_shadow.obj", "models/andy_shadow.png");
 //            virtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
@@ -354,14 +362,41 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
             if (!currentAnchorList.isEmpty() && currentAnchorList.get(0).getTrackingState() == TrackingState.TRACKING) {
-                for (Anchor anchor : currentAnchorList) {
-                    anchor.getPose().toMatrix(anchorMatrix, 0);
-                    virtualObject.updateModelMatrix(anchorMatrix, 1f);
-                    //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
-                    final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
-                    virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
-                    //virtualObjectShadow.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
+                for (int i = 0; i < currentAnchorList.size(); i++) {
+                    if (i ==0) {
+                        Anchor anchor = currentAnchorList.get(i);
+                        anchor.getPose().toMatrix(anchorMatrix, 0);
+                        virtualObjectStart.updateModelMatrix(anchorMatrix, 1f);
+                        //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+                        final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+                    }
+                    else if (i == currentAnchorList.size() - 1) {
+                        Anchor anchor = currentAnchorList.get(i);
+                        anchor.getPose().toMatrix(anchorMatrix, 0);
+                        virtualObjectEnd.updateModelMatrix(anchorMatrix, 1f);
+                        //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+                        final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+                    }
+                    else {
+                        Anchor anchor = currentAnchorList.get(i);
+                        anchor.getPose().toMatrix(anchorMatrix, 0);
+                        virtualObject.updateModelMatrix(anchorMatrix, 1f);
+                        //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+                        final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+                    }
                 }
+//                for (Anchor anchor : currentAnchorList) {
+//
+//                    anchor.getPose().toMatrix(anchorMatrix, 0);
+//                    virtualObject.updateModelMatrix(anchorMatrix, 1f);
+//                    //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+//                    final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+//                    virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+//                    //virtualObjectShadow.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
+//                }
             }
         } catch (Throwable t) {
             // Avoid crashing the application due to unhandled exceptions.
