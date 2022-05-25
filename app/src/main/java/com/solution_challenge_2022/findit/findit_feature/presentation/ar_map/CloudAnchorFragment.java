@@ -34,6 +34,7 @@ import com.google.ar.core.Plane;
 import com.google.ar.core.Point;
 import com.google.ar.core.Point.OrientationMode;
 import com.google.ar.core.PointCloud;
+import com.google.ar.core.Pose;
 import com.google.ar.core.Session;
 import com.google.ar.core.Trackable;
 import com.google.ar.core.TrackingState;
@@ -60,6 +61,7 @@ import com.solution_challenge_2022.helpers.rendering.PointCloudRenderer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,9 +101,9 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     @Nullable
     private Anchor currentAnchor = null;
     private ArrayList<Anchor> currentAnchorList = new ArrayList<>();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList<String> anchorIdList = new ArrayList<>();
     private boolean isOverridingAvailable = false;
+    private float totalDistance = 0;
+    private int initPoint = 0; // Starting point
     private String src = "temp_src", des = "temp_des";
 
 
@@ -267,12 +269,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
             virtualObject.createOnGlThread(getContext(), "models/Locator.obj", "models/color_warp.png");
             virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
-
-//            virtualObjectShadow
-//                    .createOnGlThread(getContext(), "models/andy_shadow.obj", "models/andy_shadow.png");
-//            virtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
-//            virtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
-
         } catch (IOException e) {
             Log.e(TAG, "Failed to read an asset file", e);
         }
@@ -284,6 +280,11 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         GLES20.glViewport(0, 0, width, height);
     }
 
+    public float distance2Points(float[] A, float[]  B){
+        return (float) Math.sqrt(Math.pow(A[0] - B[0], 2) +
+                Math.pow(A[1] - B[1], 2) +
+                Math.pow(A[2] - B[2], 2));
+    }
     @Override
     public void onDrawFrame(GL10 gl) {
         // Clear screen to notify driver it should not load any pixels from previous frame.
@@ -354,14 +355,73 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
             if (!currentAnchorList.isEmpty() && currentAnchorList.get(0).getTrackingState() == TrackingState.TRACKING) {
-                for (Anchor anchor : currentAnchorList) {
+//                Log.d(TAG, "ALU Camera distance: " + hit.getDistance());
+//                Log.d(TAG, "ALU Translation x, y, z: " + Arrays.toString(hit.getHitPose().getTranslation()));
+//                Log.d(TAG, "ALU Rotation x, y, z: " + Arrays.toString(hit.getHitPose().getRotationQuaternion()));
+//                Log.d(TAG, "ALU camera pose: " + camera.getDisplayOrientedPose());
+
+                Anchor currAnchor = currentAnchorList.get(initPoint);
+                float anchor2camera = distance2Points(currAnchor.getPose().getTranslation(), camera.getDisplayOrientedPose().getTranslation());
+                if (initPoint < currentAnchorList.size() - 1) {
+                    Anchor nextAnchor = currentAnchorList.get(initPoint + 1);
+                    float nextAnchor2camera = distance2Points(nextAnchor.getPose().getTranslation(), camera.getDisplayOrientedPose().getTranslation());
+                    if (nextAnchor2camera > anchor2camera){
+                        initPoint ++;
+                        totalDistance = nextAnchor2camera;
+                    }
+                }
+                else if (initPoint > 0) {
+                    Anchor prevAnchor = currentAnchorList.get(initPoint - 1);
+                    float prevAnchor2camera = distance2Points(prevAnchor.getPose().getTranslation(), camera.getDisplayOrientedPose().getTranslation());
+                    if (anchor2camera > prevAnchor2camera){
+                        initPoint --;
+                        totalDistance = prevAnchor2camera;
+                    }
+                }
+                totalDistance = anchor2camera;
+                //camera update here
+                // table of distance need to store
+
+                for (int i = initPoint; i < currentAnchorList.size(); i++) {
+                    Anchor anchor = currentAnchorList.get(i);
+                    // TODO: compute length from initPoint
+                    if (i < currentAnchorList.size() - 1){
+                        Anchor nextAnchor = currentAnchorList.get(i + 1);
+                        totalDistance += distance2Points(anchor.getPose().getTranslation(), nextAnchor.getPose().getTranslation());
+                    }
                     anchor.getPose().toMatrix(anchorMatrix, 0);
                     virtualObject.updateModelMatrix(anchorMatrix, 1f);
                     //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
                     final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
                     virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
-                    //virtualObjectShadow.draw(viewmtx, projmtx, colorCorrectionRgba, andyColor);
                 }
+                Log.d(TAG, "ALU totalDistance: " + totalDistance);
+//                for (int i = 0; i < currentAnchorList.size(); i++) {
+//                    if (i ==0) {
+//                        Anchor anchor = currentAnchorList.get(i);
+//                        anchor.getPose().toMatrix(anchorMatrix, 0);
+//                        virtualObject.updateModelMatrix(anchorMatrix, 3f);
+//                        //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+//                        final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+//                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+//                    }
+//                    else if (i == currentAnchorList.size() - 1) {
+//                        Anchor anchor = currentAnchorList.get(i);
+//                        anchor.getPose().toMatrix(anchorMatrix, 0);
+//                        virtualObject.updateModelMatrix(anchorMatrix, 3f);
+//                        //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+//                        final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+//                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+//                    }
+//                    else {
+//                        Anchor anchor = currentAnchorList.get(i);
+//                        anchor.getPose().toMatrix(anchorMatrix, 0);
+//                        virtualObject.updateModelMatrix(anchorMatrix, 1f);
+//                        //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
+//                        final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+//                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+//                    }
+//                }
             }
         } catch (Throwable t) {
             // Avoid crashing the application due to unhandled exceptions.
@@ -387,6 +447,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     };
 
     // Handle only one tap per frame, as taps are usually low frequency compared to frame rate.
+    //TODO: DO not allow to tap resolving
     private void handleTap(Frame frame, Camera camera) {
         MotionEvent tap = tapHelper.poll();
         if (tap != null && camera.getTrackingState() == TrackingState.TRACKING) {
@@ -411,6 +472,16 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                             // in the correct position relative both to the world and to the plane.
                             currentAnchor = hit.createAnchor();
                             currentAnchorList.add(currentAnchor);
+                            // TODO: update distance table whenever create new anchor (store on Database)
+//                            if (currentAnchorList.size() == 0){
+//                                totalDistance += distance2Points(currentAnchor.getPose().getTranslation(), camera.getDisplayOrientedPose().getTranslation());
+//                            }
+//                            else{
+//                                Anchor prevAnchor = currentAnchorList.get(currentAnchorList.size() - 1);
+//                                currentAnchorList.add(currentAnchor);
+//                                totalDistance += distance2Points(prevAnchor.getPose().getTranslation(), currentAnchor.getPose().getTranslation());
+//                            }
+
 
                             getActivity().runOnUiThread(() -> resolveButton.setEnabled(false));
 
@@ -419,7 +490,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                                     /* ttl= */ 300, this::onHostedAnchorAvailable);
                         }
                         else {
-                            if (anchorIsExisted) { // TODO: why this is dupicate
+                            if (anchorIsExisted) {
                                 getActivity().runOnUiThread(() -> {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                     builder.setMessage("The Path from " + src + " to " + des
@@ -458,6 +529,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         currentAnchorList.clear();
         anchorIdList.clear();
         isOverridingAvailable = false;
+        totalDistance = 0;
+        initPoint = 0;
     }
 
     private synchronized void onHostedAnchorAvailable(@NonNull Anchor anchor) {
