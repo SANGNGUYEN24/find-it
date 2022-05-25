@@ -269,6 +269,18 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
             virtualObject.createOnGlThread(getContext(), "models/Locator.obj", "models/color_warp.png");
             virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
+
+            virtualObjectStart.createOnGlThread(getContext(), "models/triceratops.obj", "models/color_warp.png");
+            virtualObjectStart.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
+
+            virtualObjectEnd.createOnGlThread(getContext(), "models/triceratops.obj", "models/color_warp.png");
+            virtualObjectEnd.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
+
+//            virtualObjectShadow
+//                    .createOnGlThread(getContext(), "models/andy_shadow.obj", "models/andy_shadow.png");
+//            virtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
+//            virtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
+
         } catch (IOException e) {
             Log.e(TAG, "Failed to read an asset file", e);
         }
