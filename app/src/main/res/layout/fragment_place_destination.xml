@@ -256,6 +256,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:listData="@{placeViewModel.popularAreasList}"
                 app:spanCount="2"
