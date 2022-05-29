@@ -27,7 +27,7 @@
                 android:layout_marginTop="16sp"
                 android:layout_marginEnd="16dp"
                 android:clickable="true"
-                app:cardCornerRadius="4dp"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/grey_more_light"
                 app:strokeWidth="1dp">
@@ -167,7 +167,7 @@
                 android:layout_marginEnd="16dp"
                 android:clickable="true"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:strokeColor="@color/red"
                 app:strokeWidth="1dp">
 
@@ -255,7 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:nestedScrollingEnabled="false"
+                android:nestedScrollingEnabled="true"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:listData="@{placeViewModel.popularAreasList}"
