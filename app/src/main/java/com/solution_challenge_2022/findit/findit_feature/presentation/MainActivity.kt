@@ -26,6 +26,7 @@ import com.solution_challenge_2022.findit.findit_feature.presentation.place_info
 import com.solution_challenge_2022.findit.util.Constant
 import com.solution_challenge_2022.findit.util.Constant.Companion.QR_CODE_KEY
 import com.solution_challenge_2022.findit.util.Constant.Companion.SRC_TO_GET_PLACE_DETAIL
+import com.solution_challenge_2022.findit.util.DataMethod
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
