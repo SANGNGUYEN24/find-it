@@ -9,6 +9,7 @@ interface PlaceInfoRepository {
     suspend fun getPlaceInfo(campusId: String): PlaceInfo
     suspend fun getCurrentBuilding(buildingId: String): Building
     suspend fun getPopularAreasList(campusId: String): List<Building>
+    suspend fun getEntertainmentVenueList(campusId: String): List<Building>
     suspend fun getServiceList(campusId: String): List<Service>
     suspend fun getReviewList(campusId: String): List<Review>
 }
