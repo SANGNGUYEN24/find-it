@@ -6,6 +6,7 @@ import com.solution_challenge_2022.findit.findit_feature.domain.model.PlaceInfo
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Review
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Service
 import com.solution_challenge_2022.findit.findit_feature.domain.repository.PlaceInfoRepository
+import com.solution_challenge_2022.findit.util.Constant
 import com.solution_challenge_2022.findit.util.Constant.Companion.BUILDING_INFO
 import com.solution_challenge_2022.findit.util.Constant.Companion.CAMPUS
 import com.solution_challenge_2022.findit.util.Constant.Companion.REVIEW
@@ -33,6 +34,11 @@ class PlaceInfoImpl @Inject constructor(
 
     override suspend fun getPopularAreasList(campusId: String): List<Building> {
         return db.collection(CAMPUS).document(campusId).collection(BUILDING_INFO).get().await()
+            .toObjects(Building::class.java)
+    }
+
+    override suspend fun getEntertainmentVenueList(campusId: String): List<Building> {
+        return db.collection(CAMPUS).document(campusId).collection(Constant.ENTERTAINMENT_VENUE).get().await()
             .toObjects(Building::class.java)
     }
 

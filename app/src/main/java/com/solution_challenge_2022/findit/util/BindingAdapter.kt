@@ -10,6 +10,7 @@ import com.solution_challenge_2022.findit.R
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Building
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Review
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Service
+import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.EntertainmentVenueAdapter
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.PopularAreasAdapter
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.review.ReviewAdapter
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.service.ServiceAdapter
@@ -42,9 +43,15 @@ fun bindFullImage(image: PhotoView, imageUrl: String?) {
     }
 }
 
-@BindingAdapter("listData")
+@BindingAdapter("popularAreaListData")
 fun bindPopularAreasRecyclerView(recyclerView: RecyclerView, data: List<Building>?) {
     val adapter = recyclerView.adapter as PopularAreasAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("entertainmentVenueListData")
+fun bindEntertainmentVenueRecyclerView(recyclerView: RecyclerView, data: List<Building>?) {
+    val adapter = recyclerView.adapter as EntertainmentVenueAdapter
     adapter.submitList(data)
 }
 

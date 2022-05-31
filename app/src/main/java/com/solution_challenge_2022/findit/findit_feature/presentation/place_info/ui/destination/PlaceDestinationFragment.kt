@@ -2,7 +2,6 @@ package com.solution_challenge_2022.findit.findit_feature.presentation.place_inf
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +51,7 @@ class PlaceDestinationFragment : Fragment() {
         }
 
         binding.recyclerViewPopularAreas.adapter =
-            PopularAreasAdapter(PopularAreaListener { campusId, buildingId ->
+            PopularAreasAdapter(clickListener = PopularAreaListener { campusId, buildingId ->
                 val goToBuildingDetail = Intent(context, BuildingDetailActivity::class.java)
                 goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_CAMPUS_ID, campusId)
                 goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID, buildingId)
@@ -66,7 +65,24 @@ class PlaceDestinationFragment : Fragment() {
                     CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_NAME,
                     currentBuildingName
                 )
-                Log.d("Find It CampusDestinationFragment", "$campusId, $buildingId")
+                startActivity(goToBuildingDetail)
+            })
+
+        binding.recyclerViewEntertainmentVenue.adapter = EntertainmentVenueAdapter(
+            clickListener = EntertainmentVenueListener { campusId, buildingId ->
+                val goToBuildingDetail = Intent(context, BuildingDetailActivity::class.java)
+                goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_CAMPUS_ID, campusId)
+                goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID, buildingId)
+                val currentBuildingId = placeViewModel.currentBuilding.value?.buildingId
+                val currentBuildingName = placeViewModel.currentBuilding.value?.buildingName
+                goToBuildingDetail.putExtra(
+                    CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_ID,
+                    currentBuildingId
+                )
+                goToBuildingDetail.putExtra(
+                    CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_NAME,
+                    currentBuildingName
+                )
                 startActivity(goToBuildingDetail)
             })
 

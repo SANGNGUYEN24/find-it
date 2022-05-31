@@ -237,6 +237,44 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/ic_round_camera_24" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:gravity="start"
+                    android:text="Entertainment venues" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewEntertainmentVenue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:nestedScrollingEnabled="true"
+                android:orientation="horizontal"
+                app:entertainmentVenueListData="@{placeViewModel.entertainmentVenueList}"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/entertainment_venue_item" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_round_fast_forward_24" />
 
                 <TextView
@@ -246,8 +284,8 @@
                     android:layout_marginStart="8dp"
                     android:gravity="start"
                     android:text="Popular areas" />
-            </LinearLayout>
 
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewPopularAreas"
@@ -258,9 +296,10 @@
                 android:nestedScrollingEnabled="true"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:listData="@{placeViewModel.popularAreasList}"
+                app:popularAreaListData="@{placeViewModel.popularAreasList}"
                 app:spanCount="2"
                 tools:listitem="@layout/popular_area_item" />
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
