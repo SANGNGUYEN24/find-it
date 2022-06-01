@@ -62,6 +62,7 @@ import com.solution_challenge_2022.helpers.rendering.PointCloudRenderer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -106,6 +107,10 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     private float totalDistance = 0;
     private int initPoint = 0; // Starting point
     private String src = "temp_src", des = "temp_des";
+    private boolean isResolving = false;
+    private Hashtable<String, Anchor> mapIdToAnchor = new Hashtable<String, Anchor>();
+    private ArrayList<String> currentAnchorIdList = new ArrayList<>();
+
 
 
     @Override
@@ -137,8 +142,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
         resolveButton = rootView.findViewById(R.id.resolve_button);
         resolveButton.setOnClickListener(v -> onResolveButtonPressed());
-        resolveButton.setOnClickListener(v -> onResolveButtonPressed());
-
         exitArMap = rootView.findViewById(R.id.editArMap);
         exitArMap.setOnClickListener(v -> requireActivity().finish());
 
@@ -271,10 +274,10 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             virtualObject.createOnGlThread(getContext(), "models/Locator.obj", "models/color_warp.png");
             virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
-            virtualObjectStart.createOnGlThread(getContext(), "models/triceratops.obj", "models/color_warp.png");
+            virtualObjectStart.createOnGlThread(getContext(), "models/model1.obj", "models/color_start.png");
             virtualObjectStart.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
-            virtualObjectEnd.createOnGlThread(getContext(), "models/triceratops.obj", "models/color_warp.png");
+            virtualObjectEnd.createOnGlThread(getContext(), "models/pawn.obj", "models/pawn_albedo.png");
             virtualObjectEnd.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
 //            virtualObjectShadow
@@ -367,6 +370,14 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             planeRenderer.drawPlanes(
                     session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
+            if (isResolving){ //TODO: This code run many times to get all Anchor (only need 1 time after resolve)
+                currentAnchorList.clear();
+                for (String id : currentAnchorIdList){
+                    currentAnchorList.add(mapIdToAnchor.get(id));
+                }
+                Log.d(TAG, "LLLLL on draw currentAnchorList: " + currentAnchorList);
+            }
+
             if (!currentAnchorList.isEmpty() && currentAnchorList.get(0).getTrackingState() == TrackingState.TRACKING) {
 //                Log.d(TAG, "ALU Camera distance: " + hit.getDistance());
 //                Log.d(TAG, "ALU Translation x, y, z: " + Arrays.toString(hit.getHitPose().getTranslation()));
@@ -416,10 +427,20 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                         totalDistance += distance2Points(anchor.getPose().getTranslation(), nextAnchor.getPose().getTranslation());
                     }
                     anchor.getPose().toMatrix(anchorMatrix, 0);
-                    virtualObject.updateModelMatrix(anchorMatrix, 1f);
-                    //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
                     final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
-                    virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+                    if ((i == 0) ) { //|| (i == currentAnchorList.size() - 1)) {
+                        virtualObjectStart.updateModelMatrix(anchorMatrix, 0.3f);
+                        virtualObjectStart.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
+                    }
+                    else if (i == currentAnchorList.size() - 1 && isResolving) {
+                        virtualObjectEnd.updateModelMatrix(anchorMatrix, 2f);
+                        virtualObjectEnd.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
+                    }
+                    else {
+                        virtualObject.updateModelMatrix(anchorMatrix, 1f);
+                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
+                    }
+
                 }
             }
         } catch (Throwable t) {
@@ -427,7 +448,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             Log.e(TAG, "Exception on the OpenGL thread", t);
         }
     }
-    private boolean isExisted = false;
     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -483,6 +503,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
                             getActivity().runOnUiThread(() -> resolveButton.setEnabled(false));
 
+
                             messageSnackbarHelper.showMessage(getActivity(), "Now hosting anchor...");
                             cloudAnchorManager.hostCloudAnchor(session, currentAnchor,
                                     /* ttl= */ 300, this::onHostedAnchorAvailable);
@@ -491,8 +512,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                             if (anchorIsExisted) {
                                 getActivity().runOnUiThread(() -> {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                    builder.setMessage("The Path from " + src + " to " + des
-                                        + " is already existed! Do you want to override it?")
+                                    builder.setMessage("The path from " + src + " to " + des
+                                        + " is already created! Do you want to override it?")
                                         .setPositiveButton("Yes", dialogClickListener)
                                         .setNegativeButton("No", dialogClickListener).show();
                                     }
@@ -527,8 +548,11 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         currentAnchorList.clear();
         anchorIdList.clear();
         isOverridingAvailable = false;
+        isResolving = false;
         totalDistance = 0;
         initPoint = 0;
+        mapIdToAnchor.clear();
+        currentAnchorIdList.clear(); // TODO: same as anchorIdList
     }
 
     private synchronized void onHostedAnchorAvailable(@NonNull Anchor anchor) {
@@ -606,6 +630,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
     private synchronized void onResolveButtonPressed() {
         resolveButton.setEnabled(false);
+        isResolving = true;
         initPoint = 0;
         db.collection("campus").document("hcmut")
                 .collection("arPath")
@@ -644,8 +669,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         Anchor.CloudAnchorState cloudState = anchor.getCloudAnchorState();
         if (cloudState == Anchor.CloudAnchorState.SUCCESS) {
             messageSnackbarHelper.showMessage(getActivity(), "Cloud Anchor Resolved.");
-            currentAnchor = anchor;
-            currentAnchorList.add(anchor);
+            mapIdToAnchor.put(anchor.getCloudAnchorId(), anchor);
         } else {
             messageSnackbarHelper.showMessage(
                     getActivity(),
