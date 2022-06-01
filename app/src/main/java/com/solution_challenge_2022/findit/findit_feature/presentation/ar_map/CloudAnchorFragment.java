@@ -106,6 +106,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     private float totalDistance = 0;
     private int initPoint = 0; // Starting point
     private String src = "temp_src", des = "temp_des";
+    private boolean isResolving = false;
 
 
     @Override
@@ -271,10 +272,10 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             virtualObject.createOnGlThread(getContext(), "models/Locator.obj", "models/color_warp.png");
             virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
-            virtualObjectStart.createOnGlThread(getContext(), "models/triceratops.obj", "models/color_warp.png");
+            virtualObjectStart.createOnGlThread(getContext(), "models/model1.obj", "models/color_start.png");
             virtualObjectStart.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
-            virtualObjectEnd.createOnGlThread(getContext(), "models/triceratops.obj", "models/color_warp.png");
+            virtualObjectEnd.createOnGlThread(getContext(), "models/pawn.obj", "models/color_warp.png");
             virtualObjectEnd.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
 //            virtualObjectShadow
@@ -416,10 +417,20 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                         totalDistance += distance2Points(anchor.getPose().getTranslation(), nextAnchor.getPose().getTranslation());
                     }
                     anchor.getPose().toMatrix(anchorMatrix, 0);
-                    virtualObject.updateModelMatrix(anchorMatrix, 1f);
-                    //virtualObjectShadow.updateModelMatrix(anchorMatrix, 1f);
                     final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
-                    virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);// andyColor);
+                    if ((i == 0) ) { //|| (i == currentAnchorList.size() - 1)) {
+                        virtualObjectStart.updateModelMatrix(anchorMatrix, 1f);
+                        virtualObjectStart.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
+                    }
+                    else if (i == currentAnchorList.size() - 1 && isResolving) {
+                        virtualObjectEnd.updateModelMatrix(anchorMatrix, 1f);
+                        virtualObjectEnd.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
+                    }
+                    else {
+                        virtualObject.updateModelMatrix(anchorMatrix, 1f);
+                        virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
+                    }
+
                 }
             }
         } catch (Throwable t) {
@@ -483,6 +494,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
                             getActivity().runOnUiThread(() -> resolveButton.setEnabled(false));
 
+
                             messageSnackbarHelper.showMessage(getActivity(), "Now hosting anchor...");
                             cloudAnchorManager.hostCloudAnchor(session, currentAnchor,
                                     /* ttl= */ 300, this::onHostedAnchorAvailable);
@@ -527,6 +539,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         currentAnchorList.clear();
         anchorIdList.clear();
         isOverridingAvailable = false;
+        isResolving = false;
         totalDistance = 0;
         initPoint = 0;
     }
@@ -606,6 +619,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
     private synchronized void onResolveButtonPressed() {
         resolveButton.setEnabled(false);
+        isResolving = true;
         initPoint = 0;
         db.collection("campus").document("hcmut")
                 .collection("arPath")
