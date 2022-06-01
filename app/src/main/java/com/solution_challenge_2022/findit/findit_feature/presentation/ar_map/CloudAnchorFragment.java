@@ -62,6 +62,7 @@ import com.solution_challenge_2022.helpers.rendering.PointCloudRenderer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -107,6 +108,9 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     private int initPoint = 0; // Starting point
     private String src = "temp_src", des = "temp_des";
     private boolean isResolving = false;
+    private Hashtable<String, Anchor> mapIdToAnchor = new Hashtable<String, Anchor>();
+    private ArrayList<String> currentAnchorIdList = new ArrayList<>();
+
 
 
     @Override
@@ -138,8 +142,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
         resolveButton = rootView.findViewById(R.id.resolve_button);
         resolveButton.setOnClickListener(v -> onResolveButtonPressed());
-        resolveButton.setOnClickListener(v -> onResolveButtonPressed());
-
         exitArMap = rootView.findViewById(R.id.editArMap);
         exitArMap.setOnClickListener(v -> requireActivity().finish());
 
@@ -368,6 +370,14 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             planeRenderer.drawPlanes(
                     session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
+            if (isResolving){ //TODO: This code run many times to get all Anchor (only need 1 time after resolve)
+                currentAnchorList.clear();
+                for (String id : currentAnchorIdList){
+                    currentAnchorList.add(mapIdToAnchor.get(id));
+                }
+                Log.d(TAG, "LLLLL on draw currentAnchorList: " + currentAnchorList);
+            }
+
             if (!currentAnchorList.isEmpty() && currentAnchorList.get(0).getTrackingState() == TrackingState.TRACKING) {
 //                Log.d(TAG, "ALU Camera distance: " + hit.getDistance());
 //                Log.d(TAG, "ALU Translation x, y, z: " + Arrays.toString(hit.getHitPose().getTranslation()));
@@ -438,7 +448,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             Log.e(TAG, "Exception on the OpenGL thread", t);
         }
     }
-    private boolean isExisted = false;
     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -503,8 +512,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                             if (anchorIsExisted) {
                                 getActivity().runOnUiThread(() -> {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                    builder.setMessage("The Path from " + src + " to " + des
-                                        + " is already existed! Do you want to override it?")
+                                    builder.setMessage("The path from " + src + " to " + des
+                                        + " is already created! Do you want to override it?")
                                         .setPositiveButton("Yes", dialogClickListener)
                                         .setNegativeButton("No", dialogClickListener).show();
                                     }
@@ -542,6 +551,8 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         isResolving = false;
         totalDistance = 0;
         initPoint = 0;
+        mapIdToAnchor.clear();
+        currentAnchorIdList.clear(); // TODO: same as anchorIdList
     }
 
     private synchronized void onHostedAnchorAvailable(@NonNull Anchor anchor) {
@@ -658,8 +669,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         Anchor.CloudAnchorState cloudState = anchor.getCloudAnchorState();
         if (cloudState == Anchor.CloudAnchorState.SUCCESS) {
             messageSnackbarHelper.showMessage(getActivity(), "Cloud Anchor Resolved.");
-            currentAnchor = anchor;
-            currentAnchorList.add(anchor);
+            mapIdToAnchor.put(anchor.getCloudAnchorId(), anchor);
         } else {
             messageSnackbarHelper.showMessage(
                     getActivity(),
