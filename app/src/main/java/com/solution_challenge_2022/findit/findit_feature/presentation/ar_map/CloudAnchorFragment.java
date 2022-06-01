@@ -277,7 +277,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             virtualObjectStart.createOnGlThread(getContext(), "models/model1.obj", "models/color_start.png");
             virtualObjectStart.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
-            virtualObjectEnd.createOnGlThread(getContext(), "models/pawn.obj", "models/pawn_albedo.png");
+            virtualObjectEnd.createOnGlThread(getContext(), "models/pawn.obj", "models/color_warp.png");
             virtualObjectEnd.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
 //            virtualObjectShadow
@@ -429,11 +429,11 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     anchor.getPose().toMatrix(anchorMatrix, 0);
                     final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
                     if ((i == 0) ) { //|| (i == currentAnchorList.size() - 1)) {
-                        virtualObjectStart.updateModelMatrix(anchorMatrix, 0.3f);
+                        virtualObjectStart.updateModelMatrix(anchorMatrix, 1f);
                         virtualObjectStart.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
                     }
                     else if (i == currentAnchorList.size() - 1 && isResolving) {
-                        virtualObjectEnd.updateModelMatrix(anchorMatrix, 2f);
+                        virtualObjectEnd.updateModelMatrix(anchorMatrix, 1f);
                         virtualObjectEnd.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
                     }
                     else {
@@ -653,6 +653,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                             messageSnackbarHelper.showMessage(getActivity(),
                                     "No such anchor");
                         }
+                        currentAnchorIdList = (ArrayList<String>) document.get("anchorIdList");
                         Log.e(TAG, "DocumentSnapshot data: " + document.getData());
                     } else {
                         Log.e(TAG, "No such document");
