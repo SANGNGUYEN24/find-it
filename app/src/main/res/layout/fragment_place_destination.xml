@@ -258,7 +258,7 @@
                 android:orientation="horizontal"
                 app:entertainmentVenueListData="@{placeViewModel.entertainmentVenueList}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
+                app:spanCount="1"
                 tools:listitem="@layout/entertainment_venue_item" />
 
 
@@ -297,7 +297,7 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:popularAreaListData="@{placeViewModel.popularAreasList}"
-                app:spanCount="2"
+                app:spanCount="1"
                 tools:listitem="@layout/popular_area_item" />
 
 

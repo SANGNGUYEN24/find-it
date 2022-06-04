@@ -273,5 +273,19 @@ class DataMethod {
         }
     }
 
+    fun update() {
+        for (i in 1 until list.size) {
+            if (i % 5 == 0) {
+                db.collection(Constant.CAMPUS).document("hcmut")
+                    .collection(Constant.ENTERTAINMENT_VENUE)
+                    .document(list[i].buildingId.toString()).set(list[i], SetOptions.merge())
+                    .addOnSuccessListener {
+                        Log.d("Find It uploaded: ", list[i].buildingId.toString())
+                    }
+            }
+        }
+    }
+
+
 }
 
