@@ -271,13 +271,13 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             planeRenderer.createOnGlThread(getContext(), "models/trigrid.png");
             pointCloudRenderer.createOnGlThread(getContext());
 
-            virtualObject.createOnGlThread(getContext(), "models/Locator.obj", "models/color_warp.png");
+            virtualObject.createOnGlThread(getContext(), "models/arrow.obj", "models/color_warp.png");
             virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
             virtualObjectStart.createOnGlThread(getContext(), "models/model1.obj", "models/color_start.png");
             virtualObjectStart.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
-            virtualObjectEnd.createOnGlThread(getContext(), "models/pawn.obj", "models/color_warp.png");
+            virtualObjectEnd.createOnGlThread(getContext(), "models/pawn.obj", "models/pawn_albedo.png");
             virtualObjectEnd.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
 //            virtualObjectShadow
@@ -429,11 +429,11 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     anchor.getPose().toMatrix(anchorMatrix, 0);
                     final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
                     if ((i == 0) ) { //|| (i == currentAnchorList.size() - 1)) {
-                        virtualObjectStart.updateModelMatrix(anchorMatrix, 1f);
+                        virtualObjectStart.updateModelMatrix(anchorMatrix, 0.3f);
                         virtualObjectStart.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
                     }
-                    else if (i == currentAnchorList.size() - 1 && isResolving) {
-                        virtualObjectEnd.updateModelMatrix(anchorMatrix, 1f);
+                    else if (i == currentAnchorList.size() - 1 ){//&& isResolving) {
+                        virtualObjectEnd.updateModelMatrix(anchorMatrix, 2f);
                         virtualObjectEnd.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
                     }
                     else {
