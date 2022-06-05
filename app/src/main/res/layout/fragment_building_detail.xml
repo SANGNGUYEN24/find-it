@@ -31,8 +31,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:hint="Fetching data..."
+                    android:hint="@string/loading"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:text="@{buildingDetailViewModel.building.buildingName}"
                     android:textColor="@color/blue_secondary_dark" />
 
@@ -41,8 +42,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:gravity="start"
-                    android:hint="..."
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:text="@{buildingDetailViewModel.building.campusName}"
                     android:textColor="@color/blue_secondary_dark"
                     android:textSize="16sp" />
@@ -102,7 +103,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="Start"
+            android:text="@string/start"
             android:textAllCaps="false"
             app:icon="@drawable/ic_round_navigation_24">
 

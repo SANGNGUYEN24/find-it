@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,6 @@ import com.google.ar.core.Plane;
 import com.google.ar.core.Point;
 import com.google.ar.core.Point.OrientationMode;
 import com.google.ar.core.PointCloud;
-import com.google.ar.core.Pose;
 import com.google.ar.core.Session;
 import com.google.ar.core.Trackable;
 import com.google.ar.core.TrackingState;
@@ -93,6 +93,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     // Rendering. The Renderers are created here, and initialized when the GL surface is created.
     private GLSurfaceView surfaceView;
     private Button resolveButton;
+    private TextView tvTotalDistance;
     private AppCompatImageButton exitArMap;
     private boolean installRequested;
     private Session session;
@@ -104,14 +105,28 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     private Anchor currentAnchor = null;
     private ArrayList<Anchor> currentAnchorList = new ArrayList<>();
     private boolean isOverridingAvailable = false;
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    isOverridingAvailable = true;
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    isOverridingAvailable = false;
+                    break;
+            }
+        }
+    };
     private float totalDistance = 0;
     private int initPoint = 0; // Starting point
     private String src = "temp_src", des = "temp_des";
     private boolean isResolving = false;
     private Hashtable<String, Anchor> mapIdToAnchor = new Hashtable<String, Anchor>();
     private ArrayList<String> currentAnchorIdList = new ArrayList<>();
-
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -144,6 +159,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         resolveButton.setOnClickListener(v -> onResolveButtonPressed());
         exitArMap = rootView.findViewById(R.id.editArMap);
         exitArMap.setOnClickListener(v -> requireActivity().finish());
+        tvTotalDistance = rootView.findViewById(R.id.tvTotalDistance);
 
         // Get input data: currentBuildingId and destinationId
         assert getArguments() != null;
@@ -162,7 +178,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
 
         return rootView;
     }
-
 
     @Override
     public void onResume() {
@@ -250,7 +265,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] results) {
         if (!CameraPermissionHelper.hasCameraPermission(requireActivity())) {
             Toast.makeText(requireActivity(), "Camera permission is needed to run this application",
-                    Toast.LENGTH_LONG)
+                            Toast.LENGTH_LONG)
                     .show();
             if (!CameraPermissionHelper.shouldShowRequestPermissionRationale(requireActivity())) {
                 // Permission denied with checking "Do not ask again".
@@ -296,11 +311,12 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         GLES20.glViewport(0, 0, width, height);
     }
 
-    public float distance2Points(float[] A, float[]  B){
+    public float distance2Points(float[] A, float[] B) {
         return (float) Math.sqrt(Math.pow(A[0] - B[0], 2) +
                 Math.pow(A[1] - B[1], 2) +
                 Math.pow(A[2] - B[2], 2));
     }
+
     @Override
     public void onDrawFrame(GL10 gl) {
         // Clear screen to notify driver it should not load any pixels from previous frame.
@@ -370,9 +386,9 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             planeRenderer.drawPlanes(
                     session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
-            if (isResolving){ //TODO: This code run many times to get all Anchor (only need 1 time after resolve)
+            if (isResolving) { //TODO: This code run many times to get all Anchor (only need 1 time after resolve)
                 currentAnchorList.clear();
-                for (String id : currentAnchorIdList){
+                for (String id : currentAnchorIdList) {
                     currentAnchorList.add(mapIdToAnchor.get(id));
                 }
                 Log.d(TAG, "LLLLL on draw currentAnchorList: " + currentAnchorList);
@@ -397,24 +413,23 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     Anchor prevAnchor = currentAnchorList.get(initPoint - 1);
                     prevAnchor2camera = distance2Points(prevAnchor.getPose().getTranslation(), camera.getDisplayOrientedPose().getTranslation());
                 }
-                float min_distance = Math.min(anchor2camera,  Math.min(nextAnchor2camera, prevAnchor2camera));
-                messageSnackbarHelper.showMessage(getActivity(),  initPoint + ":" + prevAnchor2camera + ":" + anchor2camera + ":" + nextAnchor2camera);
-                if (Math.abs(min_distance - anchor2camera) < 10e-5){
+                float min_distance = Math.min(anchor2camera, Math.min(nextAnchor2camera, prevAnchor2camera));
+                Toast.makeText(getActivity().getApplicationContext(), initPoint + ":" + prevAnchor2camera + ":" + anchor2camera + ":" + nextAnchor2camera, Toast.LENGTH_SHORT).show();
+//                messageSnackbarHelper.showMessage(getActivity(), initPoint + ":" + prevAnchor2camera + ":" + anchor2camera + ":" + nextAnchor2camera);
+                if (Math.abs(min_distance - anchor2camera) < 10e-5) {
                     totalDistance = anchor2camera;
 //                    messageSnackbarHelper.showMessage(getActivity(), "anchor2camera " + "m, initpoint:" + initPoint);
-                    Log.d(TAG, "RRRRRR anchor2camera "+  "initpoint:" + initPoint);
-                }
-                else if (Math.abs(min_distance - prevAnchor2camera) < 10e-5){
+                    Log.d(TAG, "RRRRRR anchor2camera " + "initpoint:" + initPoint);
+                } else if (Math.abs(min_distance - prevAnchor2camera) < 10e-5) {
                     totalDistance = prevAnchor2camera;
                     initPoint--;
 //                    messageSnackbarHelper.showMessage(getActivity(), "prevAnchor2camera " + "m, initpoint:" + initPoint);
-                    Log.d(TAG, "RRRRRR prevAnchor2camera "+  "initpoint:" + initPoint);
-                }
-                else {
+                    Log.d(TAG, "RRRRRR prevAnchor2camera " + "initpoint:" + initPoint);
+                } else {
                     totalDistance = nextAnchor2camera;
                     initPoint++;
 //                    messageSnackbarHelper.showMessage(getActivity(), "nextAnchor2camera " + "m, initpoint:" + initPoint);
-                    Log.d(TAG, "RRRRRR nextAnchor2camera "+  "initpoint:" + initPoint);
+                    Log.d(TAG, "RRRRRR nextAnchor2camera " + "initpoint:" + initPoint);
                 }
                 //camera update here
                 // table of distance need to store
@@ -425,18 +440,24 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     if ((i < currentAnchorList.size() - 1) && (i >= initPoint)) {
                         Anchor nextAnchor = currentAnchorList.get(i + 1);
                         totalDistance += distance2Points(anchor.getPose().getTranslation(), nextAnchor.getPose().getTranslation());
+                        tvTotalDistance.setText(Math.round(totalDistance));
                     }
                     anchor.getPose().toMatrix(anchorMatrix, 0);
                     final float[] locatorColor = {245.0f, 39.0f, 39.0f, 230.0f};
+
                     if ((i == 0) ) { //|| (i == currentAnchorList.size() - 1)) {
                         virtualObjectStart.updateModelMatrix(anchorMatrix, 0.3f);
                         virtualObjectStart.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
                     }
                     else if (i == currentAnchorList.size() - 1 ){//&& isResolving) {
                         virtualObjectEnd.updateModelMatrix(anchorMatrix, 2f);
+                    if ((i == 0)) { //|| (i == currentAnchorList.size() - 1)) {
+                        virtualObjectStart.updateModelMatrix(anchorMatrix, 1f);
+                        virtualObjectStart.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
+                    } else if (i == currentAnchorList.size() - 1 && isResolving) {
+                        virtualObjectEnd.updateModelMatrix(anchorMatrix, 1f);
                         virtualObjectEnd.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
-                    }
-                    else {
+                    } else {
                         virtualObject.updateModelMatrix(anchorMatrix, 1f);
                         virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
                     }
@@ -448,22 +469,6 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
             Log.e(TAG, "Exception on the OpenGL thread", t);
         }
     }
-    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which){
-                case DialogInterface.BUTTON_POSITIVE:
-                    //Yes button clicked
-                    isOverridingAvailable = true;
-                    break;
-
-                case DialogInterface.BUTTON_NEGATIVE:
-                    //No button clicked
-                    isOverridingAvailable = false;
-                    break;
-            }
-        }
-    };
 
     // Handle only one tap per frame, as taps are usually low frequency compared to frame rate.
     //TODO: DO not allow to tap resolving
@@ -485,7 +490,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     readData(anchorIsExisted -> {
                         Log.e(TAG, "onCallBack anchorIdExist = " + anchorIsExisted);
 //                        if (isAddAnchorAvailable){
-                        if (isOverridingAvailable){
+                        if (isOverridingAvailable) {
                             // Adding an Anchor tells ARCore that it should track this position in
                             // space. This anchor is created on the Plane to place the 3D model
                             // in the correct position relative both to the world and to the plane.
@@ -507,16 +512,15 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                             messageSnackbarHelper.showMessage(getActivity(), "Now hosting anchor...");
                             cloudAnchorManager.hostCloudAnchor(session, currentAnchor,
                                     /* ttl= */ 300, this::onHostedAnchorAvailable);
-                        }
-                        else {
+                        } else {
                             if (anchorIsExisted) {
                                 getActivity().runOnUiThread(() -> {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                    builder.setMessage("The path from " + src + " to " + des
-                                        + " is already created! Do you want to override it?")
-                                        .setPositiveButton("Yes", dialogClickListener)
-                                        .setNegativeButton("No", dialogClickListener).show();
-                                    }
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.AlertDialogCustom));
+                                            builder.setMessage("The path from " + src + " to " + des
+                                                            + " is already created! Do you want to override it?")
+                                                    .setPositiveButton("Yes", dialogClickListener)
+                                                    .setNegativeButton("No", dialogClickListener).show();
+                                        }
                                 );
                             }
                         }
@@ -586,46 +590,42 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
         }
     }
 
-    private void readData(FirestoreCallBack firestoreCallBack){
+    private void readData(FirestoreCallBack firestoreCallBack) {
         boolean[] anchorExisted = {false};
         db.collection("campus").document("hcmut")
                 .collection("arPath")
                 .document(src + "-" + des)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    ArrayList<String> _anchorIdList =
-                            (ArrayList<String>) document.get("anchorIdList");
-                    if (document.exists()) {
-                        if (_anchorIdList != null && _anchorIdList.size()>0) {
-                            messageSnackbarHelper.showMessage(getActivity(),
-                                    "Anchors are already existed");
-                            anchorExisted[0] = true;
-                            Log.e(TAG, "inside anchorIdExist = " + String.valueOf(anchorExisted[0]));
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            ArrayList<String> _anchorIdList =
+                                    (ArrayList<String>) document.get("anchorIdList");
+                            if (document.exists()) {
+                                if (_anchorIdList != null && _anchorIdList.size() > 0) {
+                                    messageSnackbarHelper.showMessage(getActivity(),
+                                            "Anchors are already existed");
+                                    anchorExisted[0] = true;
+                                    Log.e(TAG, "inside anchorIdExist = " + String.valueOf(anchorExisted[0]));
 
+                                } else {
+                                    messageSnackbarHelper.showMessage(getActivity(),
+                                            "Path from " + src + "to" + des +
+                                                    " is created but no such Anchor id");
+                                }
+                                Log.e(TAG, "DocumentSnapshot data: " + document.getData());
+                            } else {
+                                messageSnackbarHelper.showMessage(getActivity(),
+                                        "No such path is created");
+                                Log.e(TAG, "No such document");
+                            }
+                            firestoreCallBack.onCallBack(anchorExisted[0]);
                         } else {
-                            messageSnackbarHelper.showMessage(getActivity(),
-                                    "Path from " + src + "to" + des +
-                                            " is created but no such Anchor id");
+                            Log.d(TAG, "get failed with ", task.getException());
                         }
-                        Log.e(TAG, "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        messageSnackbarHelper.showMessage(getActivity(),
-                                "No such path is created");
-                        Log.e(TAG, "No such document");
                     }
-                    firestoreCallBack.onCallBack(anchorExisted[0]);
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-    }
-
-    private interface FirestoreCallBack{
-        void onCallBack(boolean anchorIsExisted);
+                });
     }
 
     private synchronized void onResolveButtonPressed() {
@@ -636,33 +636,33 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                 .collection("arPath")
                 .document(src + "-" + des)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    ArrayList<String> _anchorIdList = (ArrayList<String>) document.get("anchorIdList");
-                    if (document.exists()) {
-                        if (_anchorIdList != null) {
-                            for (String id : _anchorIdList) {
-                                cloudAnchorManager.resolveCloudAnchor(
-                                        session,
-                                        id,
-                                        anchor -> onResolvedAnchorAvailable(anchor));
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            ArrayList<String> _anchorIdList = (ArrayList<String>) document.get("anchorIdList");
+                            if (document.exists()) {
+                                if (_anchorIdList != null) {
+                                    for (String id : _anchorIdList) {
+                                        cloudAnchorManager.resolveCloudAnchor(
+                                                session,
+                                                id,
+                                                anchor -> onResolvedAnchorAvailable(anchor));
+                                    }
+                                } else {
+                                    messageSnackbarHelper.showMessage(getActivity(),
+                                            "No such anchor");
+                                }
+                                currentAnchorIdList = (ArrayList<String>) document.get("anchorIdList");
+                                Log.e(TAG, "DocumentSnapshot data: " + document.getData());
+                            } else {
+                                Log.e(TAG, "No such document");
                             }
                         } else {
-                            messageSnackbarHelper.showMessage(getActivity(),
-                                    "No such anchor");
+                            Log.d(TAG, "get failed with ", task.getException());
                         }
-                        currentAnchorIdList = (ArrayList<String>) document.get("anchorIdList");
-                        Log.e(TAG, "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.e(TAG, "No such document");
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
+                });
 
     }
 
@@ -678,5 +678,9 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                             + cloudState.toString());
             resolveButton.setEnabled(true);
         }
+    }
+
+    private interface FirestoreCallBack {
+        void onCallBack(boolean anchorIsExisted);
     }
 }

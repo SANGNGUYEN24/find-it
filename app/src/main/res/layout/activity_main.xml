@@ -13,34 +13,29 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <ImageView
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/find_it_logo"
+                android:src="@mipmap/ic_findit_launcher_foreground" />
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="?actionBarSize"
-                    android:layout_height="?actionBarSize"
-                    android:layout_marginStart="16dp"
-                    android:src="@mipmap/ic_findit_launcher_foreground" />
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                    style="@style/Widget.MaterialComponents.Toolbar.Primary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="0dp"
-                    app:subtitle="Guide you to anywhere" />
-
-            </LinearLayout>
-
+                android:elevation="0dp"
+                app:subtitle="Guide you to anywhere" />
 
         </LinearLayout>
+
 
     </com.google.android.material.appbar.AppBarLayout>
 

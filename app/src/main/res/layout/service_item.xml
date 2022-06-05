@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:text="4.7"
                         android:textColor="@color/black"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
 
                     <ImageView
                         android:layout_width="20dp"
@@ -96,7 +96,7 @@
                         android:maxLines="3"
                         android:text="60+ reviews"
                         android:textColor="@color/black"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
             </LinearLayout>

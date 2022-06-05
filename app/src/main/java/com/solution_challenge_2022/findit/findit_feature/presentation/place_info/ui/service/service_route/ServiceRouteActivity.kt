@@ -11,8 +11,22 @@ import com.solution_challenge_2022.findit.findit_feature.presentation.ar_map.ArM
 
 class ServiceRouteActivity : AppCompatActivity() {
     lateinit var binding: ActivityServiceRouteBinding
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_fade_in,
+            com.google.android.material.R.anim.abc_fade_out
+        );
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        overridePendingTransition(
+            com.google.android.material.R.anim.abc_fade_in,
+            com.google.android.material.R.anim.abc_fade_out
+        );
+
         binding = ActivityServiceRouteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

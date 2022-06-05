@@ -56,7 +56,6 @@ class SettingFragment : Fragment() {
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
         //init firebase auth
         if (hasUser()) {
-
             googleSignInButton.setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),

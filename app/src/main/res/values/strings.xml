@@ -23,5 +23,29 @@
     <string name="tab_text_3">Review</string>
     <string name="cancel">Cancel</string>
     <string name="sign_out">Sign out</string>
+    <string name="loading">Loading...</string>
+    <string name="find_it_logo">Find It logo</string>
+    <string name="share_experience">Share your experience about this place</string>
+    <string name="post">Post</string>
+    <string name="ar_tutorial">AR tutorial</string>
+    <string name="clear">Clear</string>
+    <string name="resolve">Resolve</string>
+    <string name="start">Start</string>
+    <string name="place_visited">Places you visited</string>
+    <string name="cre_hcmut">Cre: HCMUT</string>
+    <string name="where_you_want_to_go">Where you want to go?</string>
+    <string name="place_map">Place map</string>
+    <string name="services">Services</string>
+    <string name="your_sharing">Your sharing</string>
+    <string name="share_thought">Share your thoughts about this place</string>
+    <string name="recently">Recently</string>
+    <string name="most_useful">Most useful</string>
+    <string name="positive">Positive</string>
+    <string name="negative">Negative</string>
+    <string name="setting">Setting</string>
+    <string name="your_account">Your account</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="useful">Useful</string>
+    <string name="not_useful">Not useful</string>
 
 </resources>

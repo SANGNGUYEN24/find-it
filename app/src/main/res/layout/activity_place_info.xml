@@ -36,7 +36,7 @@
                 android:elevation="0dp"
                 app:tabIndicatorAnimationDuration="200"
                 app:tabIndicatorColor="@color/blue_secondary"
-                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorFullWidth="true"
                 app:tabIndicatorGravity="bottom"
                 app:tabMode="fixed"
                 app:tabRippleColor="@color/blue_primary_light"

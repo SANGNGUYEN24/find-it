@@ -27,7 +27,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:name="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.building_detail.BuildingDetailFragment"
         android:id="@+id/buildingDetailFragment"
         android:layout_width="match_parent"

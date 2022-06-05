@@ -5,12 +5,12 @@
     <data>
 
         <variable
-            name="clickListener"
-            type="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.PopularAreaListener" />
-
-        <variable
             name="building"
             type="com.solution_challenge_2022.findit.findit_feature.domain.model.Building" />
+
+        <variable
+            name="clickListener"
+            type="com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.EntertainmentVenueListener" />
     </data>
 
     <LinearLayout
