@@ -273,11 +273,11 @@ class DataMethod {
         }
     }
 
-    fun update() {
+    fun updateSuggestedPlaceList() {
         for (i in 1 until list.size) {
             if (i % 5 == 0) {
                 db.collection(Constant.CAMPUS).document("hcmut")
-                    .collection(Constant.ENTERTAINMENT_VENUE)
+                    .collection(Constant.SUGGESTED_PLACE)
                     .document(list[i].buildingId.toString()).set(list[i], SetOptions.merge())
                     .addOnSuccessListener {
                         Log.d("Find It uploaded: ", list[i].buildingId.toString())

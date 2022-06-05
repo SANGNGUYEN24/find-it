@@ -18,6 +18,7 @@ class Constant {
         const val REVIEW = "review"
         const val BUILDING_INFO = "buildingInfo"
         const val ENTERTAINMENT_VENUE = "entertainmentVenue"
+        const val SUGGESTED_PLACE = "suggestedPlace"
         const val SERVICE = "service"
         const val USER_REVIEW = "userReview"
 

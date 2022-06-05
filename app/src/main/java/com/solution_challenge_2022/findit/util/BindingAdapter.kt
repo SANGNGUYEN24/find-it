@@ -12,6 +12,7 @@ import com.solution_challenge_2022.findit.findit_feature.domain.model.Review
 import com.solution_challenge_2022.findit.findit_feature.domain.model.Service
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.EntertainmentVenueAdapter
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.PopularAreasAdapter
+import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.destination.SuggestedPlaceAdapter
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.review.ReviewAdapter
 import com.solution_challenge_2022.findit.findit_feature.presentation.place_info.ui.service.ServiceAdapter
 
@@ -52,6 +53,12 @@ fun bindPopularAreasRecyclerView(recyclerView: RecyclerView, data: List<Building
 @BindingAdapter("entertainmentVenueListData")
 fun bindEntertainmentVenueRecyclerView(recyclerView: RecyclerView, data: List<Building>?) {
     val adapter = recyclerView.adapter as EntertainmentVenueAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("suggestedPlaceListData")
+fun bindSuggestedPlaceListRecyclerList(recyclerView: RecyclerView, data: List<Building>?) {
+    val adapter = recyclerView.adapter as SuggestedPlaceAdapter
     adapter.submitList(data)
 }
 

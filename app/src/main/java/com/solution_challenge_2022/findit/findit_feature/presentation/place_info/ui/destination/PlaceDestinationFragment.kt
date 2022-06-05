@@ -85,6 +85,23 @@ class PlaceDestinationFragment : Fragment() {
                 )
                 startActivity(goToBuildingDetail)
             })
+        binding.recyclerViewSuggestedPlace.adapter = SuggestedPlaceAdapter(
+            clickListener = SuggestedPlaceListener { campusId, buildingId ->
+                val goToBuildingDetail = Intent(context, BuildingDetailActivity::class.java)
+                goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_CAMPUS_ID, campusId)
+                goToBuildingDetail.putExtra(CAMPUS_INFO_TO_BUILDING_DETAIL_BUILDING_ID, buildingId)
+                val currentBuildingId = placeViewModel.currentBuilding.value?.buildingId
+                val currentBuildingName = placeViewModel.currentBuilding.value?.buildingName
+                goToBuildingDetail.putExtra(
+                    CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_ID,
+                    currentBuildingId
+                )
+                goToBuildingDetail.putExtra(
+                    CAMPUS_INFO_TO_BUILDING_DETAIL_CURRENT_BUILDING_NAME,
+                    currentBuildingName
+                )
+                startActivity(goToBuildingDetail)
+            })
 
         placeViewModel.srcToGetData.observe(viewLifecycleOwner) { srcToGetData ->
             if (srcToGetData == "from_home") {

@@ -22,6 +22,7 @@ class PlaceViewModel @Inject constructor(
     private val getCurrentBuildingUseCase: GetCurrentBuildingUseCase,
     private val getPopularAreasListUseCase: GetPopularAreasListUseCase,
     private val getEntertainmentVenueListUseCase: GetEntertainmentVenueListUseCase,
+    private val getSuggestedPlaceUseCase: GetSuggestedPlaceUseCase,
     private val getServiceListUseCase: GetServiceListUseCase,
     private val getReviewListUseCase: GetReviewListUseCase,
     firebaseAuth: FirebaseAuth
@@ -43,6 +44,9 @@ class PlaceViewModel @Inject constructor(
 
     private val _entertainmentVenueList = MutableLiveData<List<Building>?>()
     val entertainmentVenueList: LiveData<List<Building>?> get() = _entertainmentVenueList
+
+    private val _suggestedPlace = MutableLiveData<List<Building>?>()
+    val suggestedPlace: LiveData<List<Building>?> get() = _suggestedPlace
 
     private val _serviceList = MutableLiveData<List<Service>?>()
     val serviceList: LiveData<List<Service>?> get() = _serviceList
@@ -74,6 +78,9 @@ class PlaceViewModel @Inject constructor(
             }
             launch {
                 _entertainmentVenueList.value = getEntertainmentVenueListUseCase(campusId)
+            }
+            launch {
+                _suggestedPlace.value = getSuggestedPlaceUseCase(campusId)
             }
             launch {
                 _serviceList.value = getServiceListUseCase(campusId)

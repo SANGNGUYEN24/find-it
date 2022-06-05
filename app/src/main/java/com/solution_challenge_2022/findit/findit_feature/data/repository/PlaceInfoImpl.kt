@@ -38,7 +38,14 @@ class PlaceInfoImpl @Inject constructor(
     }
 
     override suspend fun getEntertainmentVenueList(campusId: String): List<Building> {
-        return db.collection(CAMPUS).document(campusId).collection(Constant.ENTERTAINMENT_VENUE).get().await()
+        return db.collection(CAMPUS).document(campusId).collection(Constant.ENTERTAINMENT_VENUE)
+            .get().await()
+            .toObjects(Building::class.java)
+    }
+
+    override suspend fun getSuggestedPlaces(campusId: String): List<Building> {
+        return db.collection(CAMPUS).document(campusId).collection(Constant.SUGGESTED_PLACE).get()
+            .await()
             .toObjects(Building::class.java)
     }
 

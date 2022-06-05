@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        DataMethod().updateSuggestedPlaceList()
+
         overridePendingTransition(
             com.google.android.material.R.anim.abc_fade_in,
             com.google.android.material.R.anim.abc_fade_out
