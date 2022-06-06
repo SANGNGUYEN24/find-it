@@ -451,14 +451,7 @@ public class CloudAnchorFragment extends Fragment implements GLSurfaceView.Rende
                     }
                     else if (i == currentAnchorList.size() - 1 ){//&& isResolving) {
                         virtualObjectEnd.updateModelMatrix(anchorMatrix, 2f);
-                    if ((i == 0)) { //|| (i == currentAnchorList.size() - 1)) {
-                        virtualObjectStart.updateModelMatrix(anchorMatrix, 1f);
-                        virtualObjectStart.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
-                    } else if (i == currentAnchorList.size() - 1 && isResolving) {
-                        virtualObjectEnd.updateModelMatrix(anchorMatrix, 1f);
-                        virtualObjectEnd.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
-                    } else {
-                        virtualObject.updateModelMatrix(anchorMatrix, 1f);
+
                         virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, locatorColor);
                     }
 
