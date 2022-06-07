@@ -59,17 +59,19 @@ In my case, I used command prompt on my Window computer to clone this repo.
     - Thirdly, select any destination then scan the surrounding environment until a virtual mesh appears, 
     then you can act as admin to place some map pointers (anchor) , wait until the app notices that the anchors have been hosted.
     
-    ![image](https://user-images.githubusercontent.com/78266241/161474577-50d02a31-855e-4600-a24f-a72533248f6d.png)
+        ![image](https://user-images.githubusercontent.com/78266241/161474577-50d02a31-855e-4600-a24f-a72533248f6d.png)
 
     
     - Press the clear button, now you are acting as a visitor, press the resolve button to make the anchors you set earlier appear again.
+    - At that time, the remaining distance bar will show you how far you have to go to your destination.
+
+        <img src="https://user-images.githubusercontent.com/57563272/172281666-910f4f0a-8ea0-4b01-ba71-43e4b6c6d826.jpg" width=100>
 
     That's exactly how the AR navigation feature in Find It works.
     
-    <img src="https://user-images.githubusercontent.com/78266241/161474620-953edba0-0737-4457-bcc0-a8be128e790a.jpg" width=200>
+    <img src="https://user-images.githubusercontent.com/57563272/172281319-84d851ef-60f8-4959-9e89-72a9709d1260.jpg" width=200>
     
-    
-    
+
 
 ## Technologies Used
 - Android with Kotlin, Java
